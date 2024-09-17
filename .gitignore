@@ -1,5 +1,5 @@
 node_modules
-logger
 build
 dist
 .env
+*.log

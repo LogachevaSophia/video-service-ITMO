@@ -1,0 +1,6 @@
+{
+    "server": {
+      "port": 5000,
+      "whitelist": ["http://localhost:3000"]
+    }
+  }

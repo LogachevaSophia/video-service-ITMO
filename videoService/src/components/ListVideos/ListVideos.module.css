@@ -1,0 +1,8 @@
+.listVideos {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--g-spacing-5);
+    justify-content: flex-start;
+    padding: 0 50px;
+    align-items: stretch; /* Растягиваем карточки по высоте */
+}

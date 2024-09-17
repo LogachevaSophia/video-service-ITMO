@@ -1,0 +1,91 @@
+.sidebar {
+    /* position: fixed; Фиксированное позиционирование */
+    /* height: 100vh; Полная высота экрана */
+    /* width: 250px; Задайте фиксированную ширину */
+    /* color: var(--g-color-private-brand-500); */
+    /* transition: transform 0.3s ease-in-out; */
+    /* border: 1px solid var(--g-color-line-generic); */
+    /* background-color: #fff; Добавьте цвет фона, если требуется */
+    /* z-index: 1000; Убедитесь, что сайдбар поверх других элементов */
+    /* flex: 0 0 150px; */
+    /* position: fixed; Фиксированное позиционирование */
+    /* top: 0; */
+    /* left: 0; */
+    /* height: 100vh; Высота сайдбара */
+    /* width: 150px; Ширина сайдбара */
+    /* background-color: #fff; Цвет фона сайдбара */
+    border-right: 1px solid var(--g-color-line-generic); 
+    /* box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1); Легкая тень для сайдбара */
+    z-index: 1000;
+    position: fixed;
+    top:0;
+    left:0;
+    height: 100vh; 
+    /* width: 250px;   */
+}
+
+.sidebar.open {
+    /* transform: translateX(0); */
+}
+
+.sidebar.closed {
+    /* transform: translateX(-100%); Скрываем сайдбар, когда он закрыт */
+}
+
+.sidebar header {
+    border-bottom: 1px solid var(--g-color-line-generic);
+    padding: var(--g-spacing-2);
+}
+
+.burger-button {
+    position: absolute;
+    top: var(--g-spacing-2);
+    right: -45px;
+    background: #333;
+    border: none;
+    color: white;
+    font-size: 24px;
+}
+
+.sidebar-content {
+    display: flex;
+    flex-direction: column;
+    height: 100%; /* Высота 100% для корректного распределения контента */
+    overflow-y: auto; /* Добавляем прокрутку внутри сайдбара, если контент превышает высоту */
+}
+
+.sidebar-content nav {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1; /* Навигация занимает всё доступное пространство */
+}
+
+.sidebar-content ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    margin-top: var(--g-spacing-2);
+}
+
+ul.last {
+    margin-top: auto; /* Прижимает ul с классом last к низу */
+}
+
+.sidebar-content li {
+    border-radius: var(--g-border-radius-m);
+}
+
+.sidebar-content li a {
+    display: flex;
+    align-items: center;
+    gap: var(--g-spacing-2);
+    margin-bottom: var(--g-spacing-2);
+    padding: var(--g-spacing-2);
+    text-decoration: none; /* Убираем подчеркивание ссылок */
+    color: inherit; /* Наследуем цвет */
+}
+
+.sidebar-content li:hover {
+    background-color: rgba(153, 153, 153, 1);
+    cursor: pointer;
+}

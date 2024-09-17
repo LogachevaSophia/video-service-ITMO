@@ -1,0 +1,23 @@
+.layoutContainer {
+    display: flex;
+    height: 100vh; /* Устанавливаем высоту контейнера на весь экран */
+    display: grid;
+    grid-template-columns: 150px auto; /* Ширина сайдбара и контента */
+    height: 100vh; /* Высота контейнера на весь экран */
+}
+
+.SideBar {
+    flex: 0 0 150px; 
+    /* background-color: #fff; Цвет фона сайдбара */
+    border-right: 1px solid var(--g-color-line-generic); /* Граница между сайдбаром и контентом */
+    height: 100%; /* Высота сайдбара должна быть 100% */
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1); /* Легкая тень для сайдбара */
+}
+
+.content {
+    margin-left: 150px; /* Отступ слева, чтобы избежать наложения на сайдбар */
+    padding: var(--g-spacing-4); /* Отступы для контента */
+    overflow-y: auto; /* Вертикальная прокрутка если контент больше экрана */
+    /* background-color: #f9f9f9; Цвет фона для контента */
+    width: calc(100vw - 150px - var(--g-spacing-8));
+}

@@ -1,0 +1,6 @@
+.form > *{
+    margin-bottom: var(--g-spacing-3);
+}
+.form{
+    padding: var(--g-spacing-3)
+}

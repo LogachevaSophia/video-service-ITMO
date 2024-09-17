@@ -1,0 +1,41 @@
+
+
+.card {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 300px;
+    flex: 1 1 calc(33.333% - 16px);
+    box-sizing: border-box;
+    max-width: calc(33.333% - 16px);
+    min-width: 200px;
+    padding: var(--g-spacing-2);
+}
+
+.card .header {
+    font-size: var(--g-text-header-1-font-size);
+}
+
+.card .userLabel {
+    text-align: right;
+    margin-top: auto;
+}
+
+.card img.image {
+    max-width: 100%;
+    border-radius: var(--g-border-radius-m);
+    margin-bottom: 20px;
+}
+
+.card > div {
+    flex-grow: 1; /* Растягиваем основной контент карточки по высоте */
+    display: flex;
+    flex-direction: column;
+}
+
+.card .textContainer {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-height: 100px; /* Ограничиваем высоту текста */
+    overflow-y: auto; /* Добавляем скролл для длинного текста */
+}

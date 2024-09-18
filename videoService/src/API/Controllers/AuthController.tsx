@@ -1,11 +1,11 @@
 import { axiosInstance } from "../axiosConfig"
-interface UserInterface {
-    Name: string,
+export interface UserInterface {
+    Name?: string,
     LastName?: string,
     SecondName?: string,
     Email: string,
     Password: string,
-    Gender?: "Male" | "Female"
+    Gender?: string
 }
 
 

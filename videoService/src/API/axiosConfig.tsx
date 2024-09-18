@@ -6,10 +6,23 @@ export const axiosInstance = axios.create({
     baseURL: "http://localhost:5000",
     timeout: 1000,
     headers: {
-        "Content-Type": "application/json"
+        "Content-Type": "application/json",
     }
 })
 
+// Добавляем interceptor для установки токена в каждый запрос
+axiosInstance.interceptors.request.use(
+  (config) => {
+    const token = localStorage.getItem('token'); // Предположим, что токен хранится в localStorage
+    if (token) {
+      config.headers.Authorization = `Bearer ${token}`; // Добавляем токен в заголовок
+    }
+    return config;
+  },
+  (error) => {
+    return Promise.reject(error);
+  }
+);
 
 axiosRetry(axiosInstance, {
     retries: 3,

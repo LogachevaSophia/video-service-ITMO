@@ -8,6 +8,7 @@ const express = require('express');
 const dotenv = require('dotenv');
 const authRoutes = require('./routes/auth');
 const bodyParser = require('body-parser');
+const blocksRoutes = require('./routes/blocks')
 
 dotenv.config();
 
@@ -41,6 +42,7 @@ app.use(bodyParser.urlencoded({
 // Роуты
 app.use('/auth', authRoutes);
 
+app.use('/blocks', blocksRoutes)
 
 
 app.listen(PORT, () => {

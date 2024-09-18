@@ -38,4 +38,5 @@
     display: flex;
     gap: var(--g-spacing-3);
     overflow-x: scroll;
+    margin-bottom: var(--g-spacing-3);
 }

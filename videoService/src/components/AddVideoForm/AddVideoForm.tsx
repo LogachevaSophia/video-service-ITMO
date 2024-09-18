@@ -2,8 +2,9 @@ import { Button, Card, TextInput } from '@gravity-ui/uikit';
 import React from 'react';
 import { useForm } from 'react-hook-form';
 import styles from "./AddVideoForm.module.css"
+import { VideoItem } from '../ListVideos/ListVideos';
 interface VideoFormProps {
-  onAddVideo: (video: { title: string; description: string; cost: number; link: string }) => void;
+  onAddVideo: (video: VideoItem) => void;
 }
 
 interface FormInputs {
@@ -18,7 +19,7 @@ export const AddVideoForm: React.FC<VideoFormProps> = ({ onAddVideo }) => {
 
   // Обработчик кнопки сохранения видео
   const handleSaveVideo = () => {
-    const values = getValues(); // Получаем значения полей
+    const values: VideoItem = getValues(); // Получаем значения полей
     console.log(values)
     if (values.title && values.description && values.cost && values.link) {
       onAddVideo(values); // Передаем данные в onAddVideo

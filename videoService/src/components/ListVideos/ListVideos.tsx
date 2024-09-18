@@ -2,12 +2,14 @@ import styles from './ListVideos.module.css'
 import { CustomCard } from '../CustomCard/CustomCard';
 
 export interface VideoItem {
-    id: string,
+    id?: string,
     title: string,
     description: string,
     author?: string,
     avatarSrc?: string,
-    preview?: string
+    preview?: string,
+    cost?: number | string,
+    link?: string
 }
 
 export const DEFAULT_LINK_PREVIEW = "https://i.pinimg.com/originals/b1/f5/c9/b1f5c97c7841c776462f5de045e4bfde.png"

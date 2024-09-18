@@ -4,7 +4,7 @@ import { RegisterForm } from "../components/LoginForm/RegisterForm";
 import { Button, Card, Tabs } from "@gravity-ui/uikit";
 import { FormProvider, useForm } from "react-hook-form";
 import styles from './Login.module.css'
-import { AuthLogin, AuthRegister } from "../API/Controllers/AuthController";
+import { AuthLogin, AuthRegister, UserInterface } from "../API/Controllers/AuthController";
 
 export const Login = () => {
     const [login, setValue] = useState<string>("register");
@@ -12,17 +12,17 @@ export const Login = () => {
         console.log(data)
         setValue(data)
     }
-    const methods = useForm();
-    const onSubmit = async (data: any) => {
+    const methods = useForm<UserInterface>();
+    const onSubmit = async (data: UserInterface) => {
         console.log(login)
         if (login == "register") {
-            const res = AuthRegister(data);
+            const res = await AuthRegister(data);
+            console.log(res)
         }
         else {
             const res = await AuthLogin(data);
             console.log(res)
             localStorage.setItem("token", res?.data.token)
-
         }
     }
 

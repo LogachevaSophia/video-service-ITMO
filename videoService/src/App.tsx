@@ -14,6 +14,7 @@ import { Profile } from './pages/Profile';
 import { NotFoundPage } from './pages/NotFound';
 import { Login } from './pages/Login';
 import { Admin } from './pages/Admin';
+import { VideoSocketPage } from './pages/VideoSocketPage';
 
 function App() {
   const theme = useSelector((state: RootState) => state.themeStore.theme);
@@ -28,6 +29,7 @@ function App() {
             <Route path="profile" element={<Profile />} /> 
             <Route path="settings" element={<Settings />} /> 
             <Route path="admin" element={<Admin />} /> 
+            <Route path="video/:roomId" element={<VideoSocketPage/>}/>
             <Route path="*" element={<NotFoundPage />} /> {/* Страница 404 */}
           </Route>
           <Route path='/login' element={<Login/>}/>

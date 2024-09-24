@@ -46,7 +46,6 @@ exports.login = async (req, res) => {
       logger.warn(`Login failed for user: ${Email} - Invalid credentials`);
       return res.status(401).json({ error: 'Invalid credentials' });
     }
-    console.log(process.env.JWT_SECRET)
     // Создаем JWT токен
     const token = jwt.sign({ id: user.PersonId, Email: user.Email }, process.env.JWT_SECRET, {
       expiresIn: process.env.JWT_EXPIRES_IN,

@@ -1,6 +1,7 @@
 // ./routes/auth.js
 const express = require('express');
-const { register, login, ping } = require('../controllers/authController');
+const {authenticateToken} = require('../middleWare/authMiddleware')
+const { register, login, ping, check } = require('../controllers/authController');
 const router = express.Router();
 
 /**
@@ -86,5 +87,20 @@ router.post('/login', login);
  *         description: pong
  */
 router.get('/ping', ping);
+
+/**
+ * @swagger
+ * /auth/check:
+ * get:
+ *  tags: [Auth]
+ *  summary: Check auth user
+ *  responces:
+ *  200:
+ *    description: successfull check
+ *  401:
+ *    description: failed check
+ * 
+*/
+router.get('/check', authenticateToken, check)
 
 module.exports = router;

@@ -5,8 +5,10 @@ const config_json = {
         "whitelist": ["*"]
     }
 }
+
 const express = require('express');
-const dotenv = require('dotenv');
+const dotenv = require('dotenv').config();
+const db = require("./db/connection")
 const authRoutes = require('./routes/auth');
 const bodyParser = require('body-parser');
 const blocksRoutes = require('./routes/blocks');
@@ -14,8 +16,6 @@ const http = require('http');
 const socketIO = require('socket.io');
 const swaggerUi = require('swagger-ui-express');
 const swaggerJsDoc = require('swagger-jsdoc');
-
-dotenv.config();
 
 const app = express();
 const PORT = process.env.PORT || 5000;

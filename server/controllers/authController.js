@@ -2,6 +2,14 @@ const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const db = require('../db/connection');
 const logger = require('../logger/logger');
+const generateJwt = (PersonId, Email) => {
+  return jwt.sign({
+    id: PersonId,
+    Email: Email
+  }, process.env.JWT_SECRET, {
+    expiresIn: process.env.JWT_EXPIRES_IN,
+  });
+}
 
 exports.register = async (req, res) => {
   const { Name, Password, Gender, LastName, SecondName, Email } = req.body;
@@ -47,9 +55,7 @@ exports.login = async (req, res) => {
       return res.status(401).json({ error: 'Invalid credentials' });
     }
     // Создаем JWT токен
-    const token = jwt.sign({ id: user.PersonId, Email: user.Email }, process.env.JWT_SECRET, {
-      expiresIn: process.env.JWT_EXPIRES_IN,
-    });
+    const token = generateJwt( user.PersonId,user.Email);
 
     logger.info(`Login successful for user: ${Email}`);
     res.status(200).json({ token });
@@ -64,4 +70,9 @@ exports.ping = async (req, res) => {
   logger.info('Ping request received');
   res.status(200).json({ message: "pong" });
 };
+
+exports.check = async (req, res, next) => {
+  const token = generateJwt(req.user.id, req.user.Email);
+  res.status(200).json({token})
+}
 

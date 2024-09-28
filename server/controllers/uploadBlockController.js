@@ -13,14 +13,14 @@ exports.upload = async (req, res) => {
 
         // Первый INSERT: вставляем данные о блоке
         const [blockResult] = await connection.query(
-            'INSERT INTO Block (Name, Description, Preview, Author) VALUES (?, ?, ?, ?)',
+            'INSERT INTO block (Name, Description, Preview, Author) VALUES (?, ?, ?, ?)',
             [title, description, "preview_url", userId]
         );
         const blockId = blockResult.insertId; // Получаем id вставленного блока
 
         for (let i = 0; i < videos.length; i++) {
             await connection.query(
-                'INSERT INTO Video (Name, Description, Preview, Link, BlockId, Cost) VALUES (?, ?, ?, ?, ?, ?)',
+                'INSERT INTO video (Name, Description, Preview, Link, BlockId, Cost) VALUES (?, ?, ?, ?, ?, ?)',
                 [videos[i].title, videos[i].description, "previewtest", videos[i].link, blockId, videos[i].cost]
             );
         }
@@ -31,7 +31,7 @@ exports.upload = async (req, res) => {
 
     } catch (error) {
         await connection.rollback();
-        logger.error(`Error upload BLock Error: ${error.message}`);
+        logger.error(`Error upload block Error: ${error.message}`);
         res.status(500).json({ error: `Error /block/upload: ${error}` });
     } finally {
         connection.release(); // Освобождаем соединение

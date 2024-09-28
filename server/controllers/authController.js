@@ -21,7 +21,7 @@ exports.register = async (req, res) => {
     logger.info(`Password hashed for user: ${Email}`);
 
     // Сохраняем пользователя в базе данных
-    await db.query('INSERT INTO User (Name, Password, Email, LastName, SecondName, Gender) VALUES (?, ?, ?, ?, ?, 1)', [Name, hashedPassword, Email, LastName, SecondName]);
+    await db.query('INSERT INTO user (Password, Email, Name) VALUES (?, ?, ?)', [hashedPassword, Email,Name]);
     logger.info(`User registered successfully: ${Email}`);
 
     res.status(201).json({ message: 'User registered successfully' });

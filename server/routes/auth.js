@@ -91,16 +91,15 @@ router.get('/ping', ping);
 /**
  * @swagger
  * /auth/check:
- * get:
- *  tags: [Auth]
- *  summary: Check auth user
- *  responces:
- *  200:
- *    description: successfull check
- *  401:
- *    description: failed check
- * 
-*/
+ *   get:
+ *     tags: [Auth]
+ *     summary: Check auth user
+ *     responses:
+ *       200:
+ *         description: Successfully authenticated
+ *       401:
+ *         description: Authentication failed
+ */
 router.get('/check', authenticateToken, check)
 
 module.exports = router;

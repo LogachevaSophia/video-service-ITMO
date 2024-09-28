@@ -3,7 +3,7 @@ import axiosRetry from "axios-retry";
 
 
 export const axiosInstance = axios.create({
-    baseURL: "http://localhost:5000",
+    baseURL: "http://89.169.175.33:5000",
     timeout: 1000,
     headers: {
         "Content-Type": "application/json",

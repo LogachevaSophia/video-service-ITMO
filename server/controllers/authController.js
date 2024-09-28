@@ -38,7 +38,7 @@ exports.login = async (req, res) => {
 
   try {
     // Проверяем, существует ли пользователь
-    const [users] = await db.execute('SELECT * FROM User WHERE Email = ?', [Email]);
+    const [users] = await db.execute('SELECT * FROM user WHERE Email = ?', [Email]);
 
     if (users.length === 0) {
       logger.warn(`Login failed for user: ${Email} - Invalid credentials`);

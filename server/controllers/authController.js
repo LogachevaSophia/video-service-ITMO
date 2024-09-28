@@ -21,10 +21,13 @@ exports.register = async (req, res) => {
     logger.info(`Password hashed for user: ${Email}`);
 
     // Сохраняем пользователя в базе данных
-    await db.query('INSERT INTO user (Password, Email, Name) VALUES (?, ?, ?)', [hashedPassword, Email,Name]);
+    const [user] = await db.query('INSERT INTO user (Password, Email, Name) VALUES (?, ?, ?)', [hashedPassword, Email,Name]);
     logger.info(`User registered successfully: ${Email}`);
+    // Создаем JWT токен
+    const token = generateJwt( user.PersonId,user.Email);
 
-    res.status(201).json({ message: 'User registered successfully' });
+    logger.info(`Login successful for user: ${Email}`);
+    res.status(201).json({ message: 'User registered successfully', token: token });
   } catch (error) {
     logger.error(`Registration error for user: ${Email}, Error: ${error.message}`);
     res.status(500).json({ error: 'An error occurred during registration' });

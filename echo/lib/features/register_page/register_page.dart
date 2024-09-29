@@ -61,6 +61,7 @@ class _RegisterPageState extends State<RegisterPage> {
         nameTextInputController.text.trim(),
         passwordTextInputController.text.trim(),
         context);
+    print(token);
     secureStorage.writeSecureData('token', token!);
     Navigator.pushNamedAndRemoveUntil(
         context, MainPage.routeName, (Route<dynamic> route) => false);

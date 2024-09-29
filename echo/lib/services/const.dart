@@ -1,4 +1,4 @@
 class Const{
-  static var ipurl = "192.168.1.108";
+  static var ipurl = "89.169.175.33";
   static var port = "5000";
 }

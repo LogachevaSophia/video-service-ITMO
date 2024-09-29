@@ -30,6 +30,7 @@ class _PersonalDataState extends State<PersonalData> {
     if (token != null) {
       setState(() {
         data = decodeToken(token);
+        print(data);
       });
     }
   }
@@ -91,64 +92,16 @@ class _PersonalDataState extends State<PersonalData> {
                           child: Row(
                             children: [
                               Text(
-                                "Почта:",
+                                "Почта: ",
                                 style: StyleLibrary.text.black20,
                               ),
                               Text(
-                                '${data['email']}',
+                                '${data['Email']}',
                                 style: StyleLibrary.text.black16,
                               )
                             ],
                           ),
                         ),
-                        Container(
-                          alignment: Alignment.center,
-                          margin: EdgeInsets.all(10),
-                          child: Row(
-                            children: [
-                              Text(
-                                "Имя:",
-                                style: StyleLibrary.text.black20,
-                              ),
-                              Text(
-                                '${data['name']}',
-                                style: StyleLibrary.text.black16,
-                              )
-                            ],
-                          ),
-                        ),
-                        Container(
-                          alignment: Alignment.center,
-                          margin: EdgeInsets.all(10),
-                          child: Row(
-                            children: [
-                              Text(
-                                "Фамилия:",
-                                style: StyleLibrary.text.black20,
-                              ),
-                              Text(
-                                '${data['surname']}',
-                                style: StyleLibrary.text.black16,
-                              )
-                            ],
-                          ),
-                        ),
-                        Container(
-                          alignment: Alignment.center,
-                          margin: EdgeInsets.all(10),
-                          child: Row(
-                            children: [
-                              Text(
-                                "Телефон:",
-                                style: StyleLibrary.text.black20,
-                              ),
-                              Text(
-                                '${data['phone']}',
-                                style: StyleLibrary.text.black16,
-                              )
-                            ],
-                          ),
-                        )
                       ],
                     ),
                   ),

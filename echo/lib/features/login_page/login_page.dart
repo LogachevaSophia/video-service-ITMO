@@ -51,7 +51,7 @@ class _LoginPageState extends State<LoginPage> {
         passwordTextInputController.text.trim(),
         context);
     if (token != null) {
-      secureStorage.writeSecureData('token', token!);
+      secureStorage.writeSecureData('token', token);
       Navigator.pushNamedAndRemoveUntil(
           context, MainPage.routeName, (Route<dynamic> route) => false);
     }
@@ -149,7 +149,7 @@ class _LoginPageState extends State<LoginPage> {
                         contentPadding:
                             EdgeInsets.symmetric(vertical: 15, horizontal: 10),
                       ),
-                      validator: (value) => value != null && value.length < 6
+                      validator: (value) => value != null && value.length < 5
                           ? 'Минимум 6 символов'
                           : null,
                       autovalidateMode: AutovalidateMode.onUserInteraction,

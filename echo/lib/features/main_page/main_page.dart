@@ -56,16 +56,16 @@ class _MainPageState extends State<MainPage> {
             BottomNavigationBarItem(
               icon: currentPageIndex == 1
                   ? const Icon(
-                      Ionicons.card,
+                      Ionicons.person,
                       color: Colors.white,
                       size: 40,
                     )
                   : const Icon(
-                      Ionicons.card_outline,
+                      Ionicons.person_outline,
                       color: Colors.white,
                       size: 40,
                     ),
-              label: 'Cards',
+              label: 'Profile',
             )
           ],
         ),

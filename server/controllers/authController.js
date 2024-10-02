@@ -21,10 +21,10 @@ exports.register = async (req, res) => {
     logger.info(`Password hashed for user: ${Email}`);
 
     // Сохраняем пользователя в базе данных
-    const [user] = await db.query('INSERT INTO user (Password, Email, Name) VALUES (?, ?, ?)', [hashedPassword, Email,Name]);
+    const [user] = await db.query('INSERT INTO user (Password, Email, Name) VALUES (?, ?, ?)', [hashedPassword, Email, Name]);
     logger.info(`User registered successfully: ${Email}`);
     // Создаем JWT токен
-    const token = generateJwt( user.PersonId,user.Email);
+    const token = generateJwt(user.PersonId, user.Email);
 
     logger.info(`Login successful for user: ${Email}`);
     res.status(201).json({ message: 'User registered successfully', token: token });
@@ -49,24 +49,30 @@ exports.login = async (req, res) => {
     }
 
     const user = users[0];
+    logger.info(`User data from database: ${JSON.stringify(user)}`);
 
     // Проверяем пароль
+    logger.info(`Checking password for user: ${Email}`);
     const isPasswordValid = await bcrypt.compare(Password, user.Password);
+    logger.info(`Password check result for user: ${Email}: ${isPasswordValid}`);
 
     if (!isPasswordValid) {
       logger.warn(`Login failed for user: ${Email} - Invalid credentials`);
       return res.status(401).json({ error: 'Invalid credentials' });
     }
+
     // Создаем JWT токен
-    const token = generateJwt( user.PersonId,user.Email);
+    const token = generateJwt(user.PersonId, user.Email);
+    logger.info(`Generated JWT for user: ${Email}: ${token}`);
 
     logger.info(`Login successful for user: ${Email}`);
     res.status(200).json({ token });
   } catch (error) {
-    logger.error(`Login error for user: ${Email}, Error: ${error.message}`);
+    logger.error(`Login error for user: ${Email}, Error: ${error.stack}`);
     res.status(500).json({ error: 'An error occurred during login' });
   }
 };
+
 
 
 exports.ping = async (req, res) => {
@@ -75,7 +81,22 @@ exports.ping = async (req, res) => {
 };
 
 exports.check = async (req, res, next) => {
-  const token = generateJwt(req.user.id, req.user.Email);
-  res.status(200).json({token})
+  const token = req.headers.authorization?.split(' ')[1];
+  if (!token) {
+    return res.status(401).json({ message: 'Токен отсутствует' });
+  }
+  // Декодируем токен без проверки подписи и срока действия
+  const decoded = jwt.decode(token);
+
+  if (!decoded) {
+    return res.status(400).json({ message: 'Некорректный токен' });
+  }
+
+  // Генерация нового токена на основе id и email из декодированного токена
+  const newToken = generateJwt(decoded.id, decoded.Email);
+
+  // Отправляем новый токен в ответе
+  res.status(200).json({ token: newToken })
+  res.status(200).json({ token })
 }
 

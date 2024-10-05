@@ -1,5 +1,6 @@
 import 'package:echo/dependencies/dependencies.dart';
 import 'package:echo/features/home_page/video_tile.dart';
+import 'package:echo/models/state.dart';
 import 'package:echo/models/video.dart';
 import 'package:flutter/material.dart';
 
@@ -11,7 +12,10 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  List<Video> videos = [];
+  AppState<List<Video>> videosState = const AppState(
+    data: [],
+    status: AppStateStatus.initial,
+  );
 
   @override
   void initState() {
@@ -20,11 +24,24 @@ class _HomePageState extends State<HomePage> {
   }
 
   Future<void> fetchVideos() async {
-    final videoService = Dependencies.of(context).videoService;
-    final videos = await videoService.fetchVideos();
+    setState(() {
+      videosState = videosState.copyWith(status: AppStateStatus.loading);
+    });
+    try {
+      final videoService = Dependencies.of(context).videoService;
+      final videos = await videoService.fetchVideos();
+
+      setState(() {
+        videosState = AppState(data: videos, status: AppStateStatus.loaded);
+      });
+    } catch (e) {
+      setState(() {
+        videosState = videosState.copyWith(status: AppStateStatus.error);
+      });
+    }
 
     setState(() {
-      this.videos = videos;
+      videosState = videosState.copyWith(status: AppStateStatus.initial);
     });
   }
 
@@ -36,15 +53,42 @@ class _HomePageState extends State<HomePage> {
           horizontal: 5,
           vertical: 7,
         ),
-        child: ListView.separated(
-          itemCount: videos.length,
-          itemBuilder: (context, index) {
-            final video = videos[index];
-            return VideoTile(video: video);
-          },
-          separatorBuilder: (context, index) {
-            return const SizedBox(height: 10);
-          },
+        child: SafeArea(
+          child: Column(
+            children: [
+              if (videosState.status == AppStateStatus.loading)
+                const LinearProgressIndicator(),
+              if (videosState.data.isEmpty &&
+                  videosState.status != AppStateStatus.loading)
+                Expanded(
+                  child: Center(
+                    child: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        const Text('Видео не найдены'),
+                        ElevatedButton(
+                          onPressed: fetchVideos,
+                          child: const Text('Попробовать снова'),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              if (videosState.data.isNotEmpty)
+                Expanded(
+                  child: ListView.separated(
+                    itemCount: videosState.data.length,
+                    itemBuilder: (context, index) {
+                      final video = videosState.data[index];
+                      return VideoTile(video: video);
+                    },
+                    separatorBuilder: (context, index) {
+                      return const SizedBox(height: 10);
+                    },
+                  ),
+                ),
+            ],
+          ),
         ),
       ),
     );

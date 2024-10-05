@@ -7,7 +7,7 @@ class TokenInterceptor extends QueuedInterceptor {
 
   TokenInterceptor({required this.secureStorage});
 
-  void setToken(String token) {
+  void setToken(String? token) {
     this.token = token;
   }
 

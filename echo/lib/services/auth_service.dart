@@ -7,7 +7,12 @@ import 'package:echo/services/snack_bar.dart';
 import 'package:echo/services/storage.dart';
 
 class AuthService {
-  final dio = Dio();
+  final Dio dio;
+
+  AuthService({
+    required this.dio,
+  });
+
   Future<String?> login(
       String mail, String password, BuildContext context) async {
     try {

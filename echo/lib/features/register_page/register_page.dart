@@ -1,3 +1,4 @@
+import 'package:echo/dependencies/dependencies.dart';
 import 'package:flutter/material.dart';
 import 'package:echo/features/main_page/main_page.dart';
 import 'package:echo/services/auth_service.dart';
@@ -54,7 +55,7 @@ class _RegisterPageState extends State<RegisterPage> {
   Future<void> register() async {
     final isValid = formKey.currentState!.validate();
     if (!isValid) return;
-    AuthService authService = AuthService();
+    AuthService authService = Dependencies.of(context).authService;
     final SecureStorage secureStorage = SecureStorage();
     String? token = await authService.register(
         emailTextInputController.text.trim(),

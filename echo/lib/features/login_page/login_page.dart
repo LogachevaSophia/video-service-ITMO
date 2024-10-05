@@ -1,3 +1,4 @@
+import 'package:echo/dependencies/dependencies.dart';
 import 'package:flutter/material.dart';
 import 'package:echo/features/main_page/main_page.dart';
 import 'package:echo/features/register_page/register_page.dart';
@@ -44,7 +45,7 @@ class _LoginPageState extends State<LoginPage> {
   Future<void> login() async {
     final isValid = formKey.currentState!.validate();
     if (!isValid) return;
-    AuthService authService = AuthService();
+    AuthService authService = Dependencies.of(context).authService;
     final SecureStorage secureStorage = SecureStorage();
     String? token = await authService.login(
         emailTextInputController.text.trim(),

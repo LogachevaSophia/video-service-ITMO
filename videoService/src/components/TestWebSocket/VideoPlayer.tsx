@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import io from 'socket.io-client';
 import { baseURL } from '../../API/axiosConfig';
 
@@ -10,47 +10,70 @@ interface VideoProps {
 
 export const VideoPlayer: React.FC<VideoProps> = ({ roomId }) => {
   const [videoAction, setVideoAction] = useState<string | null>(null);
+  const videoRef = useRef<HTMLVideoElement | null>(null);
 
   useEffect(() => {
     // Присоединение к комнате
     if (roomId) {
-        alert(roomId)
+      console.log(`Joining room: ${roomId}`);
       socket.emit('join_room', roomId);
     }
 
     // Обработка синхронизации видео (старт/стоп)
-    socket.on('sync_video', (data) => {
-      alert(`Video action: ${data.action}`);
-      console.log('sync_video', data);
+    const handleVideoAction = (data: { action: string }) => {
+      console.log(`Video action received: ${data.action}`);
       setVideoAction(data.action);
-    });
+
+      if (videoRef.current) {
+        // Проверяем текущее состояние видео перед вызовом play или pause
+        if (data.action === 'start') {
+          videoRef.current.play().catch((error) => {
+            console.error('Error playing video:', error);
+          });
+        } else if (data.action === 'stop') {
+          videoRef.current.pause();
+        }
+      }
+    };
+
+    // Подписка на событие video_action
+    socket.on('video_action', handleVideoAction);
 
     // Очистка сокета при размонтировании компонента
     return () => {
-      socket.off('sync_video'); // Отключение обработчика события
+      socket.off('video_action', handleVideoAction); // Отключение обработчика события
     };
   }, [roomId]);
 
   // Функция для отправки событий видео
-  const handleVideoAction = (action: string) => {
-    alert("action")
+  const handleVideoActionSend = (action: string) => {
+    console.log(`Sending action: ${action}`);
     socket.emit('video_action', { roomId, action });
+
+    if (videoRef.current) {
+      // Проверяем текущее состояние видео перед вызовом play или pause
+      if (action === 'start') {
+        videoRef.current.play().catch((error) => {
+          console.error('Error playing video:', error);
+        });
+      } else if (action === 'stop') {
+        videoRef.current.pause();
+      }
+    }
   };
 
   return (
     <div>
-      {/* <iframe
-        width="720"
-        height="405"
-        src="https://rutube.ru/play/embed/65a95f0f34e0abda4b7768afde058e08/"
-        frameBorder="0"
-        allow="clipboard-write; autoplay"
-        allowFullScreen
-      ></iframe> */}
+      <video ref={videoRef} width="600" controls>
+        <source src="https://www.w3schools.com/html/mov_bbb.mp4" type="video/mp4" />
+        Your browser does not support the video tag.
+      </video>
+      
       <div>
-        <button onClick={() => handleVideoAction('start')}>Start</button>
-        <button onClick={() => handleVideoAction('stop')}>Stop</button>
+        <button onClick={() => handleVideoActionSend('start')}>Start</button>
+        <button onClick={() => handleVideoActionSend('stop')}>Stop</button>
       </div>
+
       {videoAction === 'start' && <p>Video is playing...</p>}
       {videoAction === 'stop' && <p>Video is stopped.</p>}
     </div>

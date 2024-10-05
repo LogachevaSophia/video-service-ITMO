@@ -94,6 +94,15 @@ router.get('/ping', ping);
  *   get:
  *     tags: [Auth]
  *     summary: Check auth user
+ *     security:
+ *       - bearerAuth: []
+ *     parameters:
+ *       - in: header
+ *         name: Authorization
+ *         schema:
+ *           type: string
+ *         required: true
+ *         description: Bearer token for authentication
  *     responses:
  *       200:
  *         description: Successfully authenticated

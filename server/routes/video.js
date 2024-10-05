@@ -8,6 +8,15 @@ const {authenticateToken} = require('../middleWare/authMiddleware')
  *   post:
  *     tags: [Video]
  *     summary: Upload a new video
+ *     security:
+ *       - bearerAuth: []
+ *     parameters:
+ *       - in: header
+ *         name: Authorization
+ *         schema:
+ *           type: string
+ *         required: true
+ *         description: Bearer token for authentication
  *     requestBody:
  *       required: true
  *       content:
@@ -57,6 +66,15 @@ router.post('/upload', authenticateToken, upload);
  *   delete:
  *     tags: [Video]
  *     summary: Delete a video
+ *     security:
+ *       - bearerAuth: []
+ *     parameters:
+ *       - in: header
+ *         name: Authorization
+ *         schema:
+ *           type: string
+ *         required: true
+ *         description: Bearer token for authentication
  *     requestBody:
  *       required: true
  *       content:
@@ -92,6 +110,58 @@ router.post('/upload', authenticateToken, upload);
  */
 
 router.delete('/delete', authenticateToken, deletevideo);
-router.get('/getAll', getAllItems)
+
+
+
+/**
+ * @swagger
+ * /video/upload:
+ *   get:
+ *     tags: [Video]
+ *     summary: Get all videos
+ *     security:
+ *       - bearerAuth: []
+ *     parameters:
+ *       - in: header
+ *         name: Authorization
+ *         schema:
+ *           type: string
+ *         required: true
+ *         description: Bearer token for authentication
+ *     responses:
+ *       200:
+ *         description: A list of all videos
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 data:
+ *                   type: array
+ *                   items:
+ *                     type: object
+ *                     properties:
+ *                       Name:
+ *                         type: string
+ *                       Link:
+ *                         type: string
+ *                   example:
+ *                     - Name: "Sample Video 1"
+ *                       Link: "https://example.com/video1"
+ *                     - Name: "Sample Video 2"
+ *                       Link: "https://example.com/video2"
+ *       500:
+ *         description: An error occurred during fetching videos
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 error:
+ *                   type: string
+ *                   example: "An error occurred during fetching videos"
+ */
+
+router.get('/getAll', authenticateToken, getAllItems)
 
 module.exports = router;

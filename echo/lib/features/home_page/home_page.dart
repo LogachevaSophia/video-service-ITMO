@@ -1,5 +1,6 @@
 import 'package:echo/dependencies/dependencies.dart';
 import 'package:echo/features/home_page/video_tile.dart';
+import 'package:echo/features/video_page/video_page.dart';
 import 'package:echo/models/state.dart';
 import 'package:echo/models/video.dart';
 import 'package:flutter/material.dart';
@@ -80,7 +81,15 @@ class _HomePageState extends State<HomePage> {
                     itemCount: videosState.data.length,
                     itemBuilder: (context, index) {
                       final video = videosState.data[index];
-                      return VideoTile(video: video);
+                      return VideoTile(
+                          video: video,
+                          onTap: () {
+                            Navigator.pushNamed(
+                              context,
+                              VideoPage.routeName,
+                              arguments: video,
+                            );
+                          });
                     },
                     separatorBuilder: (context, index) {
                       return const SizedBox(height: 10);

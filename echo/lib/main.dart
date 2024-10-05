@@ -5,6 +5,8 @@ import 'package:echo/dependencies/dependencies.dart';
 import 'package:echo/dependencies/inherited_dependencies.dart';
 import 'package:echo/dependencies/initialize_dependencies.dart';
 import 'package:echo/features/login_page/login_page.dart';
+import 'package:echo/features/video_page/video_page.dart';
+import 'package:echo/models/video.dart';
 import 'package:echo/services/auth_service.dart';
 import 'package:flutter/material.dart';
 
@@ -70,6 +72,12 @@ class _MyAppState extends State<MyApp> {
                   } else if (settings.name == RegisterPage.routeName) {
                     return MaterialPageRoute(
                         builder: (context) => const RegisterPage());
+                  } else if (settings.name == VideoPage.routeName) {
+                    return MaterialPageRoute(
+                      builder: (context) => VideoPage(
+                        video: settings.arguments as Video,
+                      ),
+                    );
                   }
                   return null;
                 },

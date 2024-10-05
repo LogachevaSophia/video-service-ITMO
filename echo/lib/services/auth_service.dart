@@ -29,10 +29,12 @@ class AuthService {
       );
       final data = response.data;
       print(response.data);
+      final token = data['token'];
       if (response.statusCode == 200) {
         SnackBarService.showSnackBar(
             context, "Пользователь успешно вошёл!", false);
-        return data['token'];
+        secureStorage.writeSecureData('token', token);
+        return token;
       } else {
         SnackBarService.showSnackBar(context, data["error"], true);
         return null;
@@ -60,10 +62,12 @@ class AuthService {
       );
 
       final data = response.data;
-      print(data['token']);
+      final token = data['token'];
+      print(token);
       if (response.statusCode == 201) {
+        secureStorage.writeSecureData('token', token);
         SnackBarService.showSnackBar(context, data['message'], false);
-        return data['token'];
+        return token;
       } else {
         SnackBarService.showSnackBar(context, data['message'], false);
         return null;
@@ -92,11 +96,22 @@ class AuthService {
       );
       final data = response.data;
       if (response.statusCode == 200) {
-        return data['token'];
+        final token = data['token'];
+
+        if (token != null) {
+          await secureStorage.writeSecureData('token', token);
+        }
+
+        return token;
       } else {
         return null;
       }
     }
     return null;
+  }
+
+  Future<void> logout() async {
+    final token = await secureStorage.writeSecureData('token', '');
+    return token;
   }
 }

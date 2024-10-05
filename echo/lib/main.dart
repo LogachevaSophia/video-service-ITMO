@@ -6,7 +6,6 @@ import 'package:echo/dependencies/inherited_dependencies.dart';
 import 'package:echo/dependencies/initialize_dependencies.dart';
 import 'package:echo/features/login_page/login_page.dart';
 import 'package:echo/services/auth_service.dart';
-import 'package:echo/services/storage.dart';
 import 'package:flutter/material.dart';
 
 import 'features/main_page/main_page.dart';
@@ -90,11 +89,8 @@ class _MyAppState extends State<MyApp> {
 
   Future<String?> checkToken() async {
     AuthService auth = widget.dependencies.authService;
-    String? user = await auth.check();
-    if (user != null) {
-      final SecureStorage secureStorage = widget.dependencies.secureStorage;
-      await secureStorage.writeSecureData('token', user);
-    }
-    return user;
+    String? token = await auth.check();
+
+    return token;
   }
 }

@@ -56,14 +56,16 @@ class _RegisterPageState extends State<RegisterPage> {
     final isValid = formKey.currentState!.validate();
     if (!isValid) return;
     AuthService authService = Dependencies.of(context).authService;
-    final SecureStorage secureStorage = Dependencies.of(context).secureStorage;
     String? token = await authService.register(
         emailTextInputController.text.trim(),
         nameTextInputController.text.trim(),
         passwordTextInputController.text.trim(),
         context);
-    print(token);
-    secureStorage.writeSecureData('token', token!);
+
+    if (token == null) {
+      return;
+    }
+
     Navigator.pushNamedAndRemoveUntil(
         context, MainPage.routeName, (Route<dynamic> route) => false);
   }

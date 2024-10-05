@@ -46,13 +46,11 @@ class _LoginPageState extends State<LoginPage> {
     final isValid = formKey.currentState!.validate();
     if (!isValid) return;
     AuthService authService = Dependencies.of(context).authService;
-    final SecureStorage secureStorage = Dependencies.of(context).secureStorage;
     String? token = await authService.login(
         emailTextInputController.text.trim(),
         passwordTextInputController.text.trim(),
         context);
     if (token != null) {
-      secureStorage.writeSecureData('token', token);
       Navigator.pushNamedAndRemoveUntil(
           context, MainPage.routeName, (Route<dynamic> route) => false);
     }

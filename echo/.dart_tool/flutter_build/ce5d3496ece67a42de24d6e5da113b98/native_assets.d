@@ -1,1 +1,0 @@
- C:\\Users\\Dmitriy\\StudioProjects\\video-service-ITMO\\echo\\.dart_tool\\flutter_build\\ce5d3496ece67a42de24d6e5da113b98\\native_assets.yaml: 

@@ -1,6 +1,8 @@
+import 'package:echo/features/main_page/bottom_bar_item.dart';
 import 'package:flutter/material.dart';
 import 'package:echo/features/home_page/home_page.dart';
 import 'package:echo/features/profile_page/profile_page.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:ionicons/ionicons.dart';
 
 class MainPage extends StatefulWidget {
@@ -12,7 +14,7 @@ class MainPage extends StatefulWidget {
 }
 
 class _MainPageState extends State<MainPage> {
-  int currentPageIndex = 1;
+  int currentPageIndex = 0;
 
   @override
   void initState() {
@@ -26,12 +28,16 @@ class _MainPageState extends State<MainPage> {
         clipBehavior: Clip.hardEdge,
         decoration: const BoxDecoration(
           borderRadius: BorderRadius.only(
-              topRight: Radius.circular(20), topLeft: Radius.circular(20)),
+            topRight: Radius.circular(10),
+            topLeft: Radius.circular(10),
+            bottomLeft: Radius.circular(10),
+            bottomRight: Radius.circular(10),
+          ),
         ),
         child: BottomNavigationBar(
-          backgroundColor: const Color(0xff6b19ae),
-          selectedItemColor: Colors.white,
-          unselectedItemColor: Colors.white,
+          backgroundColor: const Color(0xFF2A4E75),
+          showSelectedLabels: false,
+          showUnselectedLabels: false,
           onTap: (index) {
             setState(() {
               currentPageIndex = index;
@@ -40,37 +46,29 @@ class _MainPageState extends State<MainPage> {
           currentIndex: currentPageIndex,
           items: [
             BottomNavigationBarItem(
-              icon: currentPageIndex == 0
-                  ? const Icon(
-                      Icons.home,
-                      color: Colors.white,
-                      size: 40,
-                    )
-                  : const Icon(
-                      Icons.home_outlined,
-                      color: Colors.white,
-                      size: 40,
-                    ),
+              icon: BottomBarItem(
+                iconPath: 'assets/images/home_icon.svg',
+                isSelected: currentPageIndex == 0,
+              ),
               label: 'Home',
             ),
             BottomNavigationBarItem(
-              icon: currentPageIndex == 1
-                  ? const Icon(
-                      Ionicons.person,
-                      color: Colors.white,
-                      size: 40,
-                    )
-                  : const Icon(
-                      Ionicons.person_outline,
-                      color: Colors.white,
-                      size: 40,
-                    ),
+              icon: BottomBarItem(
+                iconPath: 'assets/images/other_icon.svg',
+                isSelected: currentPageIndex == 1,
+              ),
               label: 'Profile',
-            )
+            ),
           ],
         ),
       ),
-      body: <Widget>[HomePage(), ProfilePage()][currentPageIndex],
+      body: IndexedStack(
+        index: currentPageIndex,
+        children: const [
+          HomePage(),
+          ProfilePage(),
+        ],
+      ),
     );
   }
 }

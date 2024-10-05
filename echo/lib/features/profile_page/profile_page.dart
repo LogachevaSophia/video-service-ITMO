@@ -1,3 +1,4 @@
+import 'package:echo/dependencies/dependencies.dart';
 import 'package:flutter/material.dart';
 import 'package:echo/features/login_page/login_page.dart';
 import 'package:echo/features/personal_data/personal_data.dart';
@@ -15,7 +16,6 @@ class ProfilePage extends StatefulWidget {
 class _ProfilePageState extends State<ProfilePage> {
   @override
   Widget build(BuildContext context) {
-    final SecureStorage secureStorage = SecureStorage();
     return Scaffold(
       body: SingleChildScrollView(
         child: SafeArea(
@@ -73,7 +73,7 @@ class _ProfilePageState extends State<ProfilePage> {
                       padding: const EdgeInsets.all(5),
                     ),
                     onPressed: () {
-                      secureStorage.writeSecureData('token', '');
+                      Dependencies.of(context).authService.logout();
                       Navigator.pushNamedAndRemoveUntil(context,
                           LoginPage.routeName, (Route<dynamic> route) => false);
                     },

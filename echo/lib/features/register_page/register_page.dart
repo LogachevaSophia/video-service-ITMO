@@ -1,3 +1,4 @@
+import 'package:echo/dependencies/dependencies.dart';
 import 'package:flutter/material.dart';
 import 'package:echo/features/main_page/main_page.dart';
 import 'package:echo/services/auth_service.dart';
@@ -54,15 +55,17 @@ class _RegisterPageState extends State<RegisterPage> {
   Future<void> register() async {
     final isValid = formKey.currentState!.validate();
     if (!isValid) return;
-    AuthService authService = AuthService();
-    final SecureStorage secureStorage = SecureStorage();
+    AuthService authService = Dependencies.of(context).authService;
     String? token = await authService.register(
         emailTextInputController.text.trim(),
         nameTextInputController.text.trim(),
         passwordTextInputController.text.trim(),
         context);
-    print(token);
-    secureStorage.writeSecureData('token', token!);
+
+    if (token == null) {
+      return;
+    }
+
     Navigator.pushNamedAndRemoveUntil(
         context, MainPage.routeName, (Route<dynamic> route) => false);
   }

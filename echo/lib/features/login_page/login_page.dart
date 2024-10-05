@@ -1,3 +1,4 @@
+import 'package:echo/dependencies/dependencies.dart';
 import 'package:flutter/material.dart';
 import 'package:echo/features/main_page/main_page.dart';
 import 'package:echo/features/register_page/register_page.dart';
@@ -44,14 +45,12 @@ class _LoginPageState extends State<LoginPage> {
   Future<void> login() async {
     final isValid = formKey.currentState!.validate();
     if (!isValid) return;
-    AuthService authService = AuthService();
-    final SecureStorage secureStorage = SecureStorage();
+    AuthService authService = Dependencies.of(context).authService;
     String? token = await authService.login(
         emailTextInputController.text.trim(),
         passwordTextInputController.text.trim(),
         context);
     if (token != null) {
-      secureStorage.writeSecureData('token', token);
       Navigator.pushNamedAndRemoveUntil(
           context, MainPage.routeName, (Route<dynamic> route) => false);
     }

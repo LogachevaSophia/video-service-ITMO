@@ -1,3 +1,4 @@
+import 'package:echo/dependencies/dependencies.dart';
 import 'package:flutter/material.dart';
 import 'package:ionicons/ionicons.dart';
 import 'package:jwt_decoder/jwt_decoder.dart';
@@ -16,7 +17,7 @@ class _PersonalDataState extends State<PersonalData> {
   Map<String, dynamic> data = {};
 
   Future<String?> getTokenFromSecureStorage() async {
-    final storage = SecureStorage();
+    final storage = Dependencies.of(context).secureStorage;
     String? token = await storage.readSecureData('token');
     return token;
   }
@@ -39,6 +40,12 @@ class _PersonalDataState extends State<PersonalData> {
   void initState() {
     initialize();
     super.initState();
+  }
+
+  @override
+  void didChangeDependencies() {
+    // TODO: implement didChangeDependencies
+    super.didChangeDependencies();
   }
 
   @override

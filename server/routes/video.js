@@ -28,9 +28,12 @@ const {authenticateToken} = require('../middleWare/authMiddleware')
  *                 type: string
  *               Link:
  *                 type: string
+ *               Preview:
+ *                 type: string                 
  *             required:
  *               - Name
  *               - Link
+ *               - Preview
  *     responses:
  *       201:
  *         description: Video uploaded successfully
@@ -141,15 +144,35 @@ router.delete('/delete', authenticateToken, deletevideo);
  *                   items:
  *                     type: object
  *                     properties:
+ *                       Id:
+ *                         type: int
  *                       Name:
  *                         type: string
  *                       Link:
  *                         type: string
+ *                       Preview:
+ *                         type: string
+ *                       PersonId:
+ *                         type: int
+ *                       UserName:
+ *                         type: string
+ *                       Email:  
+ *                         type: string
  *                   example:
- *                     - Name: "Sample Video 1"
+ *                     - Id: 1  # Добавлено поле Id в примере
+ *                       Name: "Sample Video 1"
  *                       Link: "https://example.com/video1"
- *                     - Name: "Sample Video 2"
+ *                       Preview: "https://example.com/preview1"
+ *                       PersonId: 5
+ *                       UserName: "JohnDoe"
+ *                       Email: "john.doe@example.com"
+ *                     - Id: 2  # Добавлено поле Id в примере
+ *                       Name: "Sample Video 2"
  *                       Link: "https://example.com/video2"
+ *                       Preview: "https://example.com/preview2"
+ *                       PersonId: 123
+ *                       UserName: "JaneDoe"
+ *                       Email: "jane.doe@example.com"
  *       500:
  *         description: An error occurred during fetching videos
  *         content:
@@ -162,6 +185,7 @@ router.delete('/delete', authenticateToken, deletevideo);
  *                   example: "An error occurred during fetching videos"
  */
 
-router.get('/getAll', authenticateToken, getAllItems)
+
+router.get('/getAll',authenticateToken, getAllItems)
 
 module.exports = router;

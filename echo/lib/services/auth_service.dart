@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:io';
 import 'package:dio/dio.dart';
+import 'package:echo/services/auth_storage.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:echo/services/const.dart';
 import 'package:echo/services/snack_bar.dart';
@@ -8,11 +9,11 @@ import 'package:echo/services/storage.dart';
 
 class AuthService {
   final Dio dio;
-  final SecureStorage secureStorage;
+  final AuthStorage authStorage;
 
   AuthService({
     required this.dio,
-    required this.secureStorage,
+    required this.authStorage,
   });
 
   Future<String?> login(
@@ -33,7 +34,7 @@ class AuthService {
       if (response.statusCode == 200) {
         SnackBarService.showSnackBar(
             context, "Пользователь успешно вошёл!", false);
-        secureStorage.writeSecureData('token', token);
+        await authStorage.saveToken(token);
         return token;
       } else {
         SnackBarService.showSnackBar(context, data["error"], true);
@@ -65,7 +66,7 @@ class AuthService {
       final token = data['token'];
       print(token);
       if (response.statusCode == 201) {
-        secureStorage.writeSecureData('token', token);
+        await authStorage.saveToken(token);
         SnackBarService.showSnackBar(context, data['message'], false);
         return token;
       } else {
@@ -84,7 +85,7 @@ class AuthService {
   }
 
   Future<String?> check() async {
-    final token = await secureStorage.readSecureData('token');
+    final token = await authStorage.getToken();
     if (token != null) {
       final response = await dio.get(
         '/auth/check',
@@ -101,7 +102,7 @@ class AuthService {
         print(token);
 
         if (token != null) {
-          await secureStorage.writeSecureData('token', token);
+          await authStorage.saveToken(token);
         }
 
         return token;
@@ -113,7 +114,7 @@ class AuthService {
   }
 
   Future<void> logout() async {
-    final token = await secureStorage.writeSecureData('token', '');
+    final token = await authStorage.deleteToken();
     return token;
   }
 }

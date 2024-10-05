@@ -13,10 +13,12 @@ class AuthService {
     try {
       final response = await dio.post(
         'http://${Const.ipurl}:${Const.port}/auth/login',
-        data: json.encode({
-          'Email': mail,
-          'Password': password,
-        })
+        data: json.encode(
+          {
+            'Email': mail,
+            'Password': password,
+          },
+        ),
       );
       final data = response.data;
       print(response.data);
@@ -38,8 +40,8 @@ class AuthService {
     }
   }
 
-  Future<String?> register(String mail, String name,
-     String password, BuildContext context) async {
+  Future<String?> register(
+      String mail, String name, String password, BuildContext context) async {
     try {
       final response = await dio.post(
         'http://${Const.ipurl}:${Const.port}/auth/register',
@@ -53,8 +55,7 @@ class AuthService {
       final data = response.data;
       print(data['token']);
       if (response.statusCode == 201) {
-        SnackBarService.showSnackBar(
-            context, data['message'], false);
+        SnackBarService.showSnackBar(context, data['message'], false);
         return data['token'];
       } else {
         SnackBarService.showSnackBar(context, data['message'], false);
@@ -66,8 +67,7 @@ class AuthService {
       return null;
     } catch (e) {
       print("Error: $e");
-      SnackBarService.showSnackBar(
-          context, "$e", true);
+      SnackBarService.showSnackBar(context, "$e", true);
       return null;
     }
   }
@@ -76,9 +76,13 @@ class AuthService {
     final SecureStorage secureStorage = SecureStorage();
     final token = await secureStorage.readSecureData('token');
     if (token != null) {
-      final response = await dio.post(
+      final response = await dio.get(
         'http://${Const.ipurl}:${Const.port}/auth/check',
-        data: jsonEncode({"token": token}),
+        options: Options(
+          headers: {
+            'Authorization': 'Bearer $token',
+          },
+        ),
       );
       final data = response.data;
       if (response.statusCode == 200) {
@@ -89,5 +93,4 @@ class AuthService {
     }
     return null;
   }
-
 }

@@ -115,7 +115,7 @@ router.delete('/delete', authenticateToken, deletevideo);
 
 /**
  * @swagger
- * /video/upload:
+ * /video/getAll:
  *   get:
  *     tags: [Video]
  *     summary: Get all videos

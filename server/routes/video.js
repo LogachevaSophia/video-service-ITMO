@@ -186,6 +186,6 @@ router.delete('/delete', authenticateToken, deletevideo);
  */
 
 
-router.get('/getAll', getAllItems)
+router.get('/getAll',authenticateToken, getAllItems)
 
 module.exports = router;

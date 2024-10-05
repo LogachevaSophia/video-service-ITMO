@@ -56,7 +56,7 @@ class _RegisterPageState extends State<RegisterPage> {
     final isValid = formKey.currentState!.validate();
     if (!isValid) return;
     AuthService authService = Dependencies.of(context).authService;
-    final SecureStorage secureStorage = SecureStorage();
+    final SecureStorage secureStorage = Dependencies.of(context).secureStorage;
     String? token = await authService.register(
         emailTextInputController.text.trim(),
         nameTextInputController.text.trim(),

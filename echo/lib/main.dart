@@ -92,7 +92,7 @@ class _MyAppState extends State<MyApp> {
     AuthService auth = widget.dependencies.authService;
     String? user = await auth.check();
     if (user != null) {
-      final SecureStorage secureStorage = SecureStorage();
+      final SecureStorage secureStorage = widget.dependencies.secureStorage;
       await secureStorage.writeSecureData('token', user);
     }
     return user;

@@ -8,9 +8,11 @@ import 'package:echo/services/storage.dart';
 
 class AuthService {
   final Dio dio;
+  final SecureStorage secureStorage;
 
   AuthService({
     required this.dio,
+    required this.secureStorage,
   });
 
   Future<String?> login(
@@ -78,7 +80,6 @@ class AuthService {
   }
 
   Future<String?> check() async {
-    final SecureStorage secureStorage = SecureStorage();
     final token = await secureStorage.readSecureData('token');
     if (token != null) {
       final response = await dio.get(

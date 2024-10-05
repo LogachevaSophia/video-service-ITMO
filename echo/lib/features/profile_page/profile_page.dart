@@ -1,3 +1,4 @@
+import 'package:echo/dependencies/dependencies.dart';
 import 'package:flutter/material.dart';
 import 'package:echo/features/login_page/login_page.dart';
 import 'package:echo/features/personal_data/personal_data.dart';
@@ -15,7 +16,7 @@ class ProfilePage extends StatefulWidget {
 class _ProfilePageState extends State<ProfilePage> {
   @override
   Widget build(BuildContext context) {
-    final SecureStorage secureStorage = SecureStorage();
+    final SecureStorage secureStorage = Dependencies.of(context).secureStorage;
     return Scaffold(
       body: SingleChildScrollView(
         child: SafeArea(

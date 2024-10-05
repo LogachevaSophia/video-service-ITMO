@@ -15,8 +15,9 @@ class InheritedDependencies extends InheritedWidget {
   }
 
   static Dependencies? maybeOf(BuildContext context) {
-    final InheritedDependencies? dependencies =
-        context.dependOnInheritedWidgetOfExactType<InheritedDependencies>();
+    final InheritedDependencies? dependencies = context
+        .getElementForInheritedWidgetOfExactType<InheritedDependencies>()
+        ?.widget as InheritedDependencies?;
     return dependencies?.dependencies;
   }
 

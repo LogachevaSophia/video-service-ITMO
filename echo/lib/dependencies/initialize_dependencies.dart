@@ -1,10 +1,15 @@
 import 'package:dio/dio.dart';
 import 'package:echo/dependencies/dependencies.dart';
 import 'package:echo/services/auth_service.dart';
+import 'package:echo/services/const.dart';
 import 'package:echo/services/storage.dart';
 
 Future<Dependencies> initializeDependencies() async {
-  final Dio dio = Dio();
+  final Dio dio = Dio(
+    BaseOptions(
+      baseUrl: 'http://${Const.ipurl}:${Const.port}',
+    ),
+  );
   final SecureStorage secureStorage = SecureStorage();
 
   return Dependencies(

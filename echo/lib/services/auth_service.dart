@@ -19,7 +19,7 @@ class AuthService {
       String mail, String password, BuildContext context) async {
     try {
       final response = await dio.post(
-        'http://${Const.ipurl}:${Const.port}/auth/login',
+        '/auth/login',
         data: json.encode(
           {
             'Email': mail,
@@ -53,7 +53,7 @@ class AuthService {
       String mail, String name, String password, BuildContext context) async {
     try {
       final response = await dio.post(
-        'http://${Const.ipurl}:${Const.port}/auth/register',
+        '/auth/register',
         data: json.encode({
           'Email': mail,
           'Name': name,
@@ -87,7 +87,7 @@ class AuthService {
     final token = await secureStorage.readSecureData('token');
     if (token != null) {
       final response = await dio.get(
-        'http://${Const.ipurl}:${Const.port}/auth/check',
+        '/auth/check',
         options: Options(
           headers: {
             'Authorization': 'Bearer $token',
@@ -97,6 +97,8 @@ class AuthService {
       final data = response.data;
       if (response.statusCode == 200) {
         final token = data['token'];
+
+        print(token);
 
         if (token != null) {
           await secureStorage.writeSecureData('token', token);

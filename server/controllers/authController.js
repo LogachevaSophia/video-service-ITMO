@@ -97,6 +97,5 @@ exports.check = async (req, res, next) => {
 
   // Отправляем новый токен в ответе
   res.status(200).json({ token: newToken })
-  res.status(200).json({ token })
 }
 

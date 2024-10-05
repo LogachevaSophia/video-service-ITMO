@@ -12,6 +12,7 @@ const db = require("./db/connection")
 const authRoutes = require('./routes/auth');
 const bodyParser = require('body-parser');
 const blocksRoutes = require('./routes/blocks');
+const videoRoutes = require('./routes/video')
 const http = require('http');
 const socketIO = require('socket.io');
 const swaggerUi = require('swagger-ui-express');
@@ -63,6 +64,7 @@ app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocs));
 // Роуты
 app.use('/auth', authRoutes);
 app.use('/blocks', blocksRoutes);
+app.use('/video', videoRoutes);
 
 // Создаём HTTP сервер
 const server = http.createServer(app);

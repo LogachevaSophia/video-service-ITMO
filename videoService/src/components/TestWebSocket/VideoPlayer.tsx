@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import io from 'socket.io-client';
-const socket = io('http://192.168.0.125:5000');
+import { baseURL } from '../../API/axiosConfig';
+const socket = io(baseURL);
 interface VideoProps {
   roomId: string | undefined;
 }

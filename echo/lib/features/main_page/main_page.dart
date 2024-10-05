@@ -14,7 +14,7 @@ class MainPage extends StatefulWidget {
 }
 
 class _MainPageState extends State<MainPage> {
-  int currentPageIndex = 1;
+  int currentPageIndex = 0;
 
   @override
   void initState() {
@@ -62,7 +62,13 @@ class _MainPageState extends State<MainPage> {
           ],
         ),
       ),
-      body: <Widget>[HomePage(), ProfilePage()][currentPageIndex],
+      body: IndexedStack(
+        index: currentPageIndex,
+        children: const [
+          HomePage(),
+          ProfilePage(),
+        ],
+      ),
     );
   }
 }

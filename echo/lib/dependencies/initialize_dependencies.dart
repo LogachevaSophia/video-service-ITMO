@@ -5,6 +5,7 @@ import 'package:echo/services/auth_storage.dart';
 import 'package:echo/services/const.dart';
 import 'package:echo/services/storage.dart';
 import 'package:echo/services/token_interceptor.dart';
+import 'package:echo/services/video_service.dart';
 
 Future<Dependencies> initializeDependencies() async {
   final Dio dio = Dio(
@@ -26,6 +27,9 @@ Future<Dependencies> initializeDependencies() async {
         secureStorage: secureStorage,
         tokenInterceptor: tokenInterceptor,
       ),
+    ),
+    videoService: VideoService(
+      dio: dio,
     ),
     secureStorage: secureStorage,
   );

@@ -18,7 +18,7 @@ class TokenInterceptor extends QueuedInterceptor {
   @override
   void onRequest(RequestOptions options, RequestInterceptorHandler handler) {
     if (token != null) {
-      options.headers['Authorization'] = token;
+      options.headers['Authorization'] = 'Bearer $token';
     }
     handler.next(options);
   }

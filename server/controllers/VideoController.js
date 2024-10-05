@@ -32,7 +32,7 @@ exports.delete = async  (req, res) => {
 exports.getAllItems = async (req, res) => {
     logger.info('Attemting to get all videos');
     try{
-        const result = await db.query('Select Id, video.Name, Link, Preview, PersonId, user.Name as UserName, Email from video left join User on User.personId=video.Author');
+        const result = await db.query('Select Id, video.Name, Link, Preview, PersonId, user.Name as UserName, Email from video left join user on User.personId=video.Author');
         console.log(result);
         logger.info('successfully load all videos');
         res.status(200).json({data: result[0]})

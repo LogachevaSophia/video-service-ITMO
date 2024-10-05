@@ -4,7 +4,6 @@ import axiosRetry from "axios-retry";
 export const baseURL="http://89.169.175.33:5000";
 
 export const axiosInstance = axios.create({
-    // baseURL: "http://89.169.175.33:5000",
     baseURL: baseURL,
     timeout: 1000,
     headers: {

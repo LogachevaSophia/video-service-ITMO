@@ -8,10 +8,10 @@ interface VideoFormProps {
 }
 
 interface FormInputs {
-  title: string;
+  Name: string;
   description: string;
   cost: number;
-  link: string;
+  Link: string;
 }
 
 export const AddVideoForm: React.FC<VideoFormProps> = ({ onAddVideo }) => {
@@ -21,7 +21,7 @@ export const AddVideoForm: React.FC<VideoFormProps> = ({ onAddVideo }) => {
   const handleSaveVideo = () => {
     const values: VideoItem = getValues(); // Получаем значения полей
     console.log(values)
-    if (values.title && values.description && values.cost && values.link) {
+    if (values.Name && values.description && values.cost && values.Link) {
       onAddVideo(values); // Передаем данные в onAddVideo
       reset(); // Очищаем форму после добавления видео
     } else {
@@ -32,10 +32,10 @@ export const AddVideoForm: React.FC<VideoFormProps> = ({ onAddVideo }) => {
   return (
     <Card type="container" view="outlined">
       <section className={styles.form}>
-        <TextInput placeholder="Title" {...register("title", { required: true })} />
+        <TextInput placeholder="Title" {...register("Name", { required: true })} />
         <TextInput placeholder="Description" {...register("description", { required: true })} />
         <TextInput type="number" placeholder="Cost" {...register("cost", { required: true })} />
-        <TextInput placeholder="Link" {...register("link", { required: true })} />
+        <TextInput placeholder="Link" {...register("Link", { required: true })} />
 
         <Button type="button" view="action" onClick={handleSaveVideo}>Save Video</Button>
       </section>

@@ -14,14 +14,15 @@ export interface VideoItem {
     Link?: string
 }
 
+
 export interface propsListVideos {
     data: VideoItem[],
-    actionCreate: (videoId: string) => void;
+    actionCreate: (videoId: string, videoLink: string) => void; 
 }
 
 export const DEFAULT_LINK_PREVIEW = "https://i.pinimg.com/originals/b1/f5/c9/b1f5c97c7841c776462f5de045e4bfde.png"
 
-export const ListVideos: React.FC<propsListVideos> = ({ data }) => {
+export const ListVideos: React.FC<propsListVideos> = ({ data, actionCreate }) => {
 
 
     return (
@@ -29,7 +30,7 @@ export const ListVideos: React.FC<propsListVideos> = ({ data }) => {
             {data.map(el => {
                 return (
                     // <Link to={`video/${el.Id}`} key={el.Id}>
-                        <CustomCard {...el}   key={el.Id}/>
+                        <CustomCard {...el}   key={el.Id} actionCreate={actionCreate}/>
                     // </Link>
 
                 )

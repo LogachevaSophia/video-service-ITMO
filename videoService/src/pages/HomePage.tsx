@@ -1,9 +1,18 @@
 import { useEffect, useState } from "react"
 import { ListVideos, VideoItem } from "../components/ListVideos/ListVideos"
 import { getAllVideos, apiCreateRoom } from "../API/Controllers/VideoController"
+import { useNavigate } from "react-router-dom"
 
 export const HomePage = () => {
     const [data, setData] = useState([])
+
+    const createRoomAs = async (videoId: number, videoLink:string) => {
+        try{
+            const response = await apiCreateRoom({videoId, videoLink});
+            navigate(`/video/${response?.data.roomId}`)
+        }
+        catch(err){}
+    }
 
     useEffect(() => {
         const getVideo = async () => {
@@ -54,12 +63,10 @@ export const HomePage = () => {
     //         author: "такой-то чел",
     //     }
     // ]
-    const createRoom = (videoId: number) => {
-        apiCreateRoom({videoId}); // Convert string to number
-      };
+    const navigate = useNavigate();
     return (
         <>
-            <ListVideos data={data} actionCreate={(id) => createRoom(Number(id))}/>
+            <ListVideos data={data} actionCreate={(id, link) => createRoomAs(Number(id), link)}/>
         </>
     )
 }

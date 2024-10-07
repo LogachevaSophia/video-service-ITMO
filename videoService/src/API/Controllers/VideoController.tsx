@@ -12,13 +12,33 @@ export const getAllVideos = async () => {
     }
 };
 
-export interface dataCreateRoom{
-    videoId: number
+export interface dataCreateRoom {
+    videoId: number,
+    videoLink: string
 }
 
 export const apiCreateRoom = async (data: dataCreateRoom) => {
     try {
-        const res = await axiosInstance.post('/video/createRoom', data)
+        const res = await axiosInstance.post('/room/create', data)
+        return res;
+    }
+    catch (err) {
+        console.log(err);
+        return undefined;
+
+    }
+}
+
+export interface dataGetVideo {
+    roomId: string
+}
+
+export const apiGetVideoByRoomId = async (data: dataGetVideo) => {
+    try {
+        const res = await axiosInstance.get('/room/getVideo', {
+            params:
+                { ...data }
+        })
         return res;
     }
     catch (err) {

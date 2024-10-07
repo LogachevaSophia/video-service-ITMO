@@ -22,10 +22,12 @@ exports.createRoom = (req, res) => {
 
 exports.getVideoFromRoom = (req, res) => {
     try{
-        const {roomId} = req.body;
-        
+        const {roomId} = req.query;
+        console.log(roomId)
         if (!roomId)
             return res.satus(400).json({message: 'Room Id is required'})
+        if (!rooms[roomId])
+            return res.status(400).json({message: 'Room does not exist'})
         const {videoLink, videoId} = rooms[roomId];
         if (videoId && videoLink){
             logger.info(`Send video link and Id by room ${roomId}`)
@@ -39,5 +41,6 @@ exports.getVideoFromRoom = (req, res) => {
     }
     catch(err){
         res.status(500).json({message: err.message})
+        logger.error(err.message)
     }
 }

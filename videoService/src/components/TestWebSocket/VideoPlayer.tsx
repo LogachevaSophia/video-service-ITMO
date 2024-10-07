@@ -4,11 +4,12 @@ import { baseURL } from '../../API/axiosConfig';
 const socket = io(baseURL);
 interface VideoProps {
   roomId: string | undefined;
+  s3VideoUrl: string | null | undefined,
 }
-export const VideoPlayer: React.FC<VideoProps> = ({ roomId }) => {
-  const [videoAction, setVideoAction] = useState<string | null>("start");
+export const VideoPlayer: React.FC<VideoProps> = ({ roomId, s3VideoUrl }) => {
+  const [videoAction, setVideoAction] = useState<string | null>("stop");
   const videoRef = useRef<HTMLVideoElement | null>(null);
-  const s3VideoUrl = "https://www.w3schools.com/html/mov_bbb.mp4"
+  // const s3VideoUrl = "https://www.w3schools.com/html/mov_bbb.mp4"
   const [isPlaying, setIsPlaying] = useState<boolean>(false);
   useEffect(() => {
     // Присоединение к комнате
@@ -60,23 +61,24 @@ export const VideoPlayer: React.FC<VideoProps> = ({ roomId }) => {
     if (videoRef.current) {
       videoRef.current.play().then(() => {
         setIsPlaying(true); // Обновляем состояние после начала воспроизведения
-        handleVideoAction({action: 'start'});
+        handleVideoAction({ action: 'start' });
       }).catch((error) => {
         console.error('Error starting video:', error);
       });
     }
   };
 
-  return (
+  return s3VideoUrl && (
     <div>
-      <video ref={videoRef} width="600" controls>
+      <video ref={videoRef} width="600" controls onPlay={handleUserPlay}
+        onPause={() => handleVideoAction({ action: 'stop' })}>
         <source src={s3VideoUrl} type="video/mp4" />
         Your browser does not support the video tag.
       </video>
-      <div>
+      {/* <div>
         <button onClick={handleUserPlay}>Start</button>
-        <button onClick={() => handleVideoAction({ action:'stop'})}>Stop</button>
-      </div>
+        <button onClick={() => handleVideoAction({ action: 'stop' })}>Stop</button>
+      </div> */}
       {/* <div>
         <button onClick={() => handleVideoAction({ action: 'start' })}>Start</button>
         <button onClick={() => handleVideoAction({ action: 'stop' })}>Stop</button>

@@ -10,7 +10,7 @@ export const VideoPlayer: React.FC<VideoProps> = ({ roomId, s3VideoUrl }) => {
   const [videoAction, setVideoAction] = useState<string | null>("stop");
   const videoRef = useRef<HTMLVideoElement | null>(null);
   // const s3VideoUrl = "https://www.w3schools.com/html/mov_bbb.mp4"
-  const [isPlaying, setIsPlaying] = useState<boolean>(false);
+  // const [isPlaying, setIsPlaying] = useState<boolean>(false);
   useEffect(() => {
     // Присоединение к комнате
     if (roomId) {
@@ -60,7 +60,6 @@ export const VideoPlayer: React.FC<VideoProps> = ({ roomId, s3VideoUrl }) => {
   const handleUserPlay = () => {
     if (videoRef.current) {
       videoRef.current.play().then(() => {
-        setIsPlaying(true); // Обновляем состояние после начала воспроизведения
         handleVideoAction({ action: 'start' });
       }).catch((error) => {
         console.error('Error starting video:', error);

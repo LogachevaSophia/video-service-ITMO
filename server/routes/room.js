@@ -9,7 +9,7 @@ const { authenticateToken } = require('../middleWare/authMiddleware')
 * /room/create:
 *   post:
 *     tags: [Room]
-*     summary: Upload a new video
+*     summary: Create new room
 *     security:
 *       - bearerAuth: []
 *     parameters:

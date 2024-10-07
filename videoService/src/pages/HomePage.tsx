@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react"
-import { ListVideos, VideoItem } from "../components/ListVideos/ListVideos"
+import { ListVideos } from "../components/ListVideos/ListVideos"
 import { getAllVideos, apiCreateRoom } from "../API/Controllers/VideoController"
 import { useNavigate } from "react-router-dom"
 
@@ -11,7 +11,9 @@ export const HomePage = () => {
             const response = await apiCreateRoom({videoId, videoLink});
             navigate(`/video/${response?.data.roomId}`)
         }
-        catch(err){}
+        catch(err){
+            console.log(err)
+        }
     }
 
     useEffect(() => {
@@ -29,9 +31,6 @@ export const HomePage = () => {
             }
         }
         getVideo();
-        () => {
-            return;
-        }
     }, [])
     // const data: VideoItem[] = [
     //     {

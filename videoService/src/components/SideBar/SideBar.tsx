@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import styles from './SideBar.module.css'
 import classNames from 'classnames';
 import { Person, House, ArrowRightFromSquare, ClockArrowRotateLeft, Gear, CloudArrowUpIn } from '@gravity-ui/icons';
@@ -7,7 +7,7 @@ import { Link } from 'react-router-dom';
 
 
 export const SideBar: React.FC = () => {
-    const [isOpen, setIsOpen] = useState(false);
+    // const [isOpen, setIsOpen] = useState(false);
 
     //   const toggleSideBar = () => {
     //     setIsOpen(!isOpen);
@@ -20,7 +20,8 @@ export const SideBar: React.FC = () => {
     }
 
     return (
-        <div className={isOpen ? classNames(styles.sidebar, styles.open) : classNames(styles.sidebar, styles.closed)}>
+        // <div className={true ? classNames(styles.sidebar, styles.open) : classNames(styles.sidebar, styles.closed)}>
+        <div className={classNames(styles.sidebar, styles.open) }>
             <div className={styles["sidebar-content"]}>
                 <header>
                     {svg()}

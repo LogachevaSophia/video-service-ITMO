@@ -18,44 +18,44 @@ export const UpdatedBlocks = () => {
 
     const data: VideoItem[] = [
         {
-            id: "dfjdn;kvj",
-            title: "Финансирование",
+            Id: "dfjdn;kvj",
+            Name: "Финансирование",
             description: "Описание блока финанисорвание",
-            author: "такой-то чел",
-            avatarSrc: "https://loremflickr.com/640/480/cats?lock=8610182282084352",
-            preview: "https://i.pinimg.com/736x/48/02/6b/48026b5e2493e6bd175f1f27615b9bc3.jpg"
+            UserName: "такой-то чел",
+            AvatarSrc: "https://loremflickr.com/640/480/cats?lock=8610182282084352",
+            Preview: "https://i.pinimg.com/736x/48/02/6b/48026b5e2493e6bd175f1f27615b9bc3.jpg"
         },
         {
-            id: "dfjdn;kvjdfvd",
-            title: "Финансирование2",
+            Id: "dfjdn;kvjdfvd",
+            Name: "Финансирование2",
             description: "Описание блока финанисорвание eltj gnljglwetg;q kjn;",
-            author: "такой-то чел",
-            preview: "https://i.pinimg.com/736x/48/02/6b/48026b5e2493e6bd175f1f27615b9bc3.jpg"
+            UserName: "такой-то чел",
+            Preview: "https://i.pinimg.com/736x/48/02/6b/48026b5e2493e6bd175f1f27615b9bc3.jpg"
         },
         {
-            id: "dfjdn;kvjdfvdwef",
-            title: "Финансирование3",
+            Id: "dfjdn;kvjdfvdwef",
+            Name: "Финансирование3",
             description: "Описание блока финанисорвание",
-            author: "такой-то чел",
-            avatarSrc: "https://loremflickr.com/640/480/cats?lock=8610182282084352"
+            UserName: "такой-то чел",
+            AvatarSrc: "https://loremflickr.com/640/480/cats?lock=8610182282084352"
         },
         {
-            id: "dfvffjddfvjdfvd",
-            title: "Финансирование4",
+            Id: "dfvffjddfvjdfvd",
+            Name: "Финансирование4",
             description: "Описание блока финанисорвание",
-            author: "такой-то чел",
+            UserName: "такой-то чел",
         },
         {
-            id: "dfjddfvjsssdfvd",
-            title: "Финансирование4",
+            Id: "dfjddfvjsssdfvd",
+            Name: "Финансирование4",
             description: "Описание блока финанисорвание",
-            author: "такой-то чел",
+            UserName: "такой-то чел",
         },
         {
-            id: "dfjddfvjdfvd",
-            title: "Финансирование4",
+            Id: "dfjddfvjdfvd",
+            Name: "Финансирование4",
             description: "Описание блока финанисорвание",
-            author: "такой-то чел",
+            UserName: "такой-то чел",
         }
     ]
     const [open, setOpen] = useState<boolean>(false)
@@ -86,7 +86,7 @@ export const UpdatedBlocks = () => {
                     <section >
                         <section area-label="uploaded video" className={styles["uploaded-video"]}>
                             {videos.map((video, index) => (
-                                <CustomCard {...video} key={index}/>
+                                <CustomCard {...video} key={index} actionCreate={()=>{}}/>
                             ))}
                         </section>
                         <Button onClick={()=>setOpenUploadVideo(true)}>Upload Video<Icon data={CirclePlus}/></Button>
@@ -101,7 +101,7 @@ export const UpdatedBlocks = () => {
                 <div >
                     {data.map(el => {
                         return (
-                            <CustomCard {...el} key={el.id}/>
+                            <CustomCard {...el} key={el.Id} actionCreate={()=>{}}/>
                         )
                     })}
                 </div>

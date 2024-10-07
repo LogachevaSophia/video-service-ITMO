@@ -12,12 +12,16 @@ const db = require("./db/connection")
 const authRoutes = require('./routes/auth');
 const bodyParser = require('body-parser');
 const blocksRoutes = require('./routes/blocks');
-const videoRoutes = require('./routes/video')
+const videoRoutes = require('./routes/video');
+const roomRoute = require('./routes/room')
 const http = require('http');
 const swaggerUi = require('swagger-ui-express');
 const swaggerJsDoc = require('swagger-jsdoc');
-// Use sockets modules
-const rooms = {}; // объект для хранения комнат и связанных с ними видео
+// // Use sockets modules
+// const rooms = {}; // объект для хранения комнат и связанных с ними видео
+// // Export the rooms object
+// module.exports.rooms = rooms;
+const rooms = require('./rooms'); 
 const socketIO = require('socket.io');
 const { setupSocket } = require('./sockets/socket'); 
 
@@ -68,6 +72,7 @@ app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocs));
 app.use('/auth', authRoutes);
 app.use('/blocks', blocksRoutes);
 app.use('/video', videoRoutes);
+app.use('/room', roomRoute);
 
 // Создаём HTTP сервер
 const server = http.createServer(app);

@@ -13,6 +13,7 @@ class Video {
     return Video(
       name: json['Name'],
       link: json['Link'],
+      preview: json['Preview'],
     );
   }
 }

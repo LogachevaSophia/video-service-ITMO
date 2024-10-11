@@ -2,6 +2,7 @@ import 'package:chewie/chewie.dart';
 import 'package:echo/models/video.dart';
 import 'package:flutter/material.dart';
 import 'package:video_player/video_player.dart';
+import 'package:socket_io_client/socket_io_client.dart' as IO;
 
 /// {@template video_page}
 /// VideoPage widget
@@ -10,7 +11,7 @@ class VideoPage extends StatefulWidget {
   final Video video;
 
   /// {@macro video_page}
-  const VideoPage({
+  VideoPage({
     super.key,
     required this.video,
   });
@@ -23,6 +24,8 @@ class VideoPage extends StatefulWidget {
 class _VideoPageState extends State<VideoPage> {
   late VideoPlayerController _controller;
   ChewieController? _chewieController;
+  late IO.Socket socket;
+
 
   @override
   void initState() {
@@ -36,11 +39,19 @@ class _VideoPageState extends State<VideoPage> {
         setState(() {
           _chewieController = ChewieController(
             videoPlayerController: _controller,
-            autoPlay: true,
-            looping: true,
+            autoPlay: false,
+            looping: false,
           );
         });
       });
+    socket = IO.io('http://localhost:3000');
+    socket.onConnect((_) {
+      print('connect');
+      socket.emit('msg', 'test');
+    });
+    socket.on('event', (data) => print(data));
+    socket.onDisconnect((_) => print('disconnect'));
+    socket.on('fromServer', (_) => print(_));
   }
 
   @override

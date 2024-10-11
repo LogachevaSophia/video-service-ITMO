@@ -4,7 +4,10 @@ import 'dart:developer';
 import 'package:echo/dependencies/dependencies.dart';
 import 'package:echo/dependencies/inherited_dependencies.dart';
 import 'package:echo/dependencies/initialize_dependencies.dart';
+import 'package:echo/features/join_page/join_page.dart';
 import 'package:echo/features/login_page/login_page.dart';
+import 'package:echo/features/room_page/room_page.dart';
+import 'package:echo/features/room_page/room_page_interface.dart';
 import 'package:echo/features/video_page/video_page.dart';
 import 'package:echo/models/video.dart';
 import 'package:echo/services/auth_service.dart';
@@ -78,6 +81,14 @@ class _MyAppState extends State<MyApp> {
                         video: settings.arguments as Video,
                       ),
                     );
+                  } else if (settings.name == RoomPage.routeName) {
+                    final data = settings.arguments as RoomPageInterface;
+                    return MaterialPageRoute(
+                        builder: (context) =>
+                            RoomPage(roomId: data.roomId, video: data.video));
+                  } else if (settings.name == JoinPage.routeName) {
+                    return MaterialPageRoute(
+                        builder: (context) => const JoinPage());
                   }
                   return null;
                 },

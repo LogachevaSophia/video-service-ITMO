@@ -25,7 +25,6 @@ class VideoPage extends StatefulWidget {
 class _VideoPageState extends State<VideoPage> {
   late VideoPlayerController _controller;
   ChewieController? _chewieController;
-  late Socket socket;
 
   @override
   void initState() {
@@ -44,31 +43,10 @@ class _VideoPageState extends State<VideoPage> {
           );
         });
       });
-    socket = io(
-      socketUrl,
-      OptionBuilder()
-          .setTransports(['websocket']) // for Flutter or Dart VM
-          .disableAutoConnect() // disable auto-connection
-          .build(),
-    );
-    socket.connect();
-    socket.onConnect((_) {
-      print('connect');
-      socket.emit('join_room', widget.video.id);
-      print('join_room ${widget.video.id}');
-    });
-    socket.onAny((String event, data) async {
-      print(event);
-      print(data);
-    });
-    socket.on('event', (data) => print(data));
-    socket.onDisconnect((_) => print('disconnect'));
-    socket.on('fromServer', (_) => print(_));
   }
 
   @override
   void dispose() {
-    socket.disconnect();
     _controller.dispose();
     _chewieController?.dispose();
     super.dispose();
@@ -79,26 +57,14 @@ class _VideoPageState extends State<VideoPage> {
     final chewieController = _chewieController;
 
     return Scaffold(
-      // appBar: AppBar(
-      //   title: const Text('Video'),
-      // ),
       body: SafeArea(
         child: Scaffold(
+          appBar: AppBar(
+            title: Text(widget.video.name ?? 'Без названия'),
+          ),
           body: chewieController != null
               ? Chewie(controller: chewieController)
               : const SizedBox(),
-          // floatingActionButton: FloatingActionButton(
-          //   onPressed: () {
-          //     setState(() {
-          //       _controller.value.isPlaying
-          //           ? _controller.pause()
-          //           : _controller.play();
-          //     });
-          //   },
-          //   child: Icon(
-          //     _controller.value.isPlaying ? Icons.pause : Icons.play_arrow,
-          //   ),
-          // ),
         ),
       ),
     );

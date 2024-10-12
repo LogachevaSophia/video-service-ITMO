@@ -62,7 +62,7 @@ class _RoomPageState extends State<RoomPage> {
       });
 
     // Initialize socket connection
-    socket = io('http://${Const.ipurl}:${Const.port}', <String, dynamic>{
+    socket = io(socketUrl, <String, dynamic>{
       'transports': ['websocket'],
       'autoConnect': false,
     });

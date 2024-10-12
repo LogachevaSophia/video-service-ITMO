@@ -1,5 +1,6 @@
 import 'package:chewie/chewie.dart';
 import 'package:echo/models/video.dart';
+import 'package:echo/services/const.dart';
 import 'package:flutter/material.dart';
 import 'package:video_player/video_player.dart';
 import 'package:socket_io_client/socket_io_client.dart';
@@ -44,7 +45,7 @@ class _VideoPageState extends State<VideoPage> {
         });
       });
     socket = io(
-      'http://89.169.175.33:5000',
+      socketUrl,
       OptionBuilder()
           .setTransports(['websocket']) // for Flutter or Dart VM
           .disableAutoConnect() // disable auto-connection

@@ -1,4 +1,2 @@
-class Const{
-  static var ipurl = "89.169.175.33";
-  static var port = "5000";
-}
+const baseUrl = 'https://echo.spb.ru/api';
+const socketUrl = 'https://echo.spb.ru';

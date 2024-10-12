@@ -61,6 +61,9 @@ class _JoinPageState extends State<JoinPage> {
                 ),
                 keyboardType: TextInputType.emailAddress,
                 controller: roomIdController,
+                onTapOutside: (event) {
+                  FocusScope.of(context).unfocus();
+                },
               ),
               ElevatedButton(
                   onPressed: () async {

@@ -5,199 +5,29 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="13dc9fb8-19ec-429c-ae3a-5e58d9979689" name="Changes" comment="feat: tests? login and register works, trouble with check">
-      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/echo/.gitignore" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/echo/.metadata" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/echo/README.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/echo/analysis_options.yaml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/echo/android/.gitignore" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/echo/android/app/build.gradle" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/echo/android/app/src/debug/AndroidManifest.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/echo/android/app/src/main/AndroidManifest.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/echo/android/app/src/main/kotlin/com/example/echo/MainActivity.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/echo/android/app/src/main/res/drawable-v21/launch_background.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/echo/android/app/src/main/res/drawable/launch_background.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/echo/android/app/src/main/res/mipmap-hdpi/ic_launcher.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/echo/android/app/src/main/res/mipmap-mdpi/ic_launcher.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/echo/android/app/src/main/res/mipmap-xhdpi/ic_launcher.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/echo/android/app/src/main/res/mipmap-xxhdpi/ic_launcher.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/echo/android/app/src/main/res/mipmap-xxxhdpi/ic_launcher.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/echo/android/app/src/main/res/values-night/styles.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/echo/android/app/src/main/res/values/styles.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/echo/android/app/src/profile/AndroidManifest.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/echo/android/build.gradle" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/echo/android/gradle.properties" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/echo/android/gradle/wrapper/gradle-wrapper.properties" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/echo/android/settings.gradle" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/echo/ios/.gitignore" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/echo/ios/Flutter/AppFrameworkInfo.plist" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/echo/ios/Flutter/Debug.xcconfig" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/echo/ios/Flutter/Release.xcconfig" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/echo/ios/Runner.xcodeproj/project.pbxproj" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/echo/ios/Runner.xcodeproj/project.xcworkspace/contents.xcworkspacedata" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/echo/ios/Runner.xcodeproj/project.xcworkspace/xcshareddata/IDEWorkspaceChecks.plist" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/echo/ios/Runner.xcodeproj/project.xcworkspace/xcshareddata/WorkspaceSettings.xcsettings" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/echo/ios/Runner.xcodeproj/xcshareddata/xcschemes/Runner.xcscheme" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/echo/ios/Runner.xcworkspace/contents.xcworkspacedata" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/echo/ios/Runner.xcworkspace/xcshareddata/IDEWorkspaceChecks.plist" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/echo/ios/Runner.xcworkspace/xcshareddata/WorkspaceSettings.xcsettings" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/echo/ios/Runner/AppDelegate.swift" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/echo/ios/Runner/Assets.xcassets/AppIcon.appiconset/Contents.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/echo/ios/Runner/Assets.xcassets/AppIcon.appiconset/Icon-App-1024x1024@1x.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/echo/ios/Runner/Assets.xcassets/AppIcon.appiconset/Icon-App-20x20@1x.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/echo/ios/Runner/Assets.xcassets/AppIcon.appiconset/Icon-App-20x20@2x.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/echo/ios/Runner/Assets.xcassets/AppIcon.appiconset/Icon-App-20x20@3x.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/echo/ios/Runner/Assets.xcassets/AppIcon.appiconset/Icon-App-29x29@1x.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/echo/ios/Runner/Assets.xcassets/AppIcon.appiconset/Icon-App-29x29@2x.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/echo/ios/Runner/Assets.xcassets/AppIcon.appiconset/Icon-App-29x29@3x.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/echo/ios/Runner/Assets.xcassets/AppIcon.appiconset/Icon-App-40x40@1x.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/echo/ios/Runner/Assets.xcassets/AppIcon.appiconset/Icon-App-40x40@2x.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/echo/ios/Runner/Assets.xcassets/AppIcon.appiconset/Icon-App-40x40@3x.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/echo/ios/Runner/Assets.xcassets/AppIcon.appiconset/Icon-App-60x60@2x.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/echo/ios/Runner/Assets.xcassets/AppIcon.appiconset/Icon-App-60x60@3x.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/echo/ios/Runner/Assets.xcassets/AppIcon.appiconset/Icon-App-76x76@1x.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/echo/ios/Runner/Assets.xcassets/AppIcon.appiconset/Icon-App-76x76@2x.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/echo/ios/Runner/Assets.xcassets/AppIcon.appiconset/Icon-App-83.5x83.5@2x.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/echo/ios/Runner/Assets.xcassets/LaunchImage.imageset/Contents.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/echo/ios/Runner/Assets.xcassets/LaunchImage.imageset/LaunchImage.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/echo/ios/Runner/Assets.xcassets/LaunchImage.imageset/LaunchImage@2x.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/echo/ios/Runner/Assets.xcassets/LaunchImage.imageset/LaunchImage@3x.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/echo/ios/Runner/Assets.xcassets/LaunchImage.imageset/README.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/echo/ios/Runner/Base.lproj/LaunchScreen.storyboard" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/echo/ios/Runner/Base.lproj/Main.storyboard" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/echo/ios/Runner/Info.plist" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/echo/ios/Runner/Runner-Bridging-Header.h" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/echo/ios/RunnerTests/RunnerTests.swift" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/echo/lib/main.dart" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/echo/linux/.gitignore" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/echo/linux/CMakeLists.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/echo/linux/flutter/CMakeLists.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/echo/linux/flutter/generated_plugin_registrant.cc" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/echo/linux/flutter/generated_plugin_registrant.h" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/echo/linux/flutter/generated_plugins.cmake" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/echo/linux/main.cc" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/echo/linux/my_application.cc" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/echo/linux/my_application.h" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/echo/macos/.gitignore" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/echo/macos/Flutter/Flutter-Debug.xcconfig" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/echo/macos/Flutter/Flutter-Release.xcconfig" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/echo/macos/Flutter/GeneratedPluginRegistrant.swift" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/echo/macos/Runner.xcodeproj/project.pbxproj" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/echo/macos/Runner.xcodeproj/project.xcworkspace/xcshareddata/IDEWorkspaceChecks.plist" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/echo/macos/Runner.xcodeproj/xcshareddata/xcschemes/Runner.xcscheme" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/echo/macos/Runner.xcworkspace/contents.xcworkspacedata" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/echo/macos/Runner.xcworkspace/xcshareddata/IDEWorkspaceChecks.plist" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/echo/macos/Runner/AppDelegate.swift" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/echo/macos/Runner/Assets.xcassets/AppIcon.appiconset/Contents.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/echo/macos/Runner/Assets.xcassets/AppIcon.appiconset/app_icon_1024.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/echo/macos/Runner/Assets.xcassets/AppIcon.appiconset/app_icon_128.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/echo/macos/Runner/Assets.xcassets/AppIcon.appiconset/app_icon_16.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/echo/macos/Runner/Assets.xcassets/AppIcon.appiconset/app_icon_256.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/echo/macos/Runner/Assets.xcassets/AppIcon.appiconset/app_icon_32.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/echo/macos/Runner/Assets.xcassets/AppIcon.appiconset/app_icon_512.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/echo/macos/Runner/Assets.xcassets/AppIcon.appiconset/app_icon_64.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/echo/macos/Runner/Base.lproj/MainMenu.xib" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/echo/macos/Runner/Configs/AppInfo.xcconfig" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/echo/macos/Runner/Configs/Debug.xcconfig" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/echo/macos/Runner/Configs/Release.xcconfig" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/echo/macos/Runner/Configs/Warnings.xcconfig" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/echo/macos/Runner/DebugProfile.entitlements" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/echo/macos/Runner/Info.plist" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/echo/macos/Runner/MainFlutterWindow.swift" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/echo/macos/Runner/Release.entitlements" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/echo/macos/RunnerTests/RunnerTests.swift" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/echo/pubspec.lock" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/echo/pubspec.yaml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/echo/test/widget_test.dart" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/echo/web/favicon.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/echo/web/icons/Icon-192.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/echo/web/icons/Icon-512.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/echo/web/icons/Icon-maskable-192.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/echo/web/icons/Icon-maskable-512.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/echo/web/index.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/echo/web/manifest.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/echo/windows/.gitignore" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/echo/windows/CMakeLists.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/echo/windows/flutter/CMakeLists.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/echo/windows/flutter/generated_plugin_registrant.cc" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/echo/windows/flutter/generated_plugin_registrant.h" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/echo/windows/flutter/generated_plugins.cmake" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/echo/windows/runner/CMakeLists.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/echo/windows/runner/Runner.rc" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/echo/windows/runner/flutter_window.cpp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/echo/windows/runner/flutter_window.h" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/echo/windows/runner/main.cpp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/echo/windows/runner/resource.h" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/echo/windows/runner/resources/app_icon.ico" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/echo/windows/runner/runner.exe.manifest" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/echo/windows/runner/utils.cpp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/echo/windows/runner/utils.h" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/echo/windows/runner/win32_window.cpp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/echo/windows/runner/win32_window.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Dart_Packages.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Dart_SDK.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Flutter_Plugins.xml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/video-service-ITMO.iml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/echo/.dart_tool/build_resolvers/sdk.sum" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/echo/.dart_tool/build_resolvers/sdk.sum.deps" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/echo/.dart_tool/dartpad/web_plugin_registrant.dart" beforeDir="false" afterPath="$PROJECT_DIR$/echo/.dart_tool/dartpad/web_plugin_registrant.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/echo/.dart_tool/extension_discovery/devtools.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/echo/.dart_tool/flutter_build/ce5d3496ece67a42de24d6e5da113b98/.filecache" beforeDir="false" afterPath="$PROJECT_DIR$/echo/.dart_tool/flutter_build/ce5d3496ece67a42de24d6e5da113b98/.filecache" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/echo/.dart_tool/flutter_build/ce5d3496ece67a42de24d6e5da113b98/app.dill" beforeDir="false" afterPath="$PROJECT_DIR$/echo/.dart_tool/flutter_build/ce5d3496ece67a42de24d6e5da113b98/app.dill" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/echo/.dart_tool/flutter_build/ce5d3496ece67a42de24d6e5da113b98/debug_android_application.stamp" beforeDir="false" afterPath="$PROJECT_DIR$/echo/.dart_tool/flutter_build/ce5d3496ece67a42de24d6e5da113b98/debug_android_application.stamp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/echo/.dart_tool/flutter_build/ce5d3496ece67a42de24d6e5da113b98/flutter_assets.d" beforeDir="false" afterPath="$PROJECT_DIR$/echo/.dart_tool/flutter_build/ce5d3496ece67a42de24d6e5da113b98/flutter_assets.d" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/echo/.dart_tool/flutter_build/ce5d3496ece67a42de24d6e5da113b98/kernel_snapshot.d" beforeDir="false" afterPath="$PROJECT_DIR$/echo/.dart_tool/flutter_build/ce5d3496ece67a42de24d6e5da113b98/kernel_snapshot.d" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/echo/.dart_tool/flutter_build/ce5d3496ece67a42de24d6e5da113b98/kernel_snapshot.stamp" beforeDir="false" afterPath="$PROJECT_DIR$/echo/.dart_tool/flutter_build/ce5d3496ece67a42de24d6e5da113b98/kernel_snapshot.stamp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/echo/.dart_tool/flutter_build/ce5d3496ece67a42de24d6e5da113b98/native_assets.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/echo/.dart_tool/flutter_build/ce5d3496ece67a42de24d6e5da113b98/native_assets.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/echo/.dart_tool/flutter_build/ce5d3496ece67a42de24d6e5da113b98/outputs.json" beforeDir="false" afterPath="$PROJECT_DIR$/echo/.dart_tool/flutter_build/ce5d3496ece67a42de24d6e5da113b98/outputs.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/echo/.dart_tool/package_config.json" beforeDir="false" afterPath="$PROJECT_DIR$/echo/.dart_tool/package_config.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/echo/.dart_tool/package_config_subset" beforeDir="false" afterPath="$PROJECT_DIR$/echo/.dart_tool/package_config_subset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/echo/.flutter-plugins" beforeDir="false" afterPath="$PROJECT_DIR$/echo/.flutter-plugins" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/echo/.flutter-plugins-dependencies" beforeDir="false" afterPath="$PROJECT_DIR$/echo/.flutter-plugins-dependencies" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/echo/.idea/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/echo/.idea/echo.iml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/echo/.idea/libraries/Dart_SDK.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/echo/.idea/libraries/Flutter_Plugins.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/echo/.idea/libraries/KotlinJavaRuntime.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/echo/.idea/misc.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/echo/.idea/modules.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/echo/.idea/runConfigurations/main_dart.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/echo/.idea/vcs.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/echo/.idea/workspace.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/echo/android/.gradle/7.6.3/checksums/checksums.lock" beforeDir="false" afterPath="$PROJECT_DIR$/echo/android/.gradle/7.6.3/checksums/checksums.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/echo/android/.gradle/7.6.3/checksums/md5-checksums.bin" beforeDir="false" afterPath="$PROJECT_DIR$/echo/android/.gradle/7.6.3/checksums/md5-checksums.bin" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/echo/android/.gradle/7.6.3/checksums/sha1-checksums.bin" beforeDir="false" afterPath="$PROJECT_DIR$/echo/android/.gradle/7.6.3/checksums/sha1-checksums.bin" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/echo/android/.gradle/7.6.3/dependencies-accessors/dependencies-accessors.lock" beforeDir="false" afterPath="$PROJECT_DIR$/echo/android/.gradle/7.6.3/dependencies-accessors/dependencies-accessors.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/echo/android/.gradle/7.6.3/executionHistory/executionHistory.bin" beforeDir="false" afterPath="$PROJECT_DIR$/echo/android/.gradle/7.6.3/executionHistory/executionHistory.bin" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/echo/android/.gradle/7.6.3/executionHistory/executionHistory.lock" beforeDir="false" afterPath="$PROJECT_DIR$/echo/android/.gradle/7.6.3/executionHistory/executionHistory.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/echo/android/.gradle/7.6.3/fileHashes/fileHashes.bin" beforeDir="false" afterPath="$PROJECT_DIR$/echo/android/.gradle/7.6.3/fileHashes/fileHashes.bin" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/echo/android/.gradle/7.6.3/fileHashes/fileHashes.lock" beforeDir="false" afterPath="$PROJECT_DIR$/echo/android/.gradle/7.6.3/fileHashes/fileHashes.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/echo/android/.gradle/7.6.3/fileHashes/resourceHashesCache.bin" beforeDir="false" afterPath="$PROJECT_DIR$/echo/android/.gradle/7.6.3/fileHashes/resourceHashesCache.bin" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/echo/android/.gradle/buildOutputCleanup/buildOutputCleanup.lock" beforeDir="false" afterPath="$PROJECT_DIR$/echo/android/.gradle/buildOutputCleanup/buildOutputCleanup.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/echo/android/.gradle/buildOutputCleanup/cache.properties" beforeDir="false" afterPath="$PROJECT_DIR$/echo/android/.gradle/buildOutputCleanup/cache.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/echo/android/.gradle/buildOutputCleanup/outputFiles.bin" beforeDir="false" afterPath="$PROJECT_DIR$/echo/android/.gradle/buildOutputCleanup/outputFiles.bin" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/echo/android/.gradle/file-system.probe" beforeDir="false" afterPath="$PROJECT_DIR$/echo/android/.gradle/file-system.probe" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/echo/android/app/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/echo/android/app/build.gradle" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/echo/android/app/src/main/java/io/flutter/plugins/GeneratedPluginRegistrant.java" beforeDir="false" afterPath="$PROJECT_DIR$/echo/android/app/src/main/java/io/flutter/plugins/GeneratedPluginRegistrant.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/echo/android/gradlew" beforeDir="false" afterPath="$PROJECT_DIR$/echo/android/gradlew" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/echo/android/local.properties" beforeDir="false" afterPath="$PROJECT_DIR$/echo/android/local.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/echo/devtools_options.yaml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/echo/echo.iml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/echo/ios/Flutter/Generated.xcconfig" beforeDir="false" afterPath="$PROJECT_DIR$/echo/ios/Flutter/Generated.xcconfig" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/echo/ios/Flutter/flutter_export_environment.sh" beforeDir="false" afterPath="$PROJECT_DIR$/echo/ios/Flutter/flutter_export_environment.sh" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/echo/ios/Runner/GeneratedPluginRegistrant.h" beforeDir="false" afterPath="$PROJECT_DIR$/echo/ios/Runner/GeneratedPluginRegistrant.h" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/echo/ios/Runner/GeneratedPluginRegistrant.m" beforeDir="false" afterPath="$PROJECT_DIR$/echo/ios/Runner/GeneratedPluginRegistrant.m" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/echo/lib/features/home_page/home_page.dart" beforeDir="false" afterPath="$PROJECT_DIR$/echo/lib/features/home_page/home_page.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/echo/lib/features/login_page/login_page.dart" beforeDir="false" afterPath="$PROJECT_DIR$/echo/lib/features/login_page/login_page.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/echo/lib/dependencies/dependencies.dart" beforeDir="false" afterPath="$PROJECT_DIR$/echo/lib/dependencies/dependencies.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/echo/lib/dependencies/initialize_dependencies.dart" beforeDir="false" afterPath="$PROJECT_DIR$/echo/lib/dependencies/initialize_dependencies.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/echo/lib/features/home_page/video_tile.dart" beforeDir="false" afterPath="$PROJECT_DIR$/echo/lib/features/home_page/video_tile.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/echo/lib/features/main_page/main_page.dart" beforeDir="false" afterPath="$PROJECT_DIR$/echo/lib/features/main_page/main_page.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/echo/lib/features/personal_data/personal_data.dart" beforeDir="false" afterPath="$PROJECT_DIR$/echo/lib/features/personal_data/personal_data.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/echo/lib/features/register_page/register_page.dart" beforeDir="false" afterPath="$PROJECT_DIR$/echo/lib/features/register_page/register_page.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/echo/lib/features/video_page/video_page.dart" beforeDir="false" afterPath="$PROJECT_DIR$/echo/lib/features/video_page/video_page.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/echo/lib/main.dart" beforeDir="false" afterPath="$PROJECT_DIR$/echo/lib/main.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/echo/lib/models/video.dart" beforeDir="false" afterPath="$PROJECT_DIR$/echo/lib/models/video.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/echo/lib/services/auth_service.dart" beforeDir="false" afterPath="$PROJECT_DIR$/echo/lib/services/auth_service.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/echo/lib/services/const.dart" beforeDir="false" afterPath="$PROJECT_DIR$/echo/lib/services/const.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/echo/macos/Flutter/ephemeral/Flutter-Generated.xcconfig" beforeDir="false" afterPath="$PROJECT_DIR$/echo/macos/Flutter/ephemeral/Flutter-Generated.xcconfig" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/echo/macos/Flutter/ephemeral/flutter_export_environment.sh" beforeDir="false" afterPath="$PROJECT_DIR$/echo/macos/Flutter/ephemeral/flutter_export_environment.sh" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/echo/linux/flutter/generated_plugin_registrant.cc" beforeDir="false" afterPath="$PROJECT_DIR$/echo/linux/flutter/generated_plugin_registrant.cc" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/echo/linux/flutter/generated_plugin_registrant.h" beforeDir="false" afterPath="$PROJECT_DIR$/echo/linux/flutter/generated_plugin_registrant.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/echo/linux/flutter/generated_plugins.cmake" beforeDir="false" afterPath="$PROJECT_DIR$/echo/linux/flutter/generated_plugins.cmake" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/echo/macos/Flutter/GeneratedPluginRegistrant.swift" beforeDir="false" afterPath="$PROJECT_DIR$/echo/macos/Flutter/GeneratedPluginRegistrant.swift" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/echo/pubspec.lock" beforeDir="false" afterPath="$PROJECT_DIR$/echo/pubspec.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/echo/pubspec.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/echo/pubspec.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/echo/windows/flutter/generated_plugin_registrant.cc" beforeDir="false" afterPath="$PROJECT_DIR$/echo/windows/flutter/generated_plugin_registrant.cc" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/echo/windows/flutter/generated_plugin_registrant.h" beforeDir="false" afterPath="$PROJECT_DIR$/echo/windows/flutter/generated_plugin_registrant.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/echo/windows/flutter/generated_plugins.cmake" beforeDir="false" afterPath="$PROJECT_DIR$/echo/windows/flutter/generated_plugins.cmake" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -206,6 +36,13 @@
   </component>
   <component name="ClangdSettings">
     <option name="formatViaClangd" value="false" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Dart File" />
+      </list>
+    </option>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
@@ -219,6 +56,7 @@
     <option name="stateVersion" value="1" />
   </component>
   <component name="ProjectId" id="2mYouv9HeSgKyX8ab0A64YDdG2G" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
@@ -232,7 +70,7 @@
     &quot;cidr.known.project.marker&quot;: &quot;true&quot;,
     &quot;com.google.services.firebase.aqiPopupShown&quot;: &quot;true&quot;,
     &quot;dart.analysis.tool.window.visible&quot;: &quot;false&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;auth__front&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
     &quot;io.flutter.reload.alreadyRun&quot;: &quot;true&quot;,
     &quot;last_opened_file_path&quot;: &quot;C:/Users/Dmitriy/StudioProjects/video-service-ITMO&quot;,
     &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,
@@ -305,5 +143,16 @@
     <MESSAGE value="feat: creating a simple auth without testing" />
     <MESSAGE value="feat: tests? login and register works, trouble with check" />
     <option name="LAST_COMMIT_MESSAGE" value="feat: tests? login and register works, trouble with check" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="Dart">
+          <url>file://$PROJECT_DIR$/echo/lib/services/room_service.dart</url>
+          <line>25</line>
+          <option name="timeStamp" value="4" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>

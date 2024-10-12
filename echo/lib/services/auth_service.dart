@@ -3,9 +3,7 @@ import 'dart:io';
 import 'package:dio/dio.dart';
 import 'package:echo/services/auth_storage.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:echo/services/const.dart';
 import 'package:echo/services/snack_bar.dart';
-import 'package:echo/services/storage.dart';
 
 class AuthService {
   final Dio dio;

@@ -1,9 +1,8 @@
+import 'package:echo/features/join_page/join_page.dart';
 import 'package:echo/features/main_page/bottom_bar_item.dart';
 import 'package:flutter/material.dart';
 import 'package:echo/features/home_page/home_page.dart';
 import 'package:echo/features/profile_page/profile_page.dart';
-import 'package:flutter_svg/flutter_svg.dart';
-import 'package:ionicons/ionicons.dart';
 
 class MainPage extends StatefulWidget {
   const MainPage({Key? key}) : super(key: key);
@@ -54,8 +53,15 @@ class _MainPageState extends State<MainPage> {
             ),
             BottomNavigationBarItem(
               icon: BottomBarItem(
-                iconPath: 'assets/images/other_icon.svg',
+                iconPath: 'assets/images/tv_icon.svg',
                 isSelected: currentPageIndex == 1,
+              ),
+              label: 'Join',
+            ),
+            BottomNavigationBarItem(
+              icon: BottomBarItem(
+                iconPath: 'assets/images/other_icon.svg',
+                isSelected: currentPageIndex == 2,
               ),
               label: 'Profile',
             ),
@@ -66,6 +72,7 @@ class _MainPageState extends State<MainPage> {
         index: currentPageIndex,
         children: const [
           HomePage(),
+          JoinPage(),
           ProfilePage(),
         ],
       ),

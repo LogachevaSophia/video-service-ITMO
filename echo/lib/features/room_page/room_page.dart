@@ -1,8 +1,10 @@
 import 'package:chewie/chewie.dart';
+import 'package:echo/features/video_page/controls/echo_controls.dart';
+import 'package:echo/services/const.dart';
 import 'package:echo/services/snack_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:socket_io_client/socket_io_client.dart' as IO;
+import 'package:socket_io_client/socket_io_client.dart';
 import 'package:video_player/video_player.dart';
 
 import '../../models/video.dart';
@@ -21,7 +23,19 @@ class RoomPage extends StatefulWidget {
 class _RoomPageState extends State<RoomPage> {
   late VideoPlayerController _controller;
   ChewieController? _chewieController;
-  late IO.Socket socket;
+  late Socket socket;
+
+  Future<void> _onPlayPausePressed() async {
+    if (_controller.value.isPlaying) {
+      // Emit 'start' when the video is playing
+      socket.emit('video_action', {'roomId': widget.roomId, 'action': 'start'});
+    } else if (_controller.value.position == _controller.value.duration) {
+      // Do nothing when the video finishes
+    } else {
+      // Emit 'stop' when the video is paused
+      socket.emit('video_action', {'roomId': widget.roomId, 'action': 'stop'});
+    }
+  }
 
   @override
   void initState() {
@@ -36,6 +50,11 @@ class _RoomPageState extends State<RoomPage> {
         setState(() {
           _chewieController = ChewieController(
             videoPlayerController: _controller,
+            customControls: EchoControls(
+              backgroundColor: const Color.fromRGBO(41, 41, 41, 0.7),
+              iconColor: const Color.fromARGB(255, 200, 200, 200),
+              onPlayPressed: _onPlayPausePressed,
+            ),
             autoPlay: false,
             looping: false,
           );
@@ -43,7 +62,7 @@ class _RoomPageState extends State<RoomPage> {
       });
 
     // Initialize socket connection
-    socket = IO.io('http://localhost:3000', <String, dynamic>{
+    socket = io('http://${Const.ipurl}:${Const.port}', <String, dynamic>{
       'transports': ['websocket'],
       'autoConnect': false,
     });
@@ -85,15 +104,7 @@ class _RoomPageState extends State<RoomPage> {
   }
 
   void _videoListener() {
-    if (_controller.value.isPlaying) {
-      // Emit 'start' when the video is playing
-      socket.emit('video_action', {'roomId': widget.roomId, 'action': 'start'});
-    } else if (_controller.value.position == _controller.value.duration) {
-      // Do nothing when the video finishes
-    } else {
-      // Emit 'stop' when the video is paused
-      socket.emit('video_action', {'roomId': widget.roomId, 'action': 'stop'});
-    }
+    print(_controller.value.position);
   }
 
   @override

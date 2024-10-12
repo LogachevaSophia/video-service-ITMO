@@ -2,7 +2,7 @@ import 'package:chewie/chewie.dart';
 import 'package:echo/models/video.dart';
 import 'package:flutter/material.dart';
 import 'package:video_player/video_player.dart';
-import 'package:socket_io_client/socket_io_client.dart' as IO;
+import 'package:socket_io_client/socket_io_client.dart';
 
 /// {@template video_page}
 /// VideoPage widget
@@ -24,8 +24,7 @@ class VideoPage extends StatefulWidget {
 class _VideoPageState extends State<VideoPage> {
   late VideoPlayerController _controller;
   ChewieController? _chewieController;
-  late IO.Socket socket;
-
+  late Socket socket;
 
   @override
   void initState() {
@@ -44,10 +43,22 @@ class _VideoPageState extends State<VideoPage> {
           );
         });
       });
-    socket = IO.io('http://localhost:3000');
+    socket = io(
+      'http://89.169.175.33:5000',
+      OptionBuilder()
+          .setTransports(['websocket']) // for Flutter or Dart VM
+          .disableAutoConnect() // disable auto-connection
+          .build(),
+    );
+    socket.connect();
     socket.onConnect((_) {
       print('connect');
-      socket.emit('msg', 'test');
+      socket.emit('join_room', widget.video.id);
+      print('join_room ${widget.video.id}');
+    });
+    socket.onAny((String event, data) async {
+      print(event);
+      print(data);
     });
     socket.on('event', (data) => print(data));
     socket.onDisconnect((_) => print('disconnect'));
@@ -56,6 +67,7 @@ class _VideoPageState extends State<VideoPage> {
 
   @override
   void dispose() {
+    socket.disconnect();
     _controller.dispose();
     _chewieController?.dispose();
     super.dispose();

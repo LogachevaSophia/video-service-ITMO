@@ -61,7 +61,7 @@ class _MainPageState extends State<MainPage> {
             BottomNavigationBarItem(
               icon: BottomBarItem(
                 iconPath: 'assets/images/other_icon.svg',
-                isSelected: currentPageIndex == 1,
+                isSelected: currentPageIndex == 2,
               ),
               label: 'Profile',
             ),

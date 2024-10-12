@@ -12,6 +12,7 @@ import 'package:echo/features/video_page/video_page.dart';
 import 'package:echo/models/video.dart';
 import 'package:echo/services/auth_service.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 import 'features/main_page/main_page.dart';
 import 'features/register_page/register_page.dart';
@@ -49,6 +50,9 @@ class _MyAppState extends State<MyApp> {
   void initState() {
     super.initState();
     userFuture = checkToken();
+
+    // close keyboard when tap outside of text field
+    SystemChannels.textInput.invokeMethod('TextInput.hide');
   }
 
   @override
@@ -108,8 +112,12 @@ class _MyAppState extends State<MyApp> {
 
   Future<String?> checkToken() async {
     AuthService auth = widget.dependencies.authService;
-    String? token = await auth.check();
-
-    return token;
+    try {
+      final token = await auth.check().timeout(const Duration(seconds: 5));
+      return token;
+    } catch (e, stackTrace) {
+      log(e.toString(), stackTrace: stackTrace);
+      return null;
+    }
   }
 }

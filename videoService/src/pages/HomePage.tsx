@@ -1,71 +1,63 @@
-import { useEffect, useState } from "react"
-import { ListVideos } from "../components/ListVideos/ListVideos"
-import { getAllVideos, apiCreateRoom } from "../API/Controllers/VideoController"
-import { useNavigate } from "react-router-dom"
+import { ChangeEvent, FormEvent, useEffect, useState } from "react";
+import { ListVideos, VideoItem } from "../components/ListVideos/ListVideos";
+import { getAllVideos, apiCreateRoom } from "../API/Controllers/VideoController";
+import { useNavigate } from "react-router-dom";
+import { TextInput } from "@gravity-ui/uikit";
+import { useDebounce } from "@uidotdev/usehooks";
 
 export const HomePage = () => {
-    const [data, setData] = useState([])
+    const [data, setData] = useState<VideoItem[]>([]);
+    const [searchTerm, setSearchTerm] = useState("");
+    const [results, setResults] = useState<VideoItem[]>([]);
+    const debouncedSearchTerm = useDebounce(searchTerm, 100);
+    const navigate = useNavigate();
 
-    const createRoomAs = async (videoId: number, videoLink:string) => {
-        try{
-            const response = await apiCreateRoom({videoId, videoLink});
-            navigate(`/video/${response?.data.roomId}`)
+    const createRoomAs = async (videoId: number, videoLink: string) => {
+        try {
+            const response = await apiCreateRoom({ videoId, videoLink });
+            navigate(`/video/${response?.data.roomId}`);
+        } catch (err) {
+            console.log(err);
         }
-        catch(err){
-            console.log(err)
-        }
-    }
+    };
 
     useEffect(() => {
         const getVideo = async () => {
             try {
                 const response = await getAllVideos();
                 if (response && response.data) {
-                    setData(response.data); 
+                    setData(response.data);
+                    setResults(response.data);
                 } else {
-                    setData([]); 
+                    setData([]);
                 }
             } catch (error) {
                 console.error('Error fetching videos:', error);
                 setData([]);
             }
-        }
+        };
         getVideo();
-    }, [])
-    // const data: VideoItem[] = [
-    //     {
-    //         id: "dfjdn;kvj",
-    //         title: "Финансирование",
-    //         description: "Описание блока финанисорвание",
-    //         author: "такой-то чел",
-    //         avatarSrc: "https://loremflickr.com/640/480/cats?lock=8610182282084352",
-    //         preview: "https://i.pinimg.com/736x/48/02/6b/48026b5e2493e6bd175f1f27615b9bc3.jpg"
-    //     },
-    //     {
-    //         id: "dfjdn;kvjdfvd",
-    //         title: "Финансирование2",
-    //         description: "Описание блока финанисорвание eltj gnljglwetg;q kjn;",
-    //         author: "такой-то чел",
-    //         preview: "https://i.pinimg.com/736x/48/02/6b/48026b5e2493e6bd175f1f27615b9bc3.jpg"
-    //     },
-    //     {
-    //         id: "dfjdn;kvjdfvdwef",
-    //         title: "Финансирование3",
-    //         description: "Описание блока финанисорвание",
-    //         author: "такой-то чел",
-    //         avatarSrc: "https://loremflickr.com/640/480/cats?lock=8610182282084352"
-    //     },
-    //     {
-    //         id: "dfjddfvjdfvd",
-    //         title: "Финансирование4",
-    //         description: "Описание блока финанисорвание",
-    //         author: "такой-то чел",
-    //     }
-    // ]
-    const navigate = useNavigate();
+    }, []);
+
+    useEffect(() => {
+        if (debouncedSearchTerm) {
+            const filteredData = data.filter((el: VideoItem) => 
+                el.Name.toLowerCase().includes(debouncedSearchTerm.toLowerCase())
+            );
+            setResults(filteredData);
+        } else {
+            setResults(data); // Если пустой запрос, показываем все данные
+        }
+    }, [debouncedSearchTerm, data]); // Теперь зависим от debouncedSearchTerm и data
+
+    const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
+        setSearchTerm(e.target.value);
+    };
+
     return (
         <>
-            <ListVideos data={data} actionCreate={(id, link) => createRoomAs(Number(id), link)}/>
+            <TextInput placeholder="🔍 Find film " size="xl" onChange={handleChange} />
+            <ListVideos data={results} actionCreate={(id, link) => createRoomAs(Number(id), link)} />
         </>
-    )
-}
+    );
+};

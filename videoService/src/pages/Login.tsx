@@ -5,9 +5,11 @@ import { Button, Card, Tabs } from "@gravity-ui/uikit";
 import { FormProvider, useForm } from "react-hook-form";
 import styles from './Login.module.css'
 import { AuthLogin, AuthRegister, UserInterface } from "../API/Controllers/AuthController";
+import { useNavigate } from "react-router-dom";
 
 export const Login = () => {
     const [login, setValue] = useState<string>("register");
+    const navigate = useNavigate();
     const handleSelect = (data: string) => {
         console.log(data)
         setValue(data)
@@ -23,6 +25,8 @@ export const Login = () => {
             const res = await AuthLogin(data);
             console.log(res)
             localStorage.setItem("token", res?.data.token)
+            
+            navigate('/');
         }
     }
 

@@ -11,7 +11,7 @@ import 'package:echo/services/video_service.dart';
 Future<Dependencies> initializeDependencies() async {
   final Dio dio = Dio(
     BaseOptions(
-      baseUrl: 'http://${Const.ipurl}:${Const.port}',
+      baseUrl: baseUrl,
     ),
   );
   final SecureStorage secureStorage = SecureStorage();

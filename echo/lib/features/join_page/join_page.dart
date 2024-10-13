@@ -78,7 +78,7 @@ class _JoinPageState extends State<JoinPage> {
                       );
                     }
                   },
-                  child: Text('Присоединится'))
+                  child: Text('Присоединиться'))
             ],
           ),
         ),

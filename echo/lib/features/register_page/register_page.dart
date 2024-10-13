@@ -215,7 +215,7 @@ class _RegisterPageState extends State<RegisterPage> {
                               return 'Пожалуйста подтвердите пароль';
                             } else if (value ==
                                 passwordTextInputController.value) {
-                              return 'Введенные вами пароли не одинаковые';
+                              return 'Введенные вами пароли не совпадают';
                             }
                             return null;
                           },

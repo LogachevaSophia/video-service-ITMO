@@ -113,7 +113,7 @@ class _RoomPageState extends State<RoomPage> {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text('Room number ${widget.roomId}'),
+        title: Text('Комната номер ${widget.roomId}'),
       ),
       body: SafeArea(
         child: Scaffold(

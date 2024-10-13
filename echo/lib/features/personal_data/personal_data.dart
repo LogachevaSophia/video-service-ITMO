@@ -73,7 +73,7 @@ class _PersonalDataState extends State<PersonalData> {
                       },
                     ),
                     Text(
-                      'Персональная Информация',
+                      'Персональная информация',
                       style: StyleLibrary.text.white20,
                     ),
                   ],

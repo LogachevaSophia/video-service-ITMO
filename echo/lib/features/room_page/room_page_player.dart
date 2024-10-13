@@ -161,7 +161,7 @@ class _RoomPagePlayerState extends State<RoomPagePlayer> {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text('Room number ${widget.roomId}'),
+        title: Text('Комната номер ${widget.roomId}'),
       ),
       body: SafeArea(
         child: Scaffold(

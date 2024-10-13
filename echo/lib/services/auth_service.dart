@@ -43,6 +43,10 @@ class AuthService {
           context, "Нет подключения к интернету", true);
       return null;
     } catch (e) {
+      SnackBarService.showSnackBar(
+          context,
+          'Ошибка авторизации. Проверьте правильность введенного логина и пароля',
+          true);
       print("Error: $e");
       return null;
     }

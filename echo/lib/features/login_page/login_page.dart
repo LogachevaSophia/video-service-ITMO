@@ -56,7 +56,10 @@ class _LoginPageState extends State<LoginPage> {
         context);
     if (token != null) {
       authStateManager.setAuthenticated();
-      GoRouter.of(context).go('/home');
+      GoRouterState routerState = GoRouterState.of(context);
+      String redirect = routerState.uri.queryParameters['redirect'] ?? '/home';
+
+      GoRouter.of(context).go(redirect);
     }
   }
 
@@ -175,7 +178,14 @@ class _LoginPageState extends State<LoginPage> {
                         Text('Нет аккаунта?'),
                         TextButton(
                           onPressed: () {
-                            GoRouter.of(context).go('/register');
+                            GoRouterState routerState =
+                                GoRouterState.of(context);
+                            String redirect =
+                                routerState.uri.queryParameters['redirect'] ??
+                                    '/home';
+
+                            GoRouter.of(context)
+                                .go('/register?redirect=$redirect');
                           },
                           child: Text(
                             'Зарегистрируйтесь',

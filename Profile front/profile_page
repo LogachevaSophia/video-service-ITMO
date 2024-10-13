@@ -1,0 +1,96 @@
+import 'package:flutter/material.dart';
+
+void main() => runApp(MyApp());
+
+class MyApp extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      title: 'Profile Page',
+      home: ProfilePage(),
+    );
+  }
+}
+
+class ProfilePage extends StatelessWidget {
+  Widget _buildMenuItem(IconData icon, String text) {
+    return ListTile(
+      leading: Icon(icon),
+      title: Text(text),
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        backgroundColor: Colors.transparent,
+        elevation: 0,
+      ),
+      body: Container(
+        height: double.infinity,
+        width: double.infinity,
+        padding: const EdgeInsets.symmetric(horizontal: 20.0),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Column(
+              children: [
+                SizedBox(height: 50),
+                CircleAvatar(
+                  radius: 50,
+                  backgroundImage: NetworkImage(
+                      'https://storage.googleapis.com/a1aa/image/GS7m6B7WU5owLhYCUHWbRieiehzwjHweEakvwM7AitBeesycC.jpg'),
+                ),
+                SizedBox(height: 10),
+                Text(
+                  'Name Surname',
+                  style: TextStyle(
+                    fontSize: 18,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                SizedBox(height: 30),
+                _buildMenuItem(Icons.person, 'Профиль'),
+                _buildMenuItem(Icons.people, 'Друзья'),
+                _buildMenuItem(Icons.favorite, 'Избранное'),
+                _buildMenuItem(Icons.book, 'История'),
+                _buildMenuItem(Icons.settings, 'Настройки'),
+              ],
+            ),
+            Column(
+              children: [
+                Text(
+                  'Выйти из учетной записи',
+                  style: TextStyle(
+                    color: Colors.red,
+                    fontSize: 16,
+                  ),
+                  ),
+                  ],
+                  ),
+              ],
+            ),
+            bottomNavigationBar: BottomNavigationBar(
+        items: [
+          BottomNavigationBarItem(
+            icon: Icon(Icons.home),
+            label: '',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.add),
+            label: '',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.calendar_today),
+            label: '',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.grid_view),
+            label: '',
+          ),
+          ],
+          ),
+        ),
+        );
+      }}

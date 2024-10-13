@@ -1,6 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:echo/dependencies/inherited_dependencies.dart';
 import 'package:echo/services/auth_service.dart';
+import 'package:echo/services/auth_state_manager.dart';
 import 'package:echo/services/room_service.dart';
 import 'package:echo/services/storage.dart';
 import 'package:echo/services/video_service.dart';
@@ -12,7 +13,8 @@ class Dependencies {
     required this.authService,
     required this.secureStorage,
     required this.videoService,
-    required this.roomService
+    required this.roomService,
+    required this.authStateManager,
   });
 
   final Dio dio;
@@ -20,6 +22,7 @@ class Dependencies {
   final SecureStorage secureStorage;
   final VideoService videoService;
   final RoomService roomService;
+  final AuthStateManager authStateManager;
 
   static Dependencies of(BuildContext context) {
     return InheritedDependencies.of(context);

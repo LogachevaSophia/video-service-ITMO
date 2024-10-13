@@ -2,9 +2,9 @@ import 'package:echo/dependencies/dependencies.dart';
 import 'package:flutter/material.dart';
 import 'package:echo/features/main_page/main_page.dart';
 import 'package:echo/services/auth_service.dart';
-import 'package:echo/services/storage.dart';
 import 'package:echo/style/style_library.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:go_router/go_router.dart';
 import 'package:ionicons/ionicons.dart';
 
 class RegisterPage extends StatefulWidget {
@@ -66,8 +66,7 @@ class _RegisterPageState extends State<RegisterPage> {
       return;
     }
 
-    Navigator.pushNamedAndRemoveUntil(
-        context, MainPage.routeName, (Route<dynamic> route) => false);
+    GoRouter.of(context).go('/home');
   }
 
   @override
@@ -81,7 +80,7 @@ class _RegisterPageState extends State<RegisterPage> {
           leading: IconButton(
             icon: Icon(Icons.arrow_back, color: Colors.black),
             onPressed: () {
-              Navigator.pop(context);
+              GoRouter.of(context).go('/login');
             },
           ),
         ),

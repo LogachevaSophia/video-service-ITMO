@@ -1,11 +1,10 @@
 import 'package:echo/dependencies/dependencies.dart';
 import 'package:echo/features/home_page/fade_transition_widget.dart';
-import 'package:echo/features/room_page/room_page.dart';
-import 'package:echo/features/room_page/room_page_interface.dart';
 import 'package:echo/models/video.dart';
 import 'package:echo/services/snack_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:go_router/go_router.dart';
 
 class VideoTile extends StatefulWidget {
   const VideoTile({
@@ -119,11 +118,13 @@ class _VideoTileState extends State<VideoTile> {
                               SnackBarService.showSnackBar(
                                   context, "Ошибка создания комнаты", true);
                             } else {
-                              Navigator.pushNamed(
-                                context,
-                                RoomPage.routeName,
-                                arguments: RoomPageInterface(
-                                    roomId: roomId, video: widget.video),
+                              // serialize data to query params
+
+                              GoRouter.of(context).go(
+                                Uri(
+                                  path: '/room/$roomId',
+                                ).toString(),
+                                extra: widget.video,
                               );
                             }
                             break;

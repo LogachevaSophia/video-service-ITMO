@@ -1,72 +1,94 @@
-import 'package:chewie/chewie.dart';
-import 'package:echo/models/video.dart';
-import 'package:echo/services/const.dart';
+import 'package:collection/collection.dart';
+import 'package:echo/dependencies/dependencies.dart';
+import 'package:echo/features/room_page/room_page_player.dart';
+import 'package:echo/features/video_page/video_page_player.dart';
+import 'package:echo/models/state.dart';
 import 'package:flutter/material.dart';
-import 'package:video_player/video_player.dart';
-import 'package:socket_io_client/socket_io_client.dart';
 
-/// {@template video_page}
-/// VideoPage widget
-/// {@endtemplate}
+import '../../models/video.dart';
+
 class VideoPage extends StatefulWidget {
-  final Video video;
+  const VideoPage({super.key, required this.videoId, required this.video});
 
-  /// {@macro video_page}
-  VideoPage({
-    super.key,
-    required this.video,
-  });
-  static const routeName = '/video';
+  final int videoId;
+  final Video? video;
+  static const routeName = '/roomPage';
 
   @override
   State<VideoPage> createState() => _VideoPageState();
 }
 
 class _VideoPageState extends State<VideoPage> {
-  late VideoPlayerController _controller;
-  ChewieController? _chewieController;
+  AppState<Video?> video = const AppState<Video?>(
+    data: null,
+    status: AppStateStatus.initial,
+  );
 
   @override
   void initState() {
     super.initState();
-    _controller = VideoPlayerController.networkUrl(
-      Uri.parse(widget.video.link.isNotEmpty
-          ? widget.video.link
-          : 'https://flutter.github.io/assets-for-api-docs/assets/videos/bee.mp4'),
-    )..initialize().then((_) {
-        // Ensure the first frame is shown after the video is initialized, even before the play button has been pressed.
-        setState(() {
-          _chewieController = ChewieController(
-            videoPlayerController: _controller,
-            autoPlay: false,
-            looping: false,
-          );
-        });
-      });
+    video = AppState(data: widget.video, status: AppStateStatus.initial);
+
+    if (video.data == null) {
+      fetchVideo();
+    }
   }
 
-  @override
-  void dispose() {
-    _controller.dispose();
-    _chewieController?.dispose();
-    super.dispose();
+  Future<void> fetchVideo() async {
+    setState(() {
+      this.video =
+          AppState(data: this.video.data, status: AppStateStatus.loading);
+    });
+
+    final videoService = Dependencies.of(context).videoService;
+    final videos = await videoService.fetchVideos();
+
+    final video =
+        videos.firstWhereOrNull((element) => element.id == widget.videoId);
+
+    setState(() {
+      this.video = AppState(
+        data: video,
+        status: AppStateStatus.loaded,
+      );
+    });
+    setState(() {
+      this.video =
+          AppState(data: this.video.data, status: AppStateStatus.initial);
+    });
   }
 
   @override
   Widget build(BuildContext context) {
-    final chewieController = _chewieController;
+    final currentVideo = video.data;
 
-    return Scaffold(
-      body: SafeArea(
-        child: Scaffold(
-          appBar: AppBar(
-            title: Text(widget.video.name ?? 'Без названия'),
-          ),
-          body: chewieController != null
-              ? Chewie(controller: chewieController)
-              : const SizedBox(),
+    if (currentVideo == null && video.status == AppStateStatus.loading) {
+      return const Scaffold(
+        body: Center(
+          child: CircularProgressIndicator(),
         ),
-      ),
+      );
+    }
+
+    if (currentVideo == null) {
+      return Scaffold(
+        body: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              const Text('Произошла ошибка'),
+              TextButton(
+                onPressed: fetchVideo,
+                child: const Text('Повторить'),
+              ),
+            ],
+          ),
+        ),
+      );
+    }
+
+    return VideoPagePlayer(
+      video: currentVideo,
     );
   }
-} // VideoPage
+}

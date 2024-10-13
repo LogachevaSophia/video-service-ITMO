@@ -1,6 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:echo/dependencies/dependencies.dart';
 import 'package:echo/services/auth_service.dart';
+import 'package:echo/services/auth_state_manager.dart';
 import 'package:echo/services/auth_storage.dart';
 import 'package:echo/services/const.dart';
 import 'package:echo/services/room_service.dart';
@@ -21,17 +22,23 @@ Future<Dependencies> initializeDependencies() async {
   dio.interceptors.add(tokenInterceptor);
 
   return Dependencies(
+    dio: dio,
+    authService: AuthService(
       dio: dio,
-      authService: AuthService(
-        dio: dio,
-        authStorage: AuthStorage(
-          secureStorage: secureStorage,
-          tokenInterceptor: tokenInterceptor,
-        ),
+      authStorage: AuthStorage(
+        secureStorage: secureStorage,
+        tokenInterceptor: tokenInterceptor,
       ),
-      videoService: VideoService(
-        dio: dio,
+    ),
+    videoService: VideoService(
+      dio: dio,
+    ),
+    secureStorage: secureStorage,
+    roomService: RoomService(dio: dio),
+    authStateManager: AuthStateManager(
+      AuthState(
+        isAuthenticated: false,
       ),
-      secureStorage: secureStorage,
-      roomService: RoomService(dio: dio));
+    ),
+  );
 }

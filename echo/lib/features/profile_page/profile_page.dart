@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:echo/features/login_page/login_page.dart';
 import 'package:echo/features/personal_data/personal_data.dart';
 import 'package:echo/style/style_library.dart';
+import 'package:go_router/go_router.dart';
 
 import '../../services/storage.dart';
 
@@ -39,10 +40,7 @@ class _ProfilePageState extends State<ProfilePage> {
                       padding: const EdgeInsets.all(5),
                     ),
                     onPressed: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (context) => PersonalData()),
-                      );
+                      GoRouter.of(context).go('/profile/data');
                     },
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -74,8 +72,7 @@ class _ProfilePageState extends State<ProfilePage> {
                     ),
                     onPressed: () {
                       Dependencies.of(context).authService.logout();
-                      Navigator.pushNamedAndRemoveUntil(context,
-                          LoginPage.routeName, (Route<dynamic> route) => false);
+                      GoRouter.of(context).go('/login');
                     },
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,

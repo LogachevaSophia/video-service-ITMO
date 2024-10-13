@@ -4,6 +4,7 @@ import 'package:echo/features/room_page/room_page_interface.dart';
 import 'package:echo/models/video.dart';
 import 'package:echo/services/snack_bar.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
 class JoinPage extends StatefulWidget {
   const JoinPage({super.key});
@@ -70,11 +71,11 @@ class _JoinPageState extends State<JoinPage> {
                     final roomId = roomIdController.text.trim();
                     final video = await getVideoFromRoom(roomId);
                     if (video != null) {
-                      Navigator.pushNamed(
-                        context,
-                        RoomPage.routeName,
-                        arguments:
-                            RoomPageInterface(roomId: roomId, video: video),
+                      GoRouter.of(context).go(
+                        Uri(
+                          path: '/room/$roomId',
+                        ).toString(),
+                        extra: video,
                       );
                     }
                   },

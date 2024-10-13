@@ -1,9 +1,10 @@
 import 'package:echo/dependencies/dependencies.dart';
 import 'package:echo/features/home_page/video_tile.dart';
-import 'package:echo/features/video_page/video_page.dart';
+import 'package:echo/features/video_page/video_page_player.dart';
 import 'package:echo/models/state.dart';
 import 'package:echo/models/video.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -82,14 +83,14 @@ class _HomePageState extends State<HomePage> {
                     itemBuilder: (context, index) {
                       final video = videosState.data[index];
                       return VideoTile(
-                          video: video,
-                          onTap: () {
-                            Navigator.pushNamed(
-                              context,
-                              VideoPage.routeName,
-                              arguments: video,
-                            );
-                          });
+                        video: video,
+                        onTap: () {
+                          final uri = Uri(
+                            path: '/home/video/${video.id}',
+                          );
+                          GoRouter.of(context).go(uri.toString());
+                        },
+                      );
                     },
                     separatorBuilder: (context, index) {
                       return const SizedBox(height: 10);

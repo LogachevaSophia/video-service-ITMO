@@ -1,4 +1,5 @@
 import 'package:echo/dependencies/dependencies.dart';
+import 'package:echo/services/auth_state_manager.dart';
 import 'package:flutter/material.dart';
 import 'package:echo/features/main_page/main_page.dart';
 import 'package:echo/features/register_page/register_page.dart';
@@ -6,6 +7,7 @@ import 'package:echo/services/auth_service.dart';
 import 'package:echo/services/storage.dart';
 import 'package:echo/style/style_library.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:go_router/go_router.dart';
 import 'package:ionicons/ionicons.dart';
 
 class LoginPage extends StatefulWidget {
@@ -46,13 +48,15 @@ class _LoginPageState extends State<LoginPage> {
     final isValid = formKey.currentState!.validate();
     if (!isValid) return;
     AuthService authService = Dependencies.of(context).authService;
+    AuthStateManager authStateManager =
+        Dependencies.of(context).authStateManager;
     String? token = await authService.login(
         emailTextInputController.text.trim(),
         passwordTextInputController.text.trim(),
         context);
     if (token != null) {
-      Navigator.pushNamedAndRemoveUntil(
-          context, MainPage.routeName, (Route<dynamic> route) => false);
+      authStateManager.setAuthenticated();
+      GoRouter.of(context).go('/home');
     }
   }
 
@@ -171,8 +175,7 @@ class _LoginPageState extends State<LoginPage> {
                         Text('Нет аккаунта?'),
                         TextButton(
                           onPressed: () {
-                            Navigator.pushNamed(
-                                context, RegisterPage.routeName);
+                            GoRouter.of(context).go('/register');
                           },
                           child: Text(
                             'Зарегистрируйтесь',

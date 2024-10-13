@@ -1,27 +1,52 @@
-import 'package:echo/features/join_page/join_page.dart';
 import 'package:echo/features/main_page/bottom_bar_item.dart';
 import 'package:flutter/material.dart';
-import 'package:echo/features/home_page/home_page.dart';
-import 'package:echo/features/profile_page/profile_page.dart';
+import 'package:go_router/go_router.dart';
 
 class MainPage extends StatefulWidget {
-  const MainPage({Key? key}) : super(key: key);
+  const MainPage(this.child, {Key? key}) : super(key: key);
   static const routeName = '/mainPage';
+  final Widget child;
 
   @override
   State<MainPage> createState() => _MainPageState();
 }
 
 class _MainPageState extends State<MainPage> {
-  int currentPageIndex = 0;
-
   @override
   void initState() {
     super.initState();
   }
 
+  int getCurrentPageIndex() {
+    final route = GoRouterState.of(context).uri.path;
+
+    switch (route) {
+      case '/home':
+        return 0;
+      case '/room':
+        return 1;
+      case '/profile':
+        return 2;
+      default:
+        return 0;
+    }
+  }
+
+  void _onItemTapped(int index, BuildContext context) {
+    switch (index) {
+      case 0:
+        GoRouter.of(context).go('/home');
+      case 1:
+        GoRouter.of(context).go('/room');
+      case 2:
+        GoRouter.of(context).go('/profile');
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
+    final currentPageIndex = getCurrentPageIndex();
+
     return Scaffold(
       bottomNavigationBar: Container(
         clipBehavior: Clip.hardEdge,
@@ -37,11 +62,7 @@ class _MainPageState extends State<MainPage> {
           backgroundColor: const Color(0xFF2A4E75),
           showSelectedLabels: false,
           showUnselectedLabels: false,
-          onTap: (index) {
-            setState(() {
-              currentPageIndex = index;
-            });
-          },
+          onTap: (index) => _onItemTapped(index, context),
           currentIndex: currentPageIndex,
           items: [
             BottomNavigationBarItem(
@@ -68,14 +89,7 @@ class _MainPageState extends State<MainPage> {
           ],
         ),
       ),
-      body: IndexedStack(
-        index: currentPageIndex,
-        children: const [
-          HomePage(),
-          JoinPage(),
-          ProfilePage(),
-        ],
-      ),
+      body: widget.child,
     );
   }
 }

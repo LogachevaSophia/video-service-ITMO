@@ -12,6 +12,7 @@ import 'package:chewie/src/helpers/utils.dart';
 import 'package:chewie/src/models/option_item.dart';
 import 'package:chewie/src/models/subtitle_model.dart';
 import 'package:chewie/src/notifiers/index.dart';
+import 'package:echo/features/video_page/controls/echo_cupertino_video_progress_bar.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -24,12 +25,14 @@ class EchoControls extends StatefulWidget {
     this.showPlayButton = true,
     this.onPlayPressed,
     super.key,
+    required this.onSeek,
   });
 
   final Color backgroundColor;
   final Color iconColor;
   final bool showPlayButton;
   final VoidCallback? onPlayPressed;
+  final ValueChanged<Duration> onSeek;
 
   @override
   State<StatefulWidget> createState() {
@@ -678,7 +681,7 @@ class _EchoControlsState extends State<EchoControls>
     return Expanded(
       child: Padding(
         padding: const EdgeInsets.only(right: 12.0),
-        child: CupertinoVideoProgressBar(
+        child: EchoCupertinoVideoProgressBar(
           controller,
           onDragStart: () {
             setState(() {
@@ -697,6 +700,7 @@ class _EchoControlsState extends State<EchoControls>
 
             _startHideTimer();
           },
+          onSeek: widget.onSeek,
           colors: chewieController.cupertinoProgressColors ??
               ChewieProgressColors(
                 playedColor: const Color.fromARGB(

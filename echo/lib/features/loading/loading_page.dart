@@ -49,21 +49,21 @@ class _LoadingPageState extends State<LoadingPage> {
     GoRouter router = GoRouter.of(context);
     GoRouterState routerState = GoRouterState.of(context);
 
+    String redirect = routerState.uri.queryParameters['redirect'] ?? '/home';
+
     try {
       final token = await auth.check().timeout(const Duration(seconds: 5));
       if (token != null) {
         authStateManager.setAuthenticated();
-        String redirect =
-            routerState.uri.queryParameters['redirect'] ?? '/home';
 
         router.go(redirect);
       } else {
         authStateManager.setUnauthenticated();
-        router.go('/login');
+        router.go('/login?redirect=$redirect');
       }
     } catch (e, stackTrace) {
       log(e.toString(), stackTrace: stackTrace);
-      router.go('/login');
+      router.go('/login?redirect=$redirect');
     }
   }
 

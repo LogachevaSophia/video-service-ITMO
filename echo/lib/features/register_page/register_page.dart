@@ -66,7 +66,10 @@ class _RegisterPageState extends State<RegisterPage> {
       return;
     }
 
-    GoRouter.of(context).go('/home');
+    GoRouterState routerState = GoRouterState.of(context);
+    String redirect = routerState.uri.queryParameters['redirect'] ?? '/home';
+
+    GoRouter.of(context).go(redirect);
   }
 
   @override

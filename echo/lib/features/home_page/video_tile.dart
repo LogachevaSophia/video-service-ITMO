@@ -24,7 +24,7 @@ class _VideoTileState extends State<VideoTile> {
   Future<String> createRoom() async {
     final roomService = Dependencies.of(context).roomService;
     final roomId =
-        await roomService.createRoom(widget.video.id, widget.video.link);
+    await roomService.createRoom(widget.video.id, widget.video.link);
     return roomId;
   }
 
@@ -48,11 +48,12 @@ class _VideoTileState extends State<VideoTile> {
         child: Container(
           color: const Color(0xFFF2F2F7),
           child: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch, // Ensure proper stretching
             children: [
               if (widget.video.preview != null)
                 LayoutBuilder(builder: (context, constraints) {
                   return Container(
-                    height: constraints.maxWidth * 9 / 16,
+                    height: constraints.maxWidth * 9 / 20,
                     width: constraints.maxWidth,
                     color: Colors.black,
                     child: Image.network(
@@ -66,7 +67,6 @@ class _VideoTileState extends State<VideoTile> {
                             child: child,
                           );
                         }
-
                         return Container(
                           color: Colors.black,
                         );
@@ -80,37 +80,42 @@ class _VideoTileState extends State<VideoTile> {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Row(
-                      children: [
-                        Container(
-                          height: 32,
-                          width: 32,
-                          margin: const EdgeInsets.only(right: 8),
-                          decoration: BoxDecoration(
-                            color: const Color(0xFF3697F1),
-                            borderRadius: BorderRadius.circular(50),
-                          ),
-                          child: Center(
-                            child: SvgPicture.asset(
-                              'assets/images/avatar_icon.svg',
-                              width: 16,
-                              height: 16,
+                    Expanded( // Wrap in Expanded to avoid overflow
+                      child: Row(
+                        children: [
+                          Container(
+                            height: 32,
+                            width: 32,
+                            margin: const EdgeInsets.only(right: 8),
+                            decoration: BoxDecoration(
+                              color: const Color(0xFF3697F1),
+                              borderRadius: BorderRadius.circular(50),
+                            ),
+                            child: Center(
+                              child: SvgPicture.asset(
+                                'assets/images/avatar_icon.svg',
+                                width: 16,
+                                height: 16,
+                              ),
                             ),
                           ),
-                        ),
-                        Text(
-                          widget.video.name ?? 'Без названия',
-                          style: const TextStyle(
-                            fontWeight: FontWeight.w600,
-                            fontSize: 15,
+                          Flexible( // Ensure text wraps properly
+                            child: Text(
+                              widget.video.name ?? 'Без названия',
+                              style: const TextStyle(
+                                fontWeight: FontWeight.w600,
+                                fontSize: 15,
+                              ),
+                              overflow: TextOverflow.ellipsis,
+                            ),
                           ),
-                        ),
-                      ],
+                        ],
+                      ),
                     ),
                     PopupMenuButton<int>(
-                      icon: const Icon(Icons.more_vert), // Три точки
+                      icon: const Icon(Icons.more_vert), // Three dots icon
                       onSelected: (id) async {
-                        // Действие по выбранному id
+                        // Action based on selected id
                         switch (id) {
                           case 1:
                             final roomId = await createRoom();
@@ -118,8 +123,6 @@ class _VideoTileState extends State<VideoTile> {
                               SnackBarService.showSnackBar(
                                   context, "Ошибка создания комнаты", true);
                             } else {
-                              // serialize data to query params
-
                               GoRouter.of(context).go(
                                 Uri(
                                   path: '/room/$roomId',
@@ -137,30 +140,31 @@ class _VideoTileState extends State<VideoTile> {
                         }
                       },
                       itemBuilder: (BuildContext context) =>
-                          <PopupMenuEntry<int>>[
+                      <PopupMenuEntry<int>>[
                         const PopupMenuItem<int>(
-                          value: 1, // ID для "Создать комнату"
+                          value: 1, // ID for "Create Room"
                           child: ListTile(
                             leading: Icon(Icons.add),
                             title: Text('Создать комнату'),
                           ),
                         ),
+                        // Uncomment and add more menu items as needed
                         // const PopupMenuItem<int>(
-                        //   value: 2, // ID для "Добавить в избранное"
+                        //   value: 2, // ID for "Add to Favorites"
                         //   child: ListTile(
                         //     leading: Icon(Icons.favorite),
                         //     title: Text('Добавить в избранное'),
                         //   ),
                         // ),
                         // const PopupMenuItem<int>(
-                        //   value: 3, // ID для "Добавить в плейлист"
+                        //   value: 3, // ID for "Add to Playlist"
                         //   child: ListTile(
                         //     leading: Icon(Icons.playlist_add),
                         //     title: Text('Добавить в плейлист'),
                         //   ),
                         // ),
                         // const PopupMenuItem<int>(
-                        //   value: 4, // ID для "Поделиться"
+                        //   value: 4, // ID for "Share"
                         //   child: ListTile(
                         //     leading: Icon(Icons.share),
                         //     title: Text('Поделиться'),

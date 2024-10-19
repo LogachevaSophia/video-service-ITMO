@@ -23,5 +23,5 @@ jobs:
           password: ${{ secrets.GITHUB_TOKEN }}
       - name: Push image to GitHub Container Registry
         run: | 
-          docker tag echo-web ghcr.io/{{ github.actor }}/echo-web:latest 
-          docker push ghcr.io/{{ github.actor }}/echo-web:latest
+          docker tag echo-web ghcr.io/${{ github.actor }}/echo-web:latest 
+          docker push ghcr.io/${{ github.actor }}/echo-web:latest

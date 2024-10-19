@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - master
+      - feature/flutter-web-ci
   workflow_dispatch:
     
 jobs:

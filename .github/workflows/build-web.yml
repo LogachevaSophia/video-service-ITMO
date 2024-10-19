@@ -2,13 +2,17 @@ name: build web
 run-name: build web
 on:
   push:
-    branches:
-      - master
+    branches: ['master', 'feature/flutter-web-ci']
+    paths:
+      - 'echo/**'
   workflow_dispatch:
     
 jobs:
   build:
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -23,5 +27,6 @@ jobs:
           password: ${{ secrets.GITHUB_TOKEN }}
       - name: Push image to GitHub Container Registry
         run: | 
-          docker tag echo-web ghcr.io/${{ github.repository_owner }}/echo-web:latest 
-          docker push ghcr.io/${{ github.repository_owner }}/echo-web:latest
+          IMAGE_PATH=$(echo 'print("${{ github.repository }}".lower())' | python3 -)
+          docker tag echo-web ghcr.io/$IMAGE_PATH/echo-web:latest 
+          docker push ghcr.io/$IMAGE_PATH/echo-web:latest

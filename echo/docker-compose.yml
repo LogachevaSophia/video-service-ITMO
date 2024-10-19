@@ -1,0 +1,5 @@
+services:
+  echo-web:
+    image: ghcr.io/logachevasophia/video-service-itmo/echo-web:latest
+    ports:
+      - "127.0.0.1:8080:80"

@@ -1,0 +1,26 @@
+name: build web
+run-name: build web
+on:
+  push:
+    branches:
+      - master
+  workflow_dispatch:
+    
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Build docker image
+        run: docker build -t echo-web .
+      - name: Log in to GitHub Container Registry
+        uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+      - name: Push image to GitHub Container Registry
+        run: | 
+          docker tag echo-web ghcr.io/{{ github.actor }}/echo-web:latest 
+          docker push ghcr.io/{{ github.actor }}/echo-web:latest

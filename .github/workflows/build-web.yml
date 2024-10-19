@@ -24,6 +24,6 @@ jobs:
           password: ${{ secrets.GITHUB_TOKEN }}
       - name: Push image to GitHub Container Registry
         run: | 
-          OWNER=$(echo 'print("${{ github.repository_owner }}".lower())' | python3 -)
-          docker tag echo-web ghcr.io/$OWNER/${{ github.repository }}/echo-web:latest 
-          docker push ghcr.io/$OWNER/${{ github.repository }}/echo-web:latest
+          IMAGE_PATH=$(echo 'print("${{ github.repository }}".lower())' | python3 -)
+          docker tag echo-web ghcr.io/$IMAGE_PATH/echo-web:latest 
+          docker push ghcr.io/$IMAGE_PATH/echo-web:latest

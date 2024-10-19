@@ -2,9 +2,9 @@ name: build web
 run-name: build web
 on:
   push:
-    branches:
-      - master
-      - feature/flutter-web-ci
+    branches: ['master', 'feature/flutter-web-ci']
+    paths:
+      - 'echo/**'
   workflow_dispatch:
     
 jobs:

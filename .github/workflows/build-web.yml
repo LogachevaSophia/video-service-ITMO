@@ -25,5 +25,5 @@ jobs:
       - name: Push image to GitHub Container Registry
         run: | 
           OWNER=$(echo 'print("${{ github.repository_owner }}".lower())' | python3 -)
-          docker tag echo-web ghcr.io/$OWNER/echo-web:latest 
-          docker push ghcr.io/$OWNER/echo-web:latest
+          docker tag echo-web ghcr.io/$OWNER/${{ github.repository }}/echo-web:latest 
+          docker push ghcr.io/$OWNER/${{ github.repository }}/echo-web:latest

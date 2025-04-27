@@ -1,7 +1,7 @@
 const db = require('../db/connection');
 const logger = require('../logger/logger');
 const path = require('path');
-const { s3, createPresignedUrlWithClient } = require('../storage/s3');
+const { s3, createPresignedUrlWithClient, getBucketSize } = require('../storage/s3');
 const { PutObjectCommand } = require('@aws-sdk/client-s3');
 
 exports.upload = async (req, res) => {
@@ -80,6 +80,20 @@ exports.uploadV2 = async (req, res) => {
         const file = req.file;
         const extension = path.extname(file.originalname) || '.mp4'; // fallback to .mp4 if no extension
         const s3Key = `${process.env.S3_KEY_PREFIX}/${videoId}${extension}`;
+        const fileSize = file.size;
+
+        logger.info(`Uploading video: ${file.originalname}, size: ${fileSize} bytes`);
+
+        // Check that storage is not full
+        const bucketSize = await getBucketSize(process.env.AWS_S3_BUCKET);
+
+        const maxSize = process.env.S3_MAX_SIZE_GB * 1024 * 1024 * 1024; // Convert GB to bytes
+
+        if (bucketSize + fileSize >= maxSize) {
+            return res.status(400).json({ message: 'Storage is full' });
+        } else {
+            logger.info(`Storage size: ${bucketSize} bytes`);
+        }
 
         const uploadParams = {
             Bucket: process.env.AWS_S3_BUCKET,

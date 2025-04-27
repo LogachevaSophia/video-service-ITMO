@@ -1,4 +1,7 @@
 #!/bin/sh
+
+set -e
+
 # Run migrations
 npm run migrate
 

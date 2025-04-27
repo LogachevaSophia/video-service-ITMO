@@ -6,7 +6,6 @@ import 'package:chewie/src/animated_play_pause.dart';
 import 'package:chewie/src/center_play_button.dart';
 import 'package:chewie/src/chewie_player.dart';
 import 'package:chewie/src/chewie_progress_colors.dart';
-import 'package:chewie/src/cupertino/cupertino_progress_bar.dart';
 import 'package:chewie/src/cupertino/widgets/cupertino_options_dialog.dart';
 import 'package:chewie/src/helpers/utils.dart';
 import 'package:chewie/src/models/option_item.dart';

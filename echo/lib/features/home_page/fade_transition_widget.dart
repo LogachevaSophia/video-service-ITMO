@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:meta/meta.dart';
 
 /// {@template fade_transition_widget}
 /// FadeTransitionWidget widget

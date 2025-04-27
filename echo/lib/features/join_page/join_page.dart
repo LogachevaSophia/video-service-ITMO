@@ -1,6 +1,4 @@
 import 'package:echo/dependencies/dependencies.dart';
-import 'package:echo/features/room_page/room_page.dart';
-import 'package:echo/features/room_page/room_page_interface.dart';
 import 'package:echo/models/video.dart';
 import 'package:echo/services/snack_bar.dart';
 import 'package:flutter/material.dart';
@@ -79,7 +77,7 @@ class _JoinPageState extends State<JoinPage> {
                       );
                     }
                   },
-                  child: Text('Присоединиться'))
+                  child: const Text('Присоединиться'))
             ],
           ),
         ),

@@ -13,9 +13,7 @@ import 'package:echo/features/profile_page/profile_page.dart';
 import 'package:echo/features/register_page/register_page.dart';
 import 'package:echo/features/room_page/room_page.dart';
 import 'package:echo/features/video_page/video_page.dart';
-import 'package:echo/features/video_page/video_page_player.dart';
 import 'package:echo/models/video.dart';
-import 'package:echo/services/auth_service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
@@ -34,6 +32,8 @@ final _router = GoRouter(
         if (!Dependencies.of(context).authStateManager.value.isAuthenticated) {
           return '/loading?redirect=${state.uri.path}';
         }
+
+        return null;
       },
       routes: [
         GoRoute(

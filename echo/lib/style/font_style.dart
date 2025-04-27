@@ -38,7 +38,7 @@ class FontStyle {
     fontSize: 14,
     color: Colors.white,
   );
-  TextStyle dark_orange14 = const TextStyle(
+  TextStyle darkOrange14 = const TextStyle(
     fontFamily: 'Source Sans Pro',
     fontSize: 14,
     color: Color(0xFF2a5411),

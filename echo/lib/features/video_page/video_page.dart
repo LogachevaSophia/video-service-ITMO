@@ -1,6 +1,5 @@
 import 'package:collection/collection.dart';
 import 'package:echo/dependencies/dependencies.dart';
-import 'package:echo/features/room_page/room_page_player.dart';
 import 'package:echo/features/video_page/video_page_player.dart';
 import 'package:echo/models/state.dart';
 import 'package:flutter/material.dart';

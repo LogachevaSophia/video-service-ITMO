@@ -1,7 +1,14 @@
 const express = require('express');
-const { upload, delete: deletevideo, getAllItems } = require('../controllers/VideoController');
+const { upload, delete: deletevideo, getAllItems, uploadV2 } = require('../controllers/VideoController');
 const router = express.Router();
 const { authenticateToken } = require('../middleWare/authMiddleware')
+const multer = require('multer');
+
+const uploadOptions = multer({
+    storage: multer.memoryStorage(), // Store file in memory
+    limits: { fileSize: 1024 * 1024 * 1024 }, // 1GB limit
+});
+
 /**
  * @swagger
  * /video/upload:
@@ -166,5 +173,45 @@ router.delete('/delete', authenticateToken, deletevideo);
 
 
 router.get('/getAll', authenticateToken, getAllItems)
+
+/**
+ * @swagger
+ * /video/v2/upload:
+ *   post:
+ *     tags: [Video]
+ *     summary: Uploads a video file and starts processing
+ *     security:
+ *       - bearerAuth: []
+ *     consumes:
+ *       - multipart/form-data
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         multipart/form-data:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               video:
+ *                 type: string
+ *                 format: binary
+ *                 description: Video file to upload
+ *     responses:
+ *       200:
+ *         description: Upload successful, processing started
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *                   example: Upload successful, processing started
+ *                 videoId:
+ *                   type: string
+ *                   example: "a7b6c8de-8c41-4b23-91f7-18d20b8a8bfb"
+ *       400:
+ *         description: Bad request (e.g., no file uploaded)
+ */
+router.post('/v2/upload', authenticateToken, uploadOptions.single('video'), uploadV2)
 
 module.exports = router;

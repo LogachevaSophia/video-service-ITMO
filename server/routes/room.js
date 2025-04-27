@@ -12,13 +12,6 @@ const { authenticateToken } = require('../middleWare/authMiddleware')
 *     summary: Create new room
 *     security:
 *       - bearerAuth: []
-*     parameters:
-*       - in: header
-*         name: Authorization
-*         schema:
-*           type: string
-*         required: true
-*         description: Bearer token for authentication
 *     requestBody:
 *       required: true
 *       content:
@@ -76,13 +69,6 @@ router.post('/create', authenticateToken, createRoom);
 *     summary: Get video by room Id
 *     security:
 *       - bearerAuth: []
-*     parameters:
-*       - in: header
-*         name: Authorization
-*         schema:
-*           type: string
-*         required: true
-*         description: Bearer token for authentication
 *     requestBody:
 *       required: true
 *       content:

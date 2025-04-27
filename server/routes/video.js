@@ -1,7 +1,7 @@
 const express = require('express');
 const { upload, delete: deletevideo, getAllItems } = require('../controllers/VideoController');
 const router = express.Router();
-const {authenticateToken} = require('../middleWare/authMiddleware')
+const { authenticateToken } = require('../middleWare/authMiddleware')
 /**
  * @swagger
  * /video/upload:
@@ -10,13 +10,6 @@ const {authenticateToken} = require('../middleWare/authMiddleware')
  *     summary: Upload a new video
  *     security:
  *       - bearerAuth: []
- *     parameters:
- *       - in: header
- *         name: Authorization
- *         schema:
- *           type: string
- *         required: true
- *         description: Bearer token for authentication
  *     requestBody:
  *       required: true
  *       content:
@@ -71,13 +64,6 @@ router.post('/upload', authenticateToken, upload);
  *     summary: Delete a video
  *     security:
  *       - bearerAuth: []
- *     parameters:
- *       - in: header
- *         name: Authorization
- *         schema:
- *           type: string
- *         required: true
- *         description: Bearer token for authentication
  *     requestBody:
  *       required: true
  *       content:
@@ -124,13 +110,6 @@ router.delete('/delete', authenticateToken, deletevideo);
  *     summary: Get all videos
  *     security:
  *       - bearerAuth: []
- *     parameters:
- *       - in: header
- *         name: Authorization
- *         schema:
- *           type: string
- *         required: true
- *         description: Bearer token for authentication
  *     responses:
  *       200:
  *         description: A list of all videos
@@ -186,6 +165,6 @@ router.delete('/delete', authenticateToken, deletevideo);
  */
 
 
-router.get('/getAll',authenticateToken, getAllItems)
+router.get('/getAll', authenticateToken, getAllItems)
 
 module.exports = router;

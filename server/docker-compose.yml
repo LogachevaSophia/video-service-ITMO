@@ -4,6 +4,7 @@ services:
       context: .
       dockerfile: Dockerfile
     container_name: server
+    restart: always
     ports:
       - "127.0.0.1:5000:5000"
     networks:
@@ -13,6 +14,7 @@ services:
   db:
     image: mysql:9.3
     container_name: db
+    restart: always
     environment:
       MYSQL_ROOT_PASSWORD: ${DB_PASSWORD}
       MYSQL_DATABASE: ${DB_NAME}

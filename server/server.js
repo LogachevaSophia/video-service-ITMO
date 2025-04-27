@@ -21,9 +21,9 @@ const swaggerJsDoc = require('swagger-jsdoc');
 // const rooms = {}; // объект для хранения комнат и связанных с ними видео
 // // Export the rooms object
 // module.exports.rooms = rooms;
-const rooms = require('./rooms'); 
+const rooms = require('./rooms');
 const socketIO = require('socket.io');
-const { setupSocket } = require('./sockets/socket'); 
+const { setupSocket } = require('./sockets/socket');
 
 const app = express();
 const PORT = process.env.PORT || 5000;
@@ -55,7 +55,19 @@ const swaggerOptions = {
             {
                 url: `http://89.169.175.33:${PORT}`,
             },
+            {
+                url: `http://127.0.0.1:${PORT}`,
+            },
         ],
+        components: {
+            securitySchemes: {
+                bearerAuth: {
+                    type: 'http',
+                    scheme: 'Bearer',
+                    bearerFormat: 'JWT', // Optional: say it's a JWT if you're using JWTs
+                },
+            },
+        },
     },
     apis: ['./routes/*.js'], // Укажите путь к файлам с описаниями API
 };

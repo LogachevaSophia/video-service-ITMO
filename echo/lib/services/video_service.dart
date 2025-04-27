@@ -17,4 +17,20 @@ class VideoService {
       return [];
     }
   }
+
+  Future<int> uploadVideo(MultipartFile file) async {
+    try {
+      final formData = FormData.fromMap(
+        {
+          'video': file,
+        },
+      );
+
+      final response = await dio.post('/video/v2/upload', data: formData);
+      return response.data['videoId'];
+    } catch (e) {
+      print("Error: $e");
+      rethrow;
+    }
+  }
 }

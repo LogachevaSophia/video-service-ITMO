@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:ionicons/ionicons.dart';
 import 'package:jwt_decoder/jwt_decoder.dart';
 
-import '../../services/storage.dart';
 import '../../style/style_library.dart';
 
 class PersonalData extends StatefulWidget {
@@ -44,7 +43,6 @@ class _PersonalDataState extends State<PersonalData> {
 
   @override
   void didChangeDependencies() {
-    // TODO: implement didChangeDependencies
     super.didChangeDependencies();
   }
 
@@ -95,7 +93,7 @@ class _PersonalDataState extends State<PersonalData> {
                       children: [
                         Container(
                           alignment: Alignment.center,
-                          margin: EdgeInsets.all(10),
+                          margin: const EdgeInsets.all(10),
                           child: Row(
                             children: [
                               Text(

@@ -1,6 +1,5 @@
 import 'package:echo/dependencies/dependencies.dart';
 import 'package:flutter/material.dart';
-import 'package:echo/features/main_page/main_page.dart';
 import 'package:echo/services/auth_service.dart';
 import 'package:echo/style/style_library.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -75,13 +74,13 @@ class _RegisterPageState extends State<RegisterPage> {
   @override
   Widget build(BuildContext context) {
     final screenHeight = MediaQuery.of(context).size.height;
-    final screenWidth = MediaQuery.of(context).size.width;
+    // final screenWidth = MediaQuery.of(context).size.width;
     return Scaffold(
         appBar: AppBar(
           backgroundColor: Colors.transparent,
           elevation: 0,
           leading: IconButton(
-            icon: Icon(Icons.arrow_back, color: Colors.black),
+            icon: const Icon(Icons.arrow_back, color: Colors.black),
             onPressed: () {
               GoRouter.of(context).go('/login');
             },
@@ -89,7 +88,7 @@ class _RegisterPageState extends State<RegisterPage> {
         ),
         body: SingleChildScrollView(
           child: Padding(
-            padding: EdgeInsets.all(16.0),
+            padding: const EdgeInsets.all(16.0),
             child: Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
@@ -98,7 +97,7 @@ class _RegisterPageState extends State<RegisterPage> {
                     'assets/images/Logo.svg',
                     height: screenHeight * 0.1,
                   ),
-                  SizedBox(height: 30),
+                  const SizedBox(height: 30),
                   Form(
                     key: formKey,
                     child: Column(
@@ -118,7 +117,7 @@ class _RegisterPageState extends State<RegisterPage> {
                             border: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(12),
                             ),
-                            contentPadding: EdgeInsets.symmetric(
+                            contentPadding: const EdgeInsets.symmetric(
                                 vertical: 15, horizontal: 10),
                           ),
                           keyboardType: TextInputType.emailAddress,
@@ -149,7 +148,7 @@ class _RegisterPageState extends State<RegisterPage> {
                             border: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(12),
                             ),
-                            contentPadding: EdgeInsets.symmetric(
+                            contentPadding: const EdgeInsets.symmetric(
                                 vertical: 15, horizontal: 10),
                           ),
                           keyboardType: TextInputType.text,
@@ -185,7 +184,7 @@ class _RegisterPageState extends State<RegisterPage> {
                                 icon: Icon(_obscureTextP
                                     ? Ionicons.eye_sharp
                                     : Ionicons.eye_off_sharp)),
-                            contentPadding: EdgeInsets.symmetric(
+                            contentPadding: const EdgeInsets.symmetric(
                                 vertical: 15, horizontal: 10),
                           ),
                           controller: passwordTextInputController,
@@ -216,33 +215,33 @@ class _RegisterPageState extends State<RegisterPage> {
                             if (value == null) {
                               return 'Пожалуйста подтвердите пароль';
                             } else if (value ==
-                                passwordTextInputController.value) {
+                                passwordTextInputController.text) {
                               return 'Введенные вами пароли не совпадают';
                             }
                             return null;
                           },
                         ),
-                        SizedBox(height: 30),
+                        const SizedBox(height: 30),
                         SizedBox(
                           width: double.infinity,
                           child: ElevatedButton(
                             onPressed: register,
                             style: ElevatedButton.styleFrom(
                               backgroundColor: Colors.blue,
-                              padding: EdgeInsets.symmetric(vertical: 15),
+                              padding: const EdgeInsets.symmetric(vertical: 15),
                               shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(12),
                               ),
                             ),
-                            child: Text(
+                            child: const Text(
                               'Регистрация',
                               style: TextStyle(color: Colors.black),
                             ),
                           ),
                         ),
-                        SizedBox(height: 20),
+                        const SizedBox(height: 20),
                         Padding(
-                          padding: EdgeInsets.symmetric(horizontal: 20),
+                          padding: const EdgeInsets.symmetric(horizontal: 20),
                           child: Text(
                             'Нажимая зарегистрироваться вы соглашаетесь с условиями и политикой конфиденциальности',
                             textAlign: TextAlign.center,

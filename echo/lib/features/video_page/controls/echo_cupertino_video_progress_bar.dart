@@ -1,5 +1,4 @@
 import 'package:chewie/src/chewie_progress_colors.dart';
-import 'package:chewie/src/progress_bar.dart';
 import 'package:echo/features/video_page/controls/echo_video_progress_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';

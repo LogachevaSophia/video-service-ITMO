@@ -1,11 +1,7 @@
 import 'package:echo/dependencies/dependencies.dart';
 import 'package:flutter/material.dart';
-import 'package:echo/features/login_page/login_page.dart';
-import 'package:echo/features/personal_data/personal_data.dart';
 import 'package:echo/style/style_library.dart';
 import 'package:go_router/go_router.dart';
-
-import '../../services/storage.dart';
 
 class ProfilePage extends StatefulWidget {
   const ProfilePage({super.key});

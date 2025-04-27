@@ -1,10 +1,7 @@
 import 'package:echo/dependencies/dependencies.dart';
 import 'package:echo/services/auth_state_manager.dart';
 import 'package:flutter/material.dart';
-import 'package:echo/features/main_page/main_page.dart';
-import 'package:echo/features/register_page/register_page.dart';
 import 'package:echo/services/auth_service.dart';
-import 'package:echo/services/storage.dart';
 import 'package:echo/style/style_library.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
@@ -66,11 +63,11 @@ class _LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
     final screenHeight = MediaQuery.of(context).size.height;
-    final screenWidth = MediaQuery.of(context).size.width;
+    // final screenWidth = MediaQuery.of(context).size.width;
     return Scaffold(
       body: SingleChildScrollView(
         child: Padding(
-          padding: EdgeInsets.all(16.0),
+          padding: const EdgeInsets.all(16.0),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
@@ -79,7 +76,7 @@ class _LoginPageState extends State<LoginPage> {
                 'assets/images/Logo.svg',
                 height: screenHeight * 0.1,
               ),
-              SizedBox(height: 40),
+              const SizedBox(height: 40),
               Form(
                 key: formKey,
                 child: Column(
@@ -122,7 +119,7 @@ class _LoginPageState extends State<LoginPage> {
                         return null;
                       },
                     ),
-                    SizedBox(height: 20),
+                    const SizedBox(height: 20),
                     Container(
                       alignment: Alignment.centerLeft,
                       margin: const EdgeInsets.only(top: 35),
@@ -152,8 +149,8 @@ class _LoginPageState extends State<LoginPage> {
                         border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(12),
                         ),
-                        contentPadding:
-                            EdgeInsets.symmetric(vertical: 15, horizontal: 10),
+                        contentPadding: const EdgeInsets.symmetric(
+                            vertical: 15, horizontal: 10),
                       ),
                       validator: (value) => value != null && value.length < 5
                           ? 'Минимум 6 символов'
@@ -162,7 +159,7 @@ class _LoginPageState extends State<LoginPage> {
                     ),
                     TextButton(
                       style: ButtonStyle(
-                          padding: MaterialStateProperty.all<EdgeInsets>(
+                          padding: WidgetStateProperty.all<EdgeInsets>(
                               EdgeInsets.zero)),
                       onPressed: () {},
                       child: Text(
@@ -175,7 +172,7 @@ class _LoginPageState extends State<LoginPage> {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Text('Нет аккаунта?'),
+                        const Text('Нет аккаунта?'),
                         TextButton(
                           onPressed: () {
                             GoRouterState routerState =
@@ -187,7 +184,7 @@ class _LoginPageState extends State<LoginPage> {
                             GoRouter.of(context)
                                 .go('/register?redirect=$redirect');
                           },
-                          child: Text(
+                          child: const Text(
                             'Зарегистрируйтесь',
                             style: TextStyle(fontWeight: FontWeight.bold),
                           ),
@@ -200,12 +197,12 @@ class _LoginPageState extends State<LoginPage> {
                         onPressed: login,
                         style: ElevatedButton.styleFrom(
                           backgroundColor: Colors.blue,
-                          padding: EdgeInsets.symmetric(vertical: 15),
+                          padding: const EdgeInsets.symmetric(vertical: 15),
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(12),
                           ),
                         ),
-                        child: Text(
+                        child: const Text(
                           'Войти',
                           style: TextStyle(color: Colors.black),
                         ),

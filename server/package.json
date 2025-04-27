@@ -23,7 +23,7 @@
   "scripts": {
     "start": "node server.js",
     "server": "nodemon server.js",
-    "migrate": "db-migrate up -e default",
-    "migrate:local": "db-migrate up -e local"
+    "migrate": "npx db-migrate up -e default",
+    "migrate:local": "npx db-migrate up -e local"
   }
 }

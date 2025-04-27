@@ -53,7 +53,7 @@ const swaggerOptions = {
         },
         servers: [
             {
-                url: `http://89.169.175.33:${PORT}`,
+                url: `https://echo.spb.ru/api`,
             },
             {
                 url: `http://127.0.0.1:${PORT}`,

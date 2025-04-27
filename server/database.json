@@ -12,7 +12,26 @@
             "ENV": "DB_PASSWORD"
         },
         "host": {
-            "ENV": "DB_MIGRATION_HOST"
+            "ENV": "DB_HOST"
+        },
+        "port": {
+            "ENV": "DB_PORT"
+        }
+    },
+    "local": {
+        "driver": "mysql",
+        "database": {
+            "ENV": "DB_NAME"
+        },
+        "multipleStatements": true,
+        "user": {
+            "ENV": "DB_USER"
+        },
+        "password": {
+            "ENV": "DB_PASSWORD"
+        },
+        "host": {
+            "ENV": "DB_LOCAL_HOST"
         },
         "port": {
             "ENV": "DB_PORT"

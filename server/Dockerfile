@@ -4,4 +4,5 @@ COPY package.json package-lock.json /app/
 # Install dependencies
 RUN npm install
 COPY . /app
-CMD ["npm", "start"]
+RUN chmod +x /app/entrypoint.sh
+ENTRYPOINT ["/app/entrypoint.sh"]

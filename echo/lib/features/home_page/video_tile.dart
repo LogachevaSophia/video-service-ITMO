@@ -24,7 +24,7 @@ class _VideoTileState extends State<VideoTile> {
   Future<String> createRoom() async {
     final roomService = Dependencies.of(context).roomService;
     final roomId =
-    await roomService.createRoom(widget.video.id, widget.video.link);
+        await roomService.createRoom(widget.video.id, widget.video.link);
     return roomId;
   }
 
@@ -32,7 +32,8 @@ class _VideoTileState extends State<VideoTile> {
     return LayoutBuilder(
       builder: (context, constraints) {
         return Container(
-          height: constraints.maxWidth * 9 / 16,
+          height: constraints.maxWidth * 9 / 20,
+          width: constraints.maxWidth,
           color: Colors.black,
         );
       },
@@ -48,7 +49,8 @@ class _VideoTileState extends State<VideoTile> {
         child: Container(
           color: const Color(0xFFF2F2F7),
           child: Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch, // Ensure proper stretching
+            crossAxisAlignment:
+                CrossAxisAlignment.stretch, // Ensure proper stretching
             children: [
               if (widget.video.preview != null)
                 LayoutBuilder(builder: (context, constraints) {
@@ -80,7 +82,8 @@ class _VideoTileState extends State<VideoTile> {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Expanded( // Wrap in Expanded to avoid overflow
+                    Expanded(
+                      // Wrap in Expanded to avoid overflow
                       child: Row(
                         children: [
                           Container(
@@ -99,7 +102,8 @@ class _VideoTileState extends State<VideoTile> {
                               ),
                             ),
                           ),
-                          Flexible( // Ensure text wraps properly
+                          Flexible(
+                            // Ensure text wraps properly
                             child: Text(
                               widget.video.name ?? 'Без названия',
                               style: const TextStyle(
@@ -140,7 +144,7 @@ class _VideoTileState extends State<VideoTile> {
                         }
                       },
                       itemBuilder: (BuildContext context) =>
-                      <PopupMenuEntry<int>>[
+                          <PopupMenuEntry<int>>[
                         const PopupMenuItem<int>(
                           value: 1, // ID for "Create Room"
                           child: ListTile(

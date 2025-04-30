@@ -144,7 +144,7 @@ class _RegisterPageState extends State<RegisterPage> {
                         ),
                         TextFormField(
                           decoration: InputDecoration(
-                            hintText: 'Jinx321',
+                            hintText: 'Введите ваше имя или никнейм',
                             border: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(12),
                             ),
@@ -156,10 +156,11 @@ class _RegisterPageState extends State<RegisterPage> {
                           validator: (value) {
                             if (value == null) {
                               return 'Пожалуйста введите имя';
-                            } else if (!RegExp(r'^[a-zA-Zа-яА-ЯёЁ\s-]{2,30}$')
-                                .hasMatch(value)) {
-                              return 'Пожалуйста введите корректное имя';
                             }
+                            // else if (!RegExp(r'^[a-zA-Zа-яА-ЯёЁ\s-]{2,30}$')
+                            //     .hasMatch(value)) {
+                            //   return 'Пожалуйста введите корректное имя';
+                            // }
                             return null;
                           },
                         ),
@@ -214,7 +215,7 @@ class _RegisterPageState extends State<RegisterPage> {
                           validator: (value) {
                             if (value == null) {
                               return 'Пожалуйста подтвердите пароль';
-                            } else if (value ==
+                            } else if (value !=
                                 passwordTextInputController.text) {
                               return 'Введенные вами пароли не совпадают';
                             }

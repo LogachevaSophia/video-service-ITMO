@@ -3,6 +3,8 @@ const logger = require('../logger/logger');
 const path = require('path');
 const { s3, createPresignedUrlWithClient, getBucketSize } = require('../storage/s3');
 const { PutObjectCommand } = require('@aws-sdk/client-s3');
+const { videoService } = require('../services/videoService');
+const videoQueue = require('../queues/videoQueue');
 
 exports.upload = async (req, res) => {
     const { Link, Name, Preview } = req.body;
@@ -23,7 +25,7 @@ exports.delete = async (req, res) => {
     const userId = req.user.id;
     logger.info('Attemting to delete video by id');
     try {
-        const result = await db.query('delete from  video where Id = ?', [Id])
+        await videoService.deleteVideo({ id: Id });
         res.status(201).json({ message: "Video deleted" })
     }
     catch (e) {
@@ -35,29 +37,7 @@ exports.delete = async (req, res) => {
 exports.getAllItems = async (req, res) => {
     logger.info('Attemting to get all videos');
     try {
-        const result = await db.query('Select Id, video.Name, Link, Preview, PersonId, user.Name as UserName, Email from video left join user on user.PersonId=video.Author');
-        console.log(result);
-        logger.info('successfully load all videos');
-        const videos = await Promise.all(result[0].map(async (video) => {
-            const { Link, ...rest } = video;
-
-            const s3KeyPrefix = process.env.S3_KEY_PREFIX;
-            let url = Link
-
-            if (Link.startsWith(s3KeyPrefix)) {
-                const presignedUrl = await createPresignedUrlWithClient({
-                    bucket: process.env.AWS_S3_BUCKET,
-                    key: Link,
-                });
-                url = presignedUrl;
-            }
-
-            return {
-                ...rest,
-                Link: url,
-            }
-        }))
-
+        const videos = await videoService.getAllVideos();
         res.status(200).json({ data: videos })
     }
     catch (er) {
@@ -75,11 +55,11 @@ exports.uploadV2 = async (req, res) => {
 
         const userId = req.user.id;
 
-        const videoId = Date.now();
+        const videoKey = new Date();
 
         const file = req.file;
         const extension = path.extname(file.originalname) || '.mp4'; // fallback to .mp4 if no extension
-        const s3Key = `${process.env.S3_KEY_PREFIX}/${videoId}${extension}`;
+        const s3Key = `${process.env.S3_KEY_PREFIX}/${videoKey}${extension}`;
         const fileSize = file.size;
 
         logger.info(`Uploading video: ${file.originalname}, size: ${fileSize} bytes`);
@@ -107,20 +87,26 @@ exports.uploadV2 = async (req, res) => {
         logger.info(`Video uploaded to S3: ${s3Key}`);
 
         // Save video metadata to the database
-        const [video] = await db.query('INSERT INTO video (Name, Link, Cost, Author) VALUES (?, ?, ?, ?)', [
-            file.originalname,
-            s3Key,
-            100, // Assuming a default cost
-            userId, // Assuming the user ID is available in req.user
-        ]);
+        const videoId = await videoService.addVideo({
+            name: file.originalname,
+            link: s3Key,
+            preview: req.body.preview || null,
+            cost: 100,
+            authorId: userId,
+        });
 
-        logger.info(`Video metadata saved to database: ${video.insertId}`);
+        logger.info(`Video metadata saved to database: ${videoId}`);
 
         // Here you would enqueue the video for background processing
 
+
+        await videoQueue.add('process-video', {
+            videoId,
+        });
+
         return res.status(200).json({
             message: 'Upload successful',
-            videoId: video.insertId,
+            videoId: videoId,
         });
     } catch (error) {
         console.error('Error uploading video:', error);

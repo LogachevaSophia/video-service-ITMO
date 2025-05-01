@@ -11,6 +11,16 @@ services:
       - mysql_network
     depends_on:
       - db
+  worker:
+    build:
+      context: .
+      dockerfile: Dockerfile.worker
+    container_name: worker
+    restart: always
+    networks:
+      - mysql_network
+    depends_on:
+      - db
   db:
     image: mysql:9.3
     container_name: db
@@ -26,9 +36,20 @@ services:
       - mysql_data:/var/lib/mysql
     networks:
       - mysql_network
+  redis:
+    image: redis:7
+    container_name: redis
+    ports:
+      - "127.0.0.1:6379:6379"
+    networks:
+      - mysql_network
+    restart: always
+    volumes:
+      - redis-data:/data
 
 volumes:
   mysql_data:
+  redis-data:
 
 networks:
   mysql_network:

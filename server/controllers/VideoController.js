@@ -5,6 +5,8 @@ const { s3, createPresignedUrlWithClient, getBucketSize } = require('../storage/
 const { PutObjectCommand } = require('@aws-sdk/client-s3');
 const { videoService } = require('../services/videoService');
 const videoQueue = require('../queues/videoQueue');
+// uuid
+const { v4: uuidv4 } = require('uuid');
 
 exports.upload = async (req, res) => {
     const { Link, Name, Preview } = req.body;
@@ -55,7 +57,7 @@ exports.uploadV2 = async (req, res) => {
 
         const userId = req.user.id;
 
-        const videoKey = new Date();
+        const videoKey = uuidv4(); // Generate a unique key for the video
 
         const file = req.file;
         const extension = path.extname(file.originalname) || '.mp4'; // fallback to .mp4 if no extension

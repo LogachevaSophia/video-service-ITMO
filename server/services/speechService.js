@@ -32,7 +32,7 @@ function getFileExtension(uri) {
 class SpeechService {
     constructor() { }
 
-    async getTextFromVideo({ videoUrl }) {
+    async getTextFromVideo({ videoUrl, videoId }) {
         const session = new Session({
             serviceAccountJson: {
                 serviceAccountId: process.env.SERVICE_ACCOUNT_ID,
@@ -43,7 +43,7 @@ class SpeechService {
 
         console.log(`Started processing video: ${videoUrl}`);
 
-        const audioUrl = await this.getAudioFromVideo({ videoUrl });
+        const audioUrl = await this.getAudioFromVideo({ videoUrl, videoId });
 
         const request = RecognizeFileRequest.fromPartial({
             uri: audioUrl,
@@ -86,7 +86,7 @@ class SpeechService {
         return words
     }
 
-    async getAudioFromVideo({ videoUrl }) {
+    async getAudioFromVideo({ videoUrl, videoId }) {
         // 1. Download the video file
         // 2. Extract the audio from the video file using ffmpeg -i video.mp4 -vn -acodec pcm_s16le -ar 44100 -ac 2 output.wav
         // 3. Upload the audio file to S3
@@ -98,7 +98,6 @@ class SpeechService {
             }
 
             // Generate unique filenames
-            const videoId = uuidv4();
             const videoExtension = getFileExtension(videoUrl);
 
             const videoPath = path.join(tempDir, `${videoId}.${videoExtension}`);

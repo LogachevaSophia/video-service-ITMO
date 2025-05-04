@@ -9,6 +9,30 @@ class VideoService {
         return video.insertId;
     }
 
+    async setVideoChapters({ videoId, chapters }) {
+        try {
+            await db.beginTransaction();
+            const [video] = await db.query('SELECT Id FROM video WHERE Id = ?', [videoId]);
+
+            if (video.length === 0) {
+                throw new Error('Video not found');
+            }
+
+            // Delete existing chapters for the video
+            await db.query('DELETE FROM video_chapter WHERE video_id = ?', [videoId]);
+
+            for (const chapter of chapters) {
+                await db.query('INSERT INTO video_chapter (video_id, start_time, end_time, title, description) VALUES (?, ?, ?, ?)', [videoId, chapter.startTime, chapter.endTime, chapter.title, chapter.description]);
+            }
+
+            await db.commit();
+        }
+        catch (e) {
+            await db.rollback();
+            throw new Error(`Failed to add video chapters: ${e.message}`);
+        }
+    }
+
     async deleteVideo({ id }) {
         const result = await db.query('DELETE FROM video WHERE Id = ?', [id]);
         return result;
@@ -19,32 +43,36 @@ class VideoService {
         if (result[0].length === 0) {
             throw new Error('Video not found');
         }
-        return result[0][0];
+        const video = result[0][0];
+
+        return this.mapVideo(video);
     }
 
     async getAllVideos() {
         const result = await db.query('Select Id, video.Name, Link, Preview, PersonId, user.Name as UserName, Email from video left join user on user.PersonId=video.Author');
-        const videos = await Promise.all(result[0].map(async (video) => {
-            const { Link, ...rest } = video;
-
-            const s3KeyPrefix = process.env.S3_KEY_PREFIX;
-            let url = Link
-
-            if (Link.startsWith(s3KeyPrefix)) {
-                const presignedUrl = await createPresignedUrlWithClient({
-                    bucket: process.env.AWS_S3_BUCKET,
-                    key: Link,
-                });
-                url = presignedUrl;
-            }
-
-            return {
-                ...rest,
-                Link: url,
-            }
-        }))
+        const videos = await Promise.all(result[0].map((video) => this.mapVideo(video)));
 
         return videos;
+    }
+
+    async mapVideo(video) {
+        const { Link, ...rest } = video;
+
+        const s3KeyPrefix = process.env.S3_KEY_PREFIX;
+        let url = Link
+
+        if (Link.startsWith(s3KeyPrefix)) {
+            const presignedUrl = await createPresignedUrlWithClient({
+                bucket: process.env.AWS_S3_BUCKET,
+                key: Link,
+            });
+            url = presignedUrl;
+        }
+
+        return {
+            ...rest,
+            Link: url,
+        }
     }
 }
 

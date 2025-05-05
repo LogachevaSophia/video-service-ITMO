@@ -51,10 +51,51 @@ class VideoService {
     }
 
     async getAllVideos() {
-        const result = await db.query('Select Id, video.Name, Link, Preview, PersonId, user.Name as UserName, Email from video left join user on user.PersonId=video.Author');
-        const videos = await Promise.all(result[0].map((video) => this.mapVideo(video)));
+        const result = await db.query(`
+            SELECT video.Id, video.Name, video.Link, video.Preview, PersonId, user.Name as UserName, Email, 
+            video_chapter.id as chapter_id, video_chapter.start_time as chapter_start_time, video_chapter.end_time as chapter_end_time, video_chapter.title as chapter_title, video_chapter.description as chapter_description
+            from video 
+            LEFT JOIN user on user.PersonId=video.Author
+            LEFT JOIN video_chapter on video.Id=video_chapter.video_id
+            `);
 
-        return videos;
+        const rows = result[0];
+
+        // Group by video ID
+        const videosMap = new Map();
+
+        for (const row of rows) {
+            if (!videosMap.has(row.Id)) {
+                videosMap.set(row.Id, {
+                    Id: row.Id,
+                    Name: row.Name,
+                    Link: row.Link,
+                    Preview: row.Preview,
+                    PersonId: row.PersonId,
+                    UserName: row.UserName,
+                    Email: row.Email,
+                    chapters: []
+                });
+            }
+
+            if (row.chapter_id !== null) {
+                videosMap.get(row.Id).chapters.push({
+                    id: row.chapter_id,
+                    title: row.chapter_title,
+                    description: row.chapter_description,
+                    start_time: row.chapter_start_time,
+                    end_time: row.chapter_end_time,
+                });
+            }
+        }
+
+        const videos = Array.from(videosMap.values());
+
+        console.log('Videos:', videos);
+
+        const mappedVideos = await Promise.all(videos.map((video) => this.mapVideo(video)));
+
+        return mappedVideos;
     }
 
     async mapVideo(video) {

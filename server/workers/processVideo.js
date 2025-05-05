@@ -9,6 +9,7 @@ const Handlebars = require('handlebars');
 const { videoService } = require('../services/videoService');
 const { SpeechService } = require('../services/speechService');
 const { LlmService } = require('../services/llmService');
+const { PreviewService } = require('../services/previewService');
 const connection = new Redis(process.env.REDIS_URL, { maxRetriesPerRequest: null });
 
 const worker = new Worker('video-processing', async job => {
@@ -50,6 +51,15 @@ const worker = new Worker('video-processing', async job => {
         await videoService.setVideoChapters({ videoId, chapters })
 
         console.log(`[Video ${videoId}] Updated video chapters: ${JSON.stringify(chapters)}`);
+
+        // Generate preview
+        let previewService = new PreviewService();
+        const previewUrl = await previewService.generatePreview({ videoUrl: video.Link, videoId });
+
+        console.log(`[Video ${videoId}] Generated preview: ${previewUrl}`);
+        await videoService.setVideoPreview({ videoId, previewUrl });
+
+        console.log(`[Video ${videoId}] Updated video preview: ${previewUrl}`);
     } catch (e) {
         console.error(`[Video ${videoId}] Error processing video: ${e.message}`);
         throw e;

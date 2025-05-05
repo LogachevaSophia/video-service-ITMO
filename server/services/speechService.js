@@ -2,32 +2,10 @@ const { Session, waitForOperation } = require("@yandex-cloud/nodejs-sdk");
 const { RecognizeFileRequest } = require("@yandex-cloud/nodejs-sdk/dist/generated/yandex/cloud/ai/stt/v3/stt");
 const { GetRecognitionRequest, AsyncRecognizerClient } = require("@yandex-cloud/nodejs-sdk/dist/generated/yandex/cloud/ai/stt/v3/stt_service");
 const fs = require('fs');
-const path = require('path');
 const { execSync } = require('child_process');
 const { PutObjectCommand } = require('@aws-sdk/client-s3');
-const { v4: uuidv4 } = require('uuid');
-const url = require('url');
 const { createPresignedUrlWithClient, s3 } = require("../storage/s3");
-const { pipeline } = require('stream');
-const { promisify } = require('util');
-
-const streamPipeline = promisify(pipeline);
-
-async function downloadFile(url, outputPath) {
-    const response = await fetch(url);
-
-    if (!response.ok) {
-        throw new Error(`Failed to download: ${response.statusText}`);
-    }
-
-    await streamPipeline(response.body, fs.createWriteStream(outputPath));
-    console.log('Download completed:', outputPath);
-}
-
-function getFileExtension(uri) {
-    const pathname = url.parse(uri).pathname; // Extract the path part
-    return path.extname(pathname); // Get the file extension
-}
+const { TempFileStorage } = require('../storage/tempFileStorage');
 
 class SpeechService {
     constructor() { }
@@ -87,43 +65,31 @@ class SpeechService {
     }
 
     async getAudioFromVideo({ videoUrl, videoId }) {
+        let tempFileStorage = new TempFileStorage();
+
         // 1. Download the video file
         // 2. Extract the audio from the video file using ffmpeg -i video.mp4 -vn -acodec pcm_s16le -ar 44100 -ac 2 output.wav
         // 3. Upload the audio file to S3
         try {
-            // Create temp directory if it doesn't exist
-            const tempDir = path.join(__dirname, '../temp');
-            if (!fs.existsSync(tempDir)) {
-                fs.mkdirSync(tempDir, { recursive: true });
-            }
-
-            // Generate unique filenames
-            const videoExtension = getFileExtension(videoUrl);
-
-            const videoPath = path.join(tempDir, `${videoId}.${videoExtension}`);
-            const audioPath = path.join(tempDir, `${videoId}.wav`);
-
             // 1. Download the video file
             console.log(`Downloading video from ${videoUrl}...`);
-            await downloadFile(videoUrl, videoPath);
+            const videoPath = await tempFileStorage.downloadVideo({ videoUrl, videoId });
 
             // 2. Extract audio using ffmpeg
             console.log('Extracting audio from video...');
+            const audioPath = await tempFileStorage.getAudioPath({ videoId });
             execSync(`ffmpeg -i ${videoPath} -vn -acodec pcm_s16le -ar 44100 -ac 2 ${audioPath}`);
 
             // 3. Upload to S3
             console.log('Uploading audio to S3...');
-
             const fileContent = fs.readFileSync(audioPath);
             const s3Key = `audio/${videoId}.wav`;
-
             const uploadParams = {
                 Bucket: process.env.AWS_S3_BUCKET,
                 Key: s3Key,
                 Body: fileContent,
                 ContentType: 'audio/wav'
             };
-
             await s3.send(new PutObjectCommand(uploadParams));
 
             // Clean up temp files

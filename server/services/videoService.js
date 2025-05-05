@@ -35,6 +35,17 @@ class VideoService {
         }
     }
 
+    async setVideoPreview({ videoId, previewUrl }) {
+        const [video] = await db.query('SELECT Id FROM video WHERE Id = ?', [videoId]);
+
+        if (video.length === 0) {
+            throw new Error('Video not found');
+        }
+
+        const result = await db.query('UPDATE video SET Preview = ? WHERE Id = ?', [previewUrl, videoId]);
+        return result;
+    }
+
     async deleteVideo({ id }) {
         const result = await db.query('DELETE FROM video WHERE Id = ?', [id]);
         return result;
@@ -102,7 +113,10 @@ class VideoService {
         const { Link, ...rest } = video;
 
         const s3KeyPrefix = process.env.S3_KEY_PREFIX;
+        const s3PreviewKeyPrefix = process.env.S3_PREVIEW_KEY_PREFIX;
+
         let url = Link
+        let preview = video.Preview
 
         if (Link.startsWith(s3KeyPrefix)) {
             const presignedUrl = await createPresignedUrlWithClient({
@@ -112,9 +126,17 @@ class VideoService {
             url = presignedUrl;
         }
 
+        if (preview && preview.startsWith(s3PreviewKeyPrefix)) {
+            preview = await createPresignedUrlWithClient({
+                bucket: process.env.AWS_S3_BUCKET,
+                key: preview,
+            });
+        }
+
         return {
             ...rest,
             Link: url,
+            Preview: preview,
         }
     }
 }

@@ -1,0 +1,17 @@
+Make video summary from text in it. Divide video in chapters. Each chapter has title, description, start and finish timecode in ms.
+Output just JSON (nothing else). Output JSON should have the following format
+
+{
+    "chapters": [
+        {
+            "title": "chapter title",
+            "description: "chapter description",
+            "startTimeMs": int // chapter start time in ms
+            "endTimeMs": int // chapter end time in ms
+        }
+    ]
+}
+
+Video text:
+
+{{{text}}}

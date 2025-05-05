@@ -10,25 +10,27 @@ class VideoService {
     }
 
     async setVideoChapters({ videoId, chapters }) {
+        const connection = await db.getConnection(); // Получаем соединение для транзакции
+        await connection.beginTransaction(); // Начинаем транзакцию
+
         try {
-            await db.beginTransaction();
-            const [video] = await db.query('SELECT Id FROM video WHERE Id = ?', [videoId]);
+            const [video] = await connection.query('SELECT Id FROM video WHERE Id = ?', [videoId]);
 
             if (video.length === 0) {
                 throw new Error('Video not found');
             }
 
             // Delete existing chapters for the video
-            await db.query('DELETE FROM video_chapter WHERE video_id = ?', [videoId]);
+            await connection.query('DELETE FROM video_chapter WHERE video_id = ?', [videoId]);
 
             for (const chapter of chapters) {
-                await db.query('INSERT INTO video_chapter (video_id, start_time, end_time, title, description) VALUES (?, ?, ?, ?)', [videoId, chapter.startTime, chapter.endTime, chapter.title, chapter.description]);
+                await connection.query('INSERT INTO video_chapter (video_id, start_time, end_time, title, description) VALUES (?, ?, ?, ?, ?)', [videoId, chapter.startTimeMs, chapter.endTimeMs, chapter.title, chapter.description]);
             }
 
-            await db.commit();
+            await connection.commit();
         }
         catch (e) {
-            await db.rollback();
+            await connection.rollback();
             throw new Error(`Failed to add video chapters: ${e.message}`);
         }
     }

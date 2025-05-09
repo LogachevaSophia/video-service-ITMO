@@ -54,15 +54,93 @@ class _VideoPagePlayerState extends State<VideoPagePlayer> {
   Widget build(BuildContext context) {
     final chewieController = _chewieController;
 
+    final chapters = widget.video.chapters?.reversed.toList();
+
     return Scaffold(
       body: SafeArea(
         child: Scaffold(
           appBar: AppBar(
             title: Text(widget.video.name ?? 'Без названия'),
           ),
-          body: chewieController != null
-              ? Chewie(controller: chewieController)
-              : const SizedBox(),
+          body: LayoutBuilder(builder: (context, constraints) {
+            return CustomScrollView(
+              slivers: [
+                SliverToBoxAdapter(
+                  child: Builder(builder: (
+                    context,
+                  ) {
+                    if (chewieController == null) {
+                      return SizedBox(
+                        width: constraints.maxWidth,
+                        height: constraints.maxWidth * 9 / 16,
+                      );
+                    }
+
+                    return SizedBox(
+                      width: constraints.maxWidth,
+                      height: constraints.maxWidth * 9 / 16,
+                      child: Chewie(
+                        controller: chewieController,
+                      ),
+                    );
+                  }),
+                ),
+                const SliverToBoxAdapter(
+                  child: SizedBox(
+                    height: 10,
+                  ),
+                ),
+                if (chapters != null && chewieController != null)
+                  ListenableBuilder(
+                      listenable: chewieController.videoPlayerController,
+                      builder: (
+                        context,
+                        snapshot,
+                      ) {
+                        final position = chewieController
+                            .videoPlayerController.value.position;
+
+                        return SliverList.builder(
+                          itemCount: chapters.length,
+                          itemBuilder: (context, index) {
+                            final chapter = chapters[index];
+                            final description = chapter.description;
+
+                            final isCurrentChapter =
+                                position.inMilliseconds >= chapter.startTime &&
+                                    position.inMilliseconds <= chapter.endTime;
+
+                            return ListTile(
+                              title: Text(chapter.title),
+                              // description in subtitle
+                              subtitle: description != null
+                                  ? Text(
+                                      description,
+                                      maxLines: 2,
+                                      overflow: TextOverflow.ellipsis,
+                                    )
+                                  : null,
+                              selected: isCurrentChapter,
+                              // startTime in ms to display time in seconds.
+                              // For example, 31200 ms = 0:31
+                              trailing: Text(
+                                '${(chapter.startTime ~/ 1000) ~/ 60}:${((chapter.startTime ~/ 1000) % 60).toString().padLeft(2, '0')}',
+                              ),
+
+                              onTap: () {
+                                _controller.seekTo(
+                                  Duration(
+                                    milliseconds: chapter.startTime,
+                                  ),
+                                );
+                              },
+                            );
+                          },
+                        );
+                      }),
+              ],
+            );
+          }),
         ),
       ),
     );

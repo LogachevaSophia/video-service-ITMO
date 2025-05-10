@@ -32,6 +32,12 @@ class SpeechService {
                         containerAudioType: "WAV"
                     }
                 },
+                // languageRestriction: {
+                //     restrictionType: "WHITELIST",
+                //     languageCode: [
+                //         'auto',
+                //     ],
+                // },
                 audioProcessingType: "FULL_DATA",
             },
         })
@@ -154,31 +160,21 @@ class SpeechService {
     async waitForFinalResult({ operationId, client }) {
         let chunks = [];
 
-        for (let i = 0; i < 10; i++) {
-            chunks = []
+        const getRecognition = GetRecognitionRequest.fromPartial({
+            operationId: operationId,
+        });
 
-            const getRecognition = GetRecognitionRequest.fromPartial({
-                operationId: operationId,
-            });
+        const recognitionResult = client.getRecognition(getRecognition);
 
-            const recognitionResult = client.getRecognition(getRecognition);
+        for await (const value of recognitionResult) {
+            console.log(JSON.stringify(value));
 
-            for await (const value of recognitionResult) {
-                console.log(JSON.stringify(value));
-
-                if (value.final) {
-                    chunks.push(value.final);
-
-                    if (value.audioCursors && value.audioCursors.partialTimeMs == value.audioCursors.receivedDataMs) {
-                        return chunks
-                    }
-                }
+            if (value.final) {
+                chunks.push(value.final);
             }
-            // sleep for 5 seconds
-            await new Promise(resolve => setTimeout(resolve, 1000));
         }
 
-        return lastValue;
+        return chunks;
     }
 }
 

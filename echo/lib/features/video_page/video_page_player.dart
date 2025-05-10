@@ -1,4 +1,5 @@
 import 'package:chewie/chewie.dart';
+import 'package:collection/collection.dart';
 import 'package:echo/models/video.dart';
 import 'package:flutter/material.dart';
 import 'package:video_player/video_player.dart';
@@ -54,7 +55,9 @@ class _VideoPagePlayerState extends State<VideoPagePlayer> {
   Widget build(BuildContext context) {
     final chewieController = _chewieController;
 
-    final chapters = widget.video.chapters?.reversed.toList();
+    final chapters = widget.video.chapters?.sorted((a, b) {
+      return a.startTime.compareTo(b.startTime);
+    });
 
     return Scaffold(
       body: SafeArea(

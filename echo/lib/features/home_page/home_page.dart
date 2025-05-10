@@ -1,9 +1,14 @@
+import 'package:dio/dio.dart';
 import 'package:echo/dependencies/dependencies.dart';
 import 'package:echo/features/home_page/video_tile.dart';
 import 'package:echo/models/state.dart';
 import 'package:echo/models/video.dart';
+import 'package:echo/services/snack_bar.dart';
+import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:http_parser/http_parser.dart';
+import 'package:mime/mime.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -81,7 +86,8 @@ class _HomePageState extends State<HomePage> {
                     builder: (context, constraints) {
                       if (constraints.maxWidth > 600) {
                         return GridView.builder(
-                          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                          gridDelegate:
+                              const SliverGridDelegateWithFixedCrossAxisCount(
                             crossAxisCount: 3,
                             crossAxisSpacing: 10,
                             mainAxisSpacing: 10,
@@ -124,6 +130,51 @@ class _HomePageState extends State<HomePage> {
                     },
                   ),
                 ),
+              ElevatedButton(
+                onPressed: () async {
+                  final result = await FilePicker.platform.pickFiles(
+                    type: FileType.video,
+                    allowMultiple: false,
+                  );
+
+                  if (result == null) {
+                    return;
+                  }
+
+                  final videoService = Dependencies.of(context).videoService;
+
+                  for (var file in result.files) {
+                    final bytes = file.bytes;
+
+                    if (bytes == null) {
+                      continue;
+                    }
+
+                    final videoId = await videoService.uploadVideo(
+                      MultipartFile.fromBytes(
+                        bytes,
+                        filename: file.name,
+                        contentType: MediaType.parse(
+                          lookupMimeType(file.name) ?? 'video/mp4',
+                        ),
+                      ),
+                    );
+
+                    SnackBarService.showSnackBar(
+                      context,
+                      'Видео загружено',
+                      false,
+                    );
+
+                    final uri = Uri(
+                      path: '/home/video/$videoId',
+                    );
+
+                    GoRouter.of(context).go(uri.toString());
+                  }
+                },
+                child: const Text('Загрузить видео'),
+              ),
             ],
           ),
         ),

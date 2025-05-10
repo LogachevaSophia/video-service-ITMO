@@ -85,45 +85,6 @@ class _JoinPageState extends State<JoinPage> {
                 child: const Text('Присоединиться'),
               ),
               const SizedBox(height: 20),
-              ElevatedButton(
-                onPressed: () async {
-                  final result = await FilePicker.platform.pickFiles(
-                    type: FileType.video,
-                    allowMultiple: false,
-                  );
-
-                  if (result == null) {
-                    return;
-                  }
-
-                  final videoService = Dependencies.of(context).videoService;
-
-                  for (var file in result.files) {
-                    final bytes = file.bytes;
-
-                    if (bytes == null) {
-                      continue;
-                    }
-
-                    final videoId = await videoService.uploadVideo(
-                      MultipartFile.fromBytes(
-                        bytes,
-                        filename: file.name,
-                        contentType: MediaType.parse(
-                          lookupMimeType(file.name) ?? 'video/mp4',
-                        ),
-                      ),
-                    );
-
-                    SnackBarService.showSnackBar(
-                      context,
-                      'Видео загружено: $videoId',
-                      false,
-                    );
-                  }
-                },
-                child: const Text('Загрузить видео'),
-              ),
             ],
           ),
         ),

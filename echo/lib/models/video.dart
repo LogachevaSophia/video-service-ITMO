@@ -1,13 +1,17 @@
+import 'package:echo/models/video_chapter.dart';
+
 class Video {
   final int id;
   final String? name;
   final String link;
   final String? preview;
+  final List<VideoChapter>? chapters;
 
-  Video({
+  const Video({
     required this.id,
     required this.name,
     required this.link,
+    this.chapters,
     this.preview,
   });
 
@@ -17,24 +21,15 @@ class Video {
       name: json['Name'],
       link: json['Link'],
       preview: json['Preview'],
+      chapters: json['chapters'] != null
+          ? (json['chapters'] as List)
+              .map(
+                (element) => VideoChapter.fromMap(
+                  element,
+                ),
+              )
+              .toList()
+          : null,
     );
-  }
-
-  factory Video.fromQueryParams(Map<String, dynamic> queryParams) {
-    return Video(
-      id: int.parse(queryParams['id']),
-      name: queryParams['name'],
-      link: Uri.decodeFull(queryParams['link']),
-      preview: queryParams['preview'],
-    );
-  }
-
-  Map<String, dynamic> toQueryParams() {
-    return {
-      'id': id.toString(),
-      'name': name,
-      'link': Uri.encodeFull(link),
-      'preview': preview,
-    };
   }
 }

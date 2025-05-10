@@ -31,6 +31,18 @@ class LlmService {
 
         return jsonResponse.response
     }
+
+    extractJsonFromLlmOutput(output) {
+        const jsonStart = output.indexOf('{');
+        const jsonEnd = output.lastIndexOf('}');
+        if (jsonStart === -1 || jsonEnd === -1 || jsonEnd < jsonStart) {
+            throw new Error('Invalid JSON structure');
+        }
+        const jsonString = output.substring(jsonStart, jsonEnd + 1);
+        return JSON.parse(jsonString);
+    }
 }
+
+
 
 exports.LlmService = LlmService;

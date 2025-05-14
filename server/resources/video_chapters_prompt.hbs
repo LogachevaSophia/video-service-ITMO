@@ -1,4 +1,5 @@
 Make video summary from text in it. Divide video in chapters. Each chapter has title, description, start and finish timecode in ms.
+Also add the profanity field to the final JSON, where output true if there is profanity in the text, false if there is no profanity.
 Output just JSON (nothing else). Output JSON should have the following format
 
 {
@@ -9,7 +10,8 @@ Output just JSON (nothing else). Output JSON should have the following format
             "startTimeMs": int // chapter start time in ms
             "endTimeMs": int // chapter end time in ms
         }
-    ]
+    ],
+    "profanity": boolean
 }
 
 Video text:

@@ -1,5 +1,6 @@
 const db = require('../db/connection');
 const { createPresignedUrlWithClient } = require('../storage/s3');
+const logger = require('../logger/logger');
 
 class VideoService {
     constructor() { }
@@ -85,9 +86,11 @@ class VideoService {
                     PersonId: row.PersonId,
                     UserName: row.UserName,
                     Email: row.Email,
-                    chapters: []
+                    chapters: [],
+                    profanity: undefined
                 });
             }
+            logger.info("HELLO")
 
             if (row.chapter_id !== null) {
                 videosMap.get(row.Id).chapters.push({
@@ -97,6 +100,7 @@ class VideoService {
                     start_time: row.chapter_start_time,
                     end_time: row.chapter_end_time,
                 });
+                 videosMap.get(row.Id).profanity = row.profanity
             }
         }
 

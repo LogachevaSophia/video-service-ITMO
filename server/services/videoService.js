@@ -90,6 +90,7 @@ class VideoService {
                     profanity: undefined
                 });
             }
+            logger.info("HELLO")
 
             if (row.chapter_id !== null) {
                 videosMap.get(row.Id).chapters.push({
@@ -99,8 +100,8 @@ class VideoService {
                     start_time: row.chapter_start_time,
                     end_time: row.chapter_end_time,
                 });
-                 
-            }
+                videosMap.get(row.Id).profanity = row.profanity
+
             
             videosMap.get(row.Id).profanity = row.profanity!==undefined ? row.profanity : false;
         }

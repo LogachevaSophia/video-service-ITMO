@@ -43,12 +43,12 @@ const worker = new Worker('video-processing', async job => {
         const response = await llmService.prompt(prompt)
         console.log(`[Video ${videoId}] Got response from LLM: ${response}`);
 
-        const cleaned = response.replace(/```json|```/g, '').trim();
-        const responseJson = JSON.parse(cleaned);
+        const responseJson = llmService.extractJsonFromLlmOutput(response);
         const chapters = responseJson.chapters;
+        const profanity = responseJson.profanity;
 
         console.log(`[Video ${videoId}] Got chapters: ${JSON.stringify(chapters)}`);
-        await videoService.setVideoChapters({ videoId, chapters })
+        await videoService.setVideoChapters({ videoId, chapters, profanity })
 
         console.log(`[Video ${videoId}] Updated video chapters: ${JSON.stringify(chapters)}`);
 
@@ -61,7 +61,7 @@ const worker = new Worker('video-processing', async job => {
 
         console.log(`[Video ${videoId}] Updated video preview: ${previewUrl}`);
     } catch (e) {
-        console.error(`[Video ${videoId}] Error processing video: ${e.message}`);
+        console.log(`[Video ${videoId}] Error processing video: ${e.message}`);
         throw e;
     }
 }, { connection });

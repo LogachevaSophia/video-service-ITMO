@@ -144,6 +144,8 @@ router.delete('/delete', authenticateToken, deletevideo);
  *                         type: string
  *                       Email:  
  *                         type: string
+ *                       profanity:
+ *                          type: boolean
  *                   example:
  *                     - Id: 1  # Добавлено поле Id в примере
  *                       Name: "Sample Video 1"
@@ -152,6 +154,7 @@ router.delete('/delete', authenticateToken, deletevideo);
  *                       PersonId: 5
  *                       UserName: "JohnDoe"
  *                       Email: "john.doe@example.com"
+ *                       profanity: false
  *                     - Id: 2  # Добавлено поле Id в примере
  *                       Name: "Sample Video 2"
  *                       Link: "https://example.com/video2"
@@ -159,6 +162,7 @@ router.delete('/delete', authenticateToken, deletevideo);
  *                       PersonId: 123
  *                       UserName: "JaneDoe"
  *                       Email: "jane.doe@example.com"
+ *                       profanity: true
  *       500:
  *         description: An error occurred during fetching videos
  *         content:

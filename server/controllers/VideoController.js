@@ -60,11 +60,13 @@ exports.uploadV2 = async (req, res) => {
         const videoKey = uuidv4(); // Generate a unique key for the video
 
         const file = req.file;
-        const extension = path.extname(file.originalname) || '.mp4'; // fallback to .mp4 if no extension
+        const fileName = Buffer.from(file.originalname, 'latin1').toString('utf8')
+
+        const extension = path.extname(fileName) || '.mp4'; // fallback to .mp4 if no extension
         const s3Key = `${process.env.S3_KEY_PREFIX}/${videoKey}${extension}`;
         const fileSize = file.size;
 
-        logger.info(`Uploading video: ${file.originalname}, size: ${fileSize} bytes`);
+        logger.info(`Uploading video: ${fileName}, size: ${fileSize} bytes`);
 
         // Check that storage is not full
         const bucketSize = await getBucketSize(process.env.AWS_S3_BUCKET);
@@ -90,7 +92,7 @@ exports.uploadV2 = async (req, res) => {
 
         // Save video metadata to the database
         const videoId = await videoService.addVideo({
-            name: file.originalname,
+            name: fileName,
             link: s3Key,
             preview: req.body.preview || null,
             cost: 100,

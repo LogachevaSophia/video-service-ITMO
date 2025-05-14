@@ -45,9 +45,10 @@ const worker = new Worker('video-processing', async job => {
 
         const responseJson = llmService.extractJsonFromLlmOutput(response);
         const chapters = responseJson.chapters;
+        const profanity = responseJson.profanity;
 
         console.log(`[Video ${videoId}] Got chapters: ${JSON.stringify(chapters)}`);
-        await videoService.setVideoChapters({ videoId, chapters })
+        await videoService.setVideoChapters({ videoId, chapters, profanity })
 
         console.log(`[Video ${videoId}] Updated video chapters: ${JSON.stringify(chapters)}`);
 

@@ -63,7 +63,10 @@ class SpeechService {
 
         // Iterate through the chunks and merge the words
 
-        let words = this.getWordsFromChunks(chunks);
+        let words = this.getWordsFromChunks(chunks).map((word) => {
+            const { $type, ...wordWithoutType } = word;
+            return wordWithoutType;
+        });
 
         console.log('Words:', words);
 

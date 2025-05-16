@@ -10,7 +10,7 @@ class VideoService {
         return video.insertId;
     }
 
-    async setVideoChapters({ videoId, chapters, profanity=false }) {
+    async setVideoChapters({ videoId, chapters, profanity = false }) {
         const connection = await db.getConnection(); // Получаем соединение для транзакции
         await connection.beginTransaction(); // Начинаем транзакцию
 
@@ -102,16 +102,17 @@ class VideoService {
                 });
                 videosMap.get(row.Id).profanity = row.profanity
 
-            
-            videosMap.get(row.Id).profanity = row.profanity!==undefined ? row.profanity : false;
+
+                videosMap.get(row.Id).profanity = row.profanity !== undefined ? row.profanity : false;
+            }
+
+            const videos = Array.from(videosMap.values());
+
+            console.log('Videos:', videos);
+
+            const mappedVideos = await Promise.all(videos.map((video) => this.mapVideo(video)));
+            return mappedVideos;
         }
-
-        const videos = Array.from(videosMap.values());
-
-        console.log('Videos:', videos);
-
-        const mappedVideos = await Promise.all(videos.map((video) => this.mapVideo(video)));
-        return mappedVideos;
     }
 
     async mapVideo(video) {

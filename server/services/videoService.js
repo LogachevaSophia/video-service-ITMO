@@ -100,19 +100,17 @@ class VideoService {
                     start_time: row.chapter_start_time,
                     end_time: row.chapter_end_time,
                 });
-                videosMap.get(row.Id).profanity = row.profanity
-
-
-                videosMap.get(row.Id).profanity = row.profanity !== undefined ? Boolean(row.profanity) : false;
             }
 
-            const videos = Array.from(videosMap.values());
-
-            console.log('Videos:', videos);
-
-            const mappedVideos = await Promise.all(videos.map((video) => this.mapVideo(video)));
-            return mappedVideos;
+            videosMap.get(row.Id).profanity = row.profanity !== undefined ? Boolean(row.profanity) : false;
         }
+
+        const videos = Array.from(videosMap.values());
+
+        console.log('Videos:', videos);
+
+        const mappedVideos = await Promise.all(videos.map((video) => this.mapVideo(video)));
+        return mappedVideos;
     }
 
     async mapVideo(video) {

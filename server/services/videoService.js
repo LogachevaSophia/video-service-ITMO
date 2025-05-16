@@ -103,7 +103,7 @@ class VideoService {
                 videosMap.get(row.Id).profanity = row.profanity
 
 
-                videosMap.get(row.Id).profanity = row.profanity !== undefined ? row.profanity : false;
+                videosMap.get(row.Id).profanity = row.profanity !== undefined ? Boolean(row.profanity) : false;
             }
 
             const videos = Array.from(videosMap.values());

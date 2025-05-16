@@ -1,5 +1,6 @@
 const db = require('../db/connection');
 const { createPresignedUrlWithClient } = require('../storage/s3');
+const logger = require('../logger/logger');
 
 class VideoService {
     constructor() { }
@@ -9,7 +10,7 @@ class VideoService {
         return video.insertId;
     }
 
-    async setVideoChapters({ videoId, chapters }) {
+    async setVideoChapters({ videoId, chapters, profanity=false }) {
         const connection = await db.getConnection(); // Получаем соединение для транзакции
         await connection.beginTransaction(); // Начинаем транзакцию
 
@@ -26,7 +27,7 @@ class VideoService {
             for (const chapter of chapters) {
                 await connection.query('INSERT INTO video_chapter (video_id, start_time, end_time, title, description) VALUES (?, ?, ?, ?, ?)', [videoId, chapter.startTimeMs, chapter.endTimeMs, chapter.title, chapter.description]);
             }
-
+            await connection.query(`UPDATE video SET profanity = ? WHERE Id = ?`, [profanity, videoId])
             await connection.commit();
         }
         catch (e) {
@@ -63,7 +64,7 @@ class VideoService {
 
     async getAllVideos() {
         const result = await db.query(`
-            SELECT video.Id, video.Name, video.Link, video.Preview, PersonId, user.Name as UserName, Email, 
+            SELECT video.Id, video.Name, video.Link, video.Preview, video.profanity, PersonId, user.Name as UserName, Email, 
             video_chapter.id as chapter_id, video_chapter.start_time as chapter_start_time, video_chapter.end_time as chapter_end_time, video_chapter.title as chapter_title, video_chapter.description as chapter_description
             from video 
             LEFT JOIN user on user.PersonId=video.Author
@@ -85,9 +86,11 @@ class VideoService {
                     PersonId: row.PersonId,
                     UserName: row.UserName,
                     Email: row.Email,
-                    chapters: []
+                    chapters: [],
+                    profanity: undefined
                 });
             }
+            logger.info("HELLO")
 
             if (row.chapter_id !== null) {
                 videosMap.get(row.Id).chapters.push({
@@ -97,7 +100,10 @@ class VideoService {
                     start_time: row.chapter_start_time,
                     end_time: row.chapter_end_time,
                 });
-            }
+                videosMap.get(row.Id).profanity = row.profanity
+
+            
+            videosMap.get(row.Id).profanity = row.profanity!==undefined ? row.profanity : false;
         }
 
         const videos = Array.from(videosMap.values());
@@ -105,7 +111,6 @@ class VideoService {
         console.log('Videos:', videos);
 
         const mappedVideos = await Promise.all(videos.map((video) => this.mapVideo(video)));
-
         return mappedVideos;
     }
 

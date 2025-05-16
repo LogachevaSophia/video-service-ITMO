@@ -59,11 +59,48 @@ class _VideoPagePlayerState extends State<VideoPagePlayer> {
       return a.startTime.compareTo(b.startTime);
     });
 
+    String name = widget.video.name ?? 'Без названия';
+
     return Scaffold(
       body: SafeArea(
         child: Scaffold(
           appBar: AppBar(
-            title: Text(widget.video.name ?? 'Без названия'),
+            centerTitle: true,
+            title: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Text(
+                  name,
+                  textAlign: TextAlign.center,
+                ),
+                if (widget.video.profanity)
+                  const Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Icon(
+                        Icons.info,
+                        color: Colors.red,
+                        size: 12,
+                      ),
+                      SizedBox(
+                        width: 5,
+                      ),
+                      Text(
+                        'Содержит ненормативную лексику',
+                        style: TextStyle(
+                          color: Colors.red,
+                          fontSize: 12,
+                        ),
+                      ),
+                    ],
+                  ),
+              ],
+            ),
+            actions: const [
+              SizedBox(
+                width: 48,
+              )
+            ],
           ),
           body: LayoutBuilder(builder: (context, constraints) {
             return CustomScrollView(

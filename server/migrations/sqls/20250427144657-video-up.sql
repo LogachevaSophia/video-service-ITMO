@@ -28,7 +28,6 @@ CREATE TABLE `video` (
   `Cost` int DEFAULT NULL,
   `Preview` varchar(500) DEFAULT NULL,
   `Author` int DEFAULT NULL,
-  `profanity` BOOLEAN DEFAULT FALSE,
   PRIMARY KEY (`Id`),
   KEY `BlockId` (`BlockId`),
   KEY `fk_author` (`Author`),

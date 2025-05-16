@@ -26,7 +26,8 @@ class TempFileStorage {
     constructor() { }
 
     async getTempDir() {
-        const tempDir = path.join(__dirname, '../temp');
+        const cwd = process.cwd();
+        const tempDir = path.join(cwd, '../temp');
         if (!fs.existsSync(tempDir)) {
             fs.mkdirSync(tempDir, { recursive: true });
         }

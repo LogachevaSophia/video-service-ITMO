@@ -147,31 +147,59 @@ class _HomePageState extends State<HomePage> {
                   for (var file in result.files) {
                     final bytes = file.bytes;
 
-                    if (bytes == null) {
+                    if (bytes != null) {
+                      final videoId = await videoService.uploadVideo(
+                        MultipartFile.fromBytes(
+                          bytes,
+                          filename: file.name,
+                          contentType: MediaType.parse(
+                            lookupMimeType(file.name) ?? 'video/mp4',
+                          ),
+                        ),
+                      );
+
+                      SnackBarService.showSnackBar(
+                        context,
+                        'Видео загружено',
+                        false,
+                      );
+
+                      final uri = Uri(
+                        path: '/home/video/$videoId',
+                      );
+
+                      GoRouter.of(context).go(uri.toString());
+
                       continue;
                     }
 
-                    final videoId = await videoService.uploadVideo(
-                      MultipartFile.fromBytes(
-                        bytes,
-                        filename: file.name,
-                        contentType: MediaType.parse(
-                          lookupMimeType(file.name) ?? 'video/mp4',
+                    final path = file.path;
+
+                    if (path != null) {
+                      final videoId = await videoService.uploadVideo(
+                        await MultipartFile.fromFile(
+                          path,
+                          filename: file.name,
+                          contentType: MediaType.parse(
+                            lookupMimeType(file.name) ?? 'video/mp4',
+                          ),
                         ),
-                      ),
-                    );
+                      );
 
-                    SnackBarService.showSnackBar(
-                      context,
-                      'Видео загружено',
-                      false,
-                    );
+                      SnackBarService.showSnackBar(
+                        context,
+                        'Видео загружено',
+                        false,
+                      );
 
-                    final uri = Uri(
-                      path: '/home/video/$videoId',
-                    );
+                      final uri = Uri(
+                        path: '/home/video/$videoId',
+                      );
 
-                    GoRouter.of(context).go(uri.toString());
+                      GoRouter.of(context).go(uri.toString());
+
+                      continue;
+                    }
                   }
                 },
                 text: 'Загрузить видео',

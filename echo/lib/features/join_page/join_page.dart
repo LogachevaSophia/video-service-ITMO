@@ -1,4 +1,5 @@
 import 'package:dio/dio.dart';
+import 'package:echo/common/app_button.dart';
 import 'package:echo/dependencies/dependencies.dart';
 import 'package:echo/models/video.dart';
 import 'package:echo/services/snack_bar.dart';
@@ -69,7 +70,7 @@ class _JoinPageState extends State<JoinPage> {
                 },
               ),
               const SizedBox(height: 20),
-              ElevatedButton(
+              AppTextButton(
                 onPressed: () async {
                   final roomId = roomIdController.text.trim();
                   final video = await getVideoFromRoom(roomId);
@@ -82,7 +83,8 @@ class _JoinPageState extends State<JoinPage> {
                     );
                   }
                 },
-                child: const Text('Присоединиться'),
+                analyticsName: 'join_room_button',
+                text: 'Присоединиться',
               ),
               const SizedBox(height: 20),
             ],

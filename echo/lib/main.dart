@@ -1,6 +1,10 @@
 import 'dart:async';
 import 'dart:developer';
+import 'dart:io';
 
+import 'package:appmetrica_plugin/appmetrica_plugin.dart';
+import 'package:echo/analytics/analytics_repository.dart';
+import 'package:echo/analytics/app_navigator_observer.dart';
 import 'package:echo/dependencies/dependencies.dart';
 import 'package:echo/dependencies/inherited_dependencies.dart';
 import 'package:echo/dependencies/initialize_dependencies.dart';
@@ -20,11 +24,23 @@ import 'package:flutter/services.dart';
 import 'features/main_page/main_page.dart';
 import 'package:go_router/go_router.dart';
 
+final observer = AppNavigatorObserver(
+  analyticsRepository: AnalyticsRepository.instance,
+);
+final shellObserver = AppNavigatorObserver(
+  analyticsRepository: AnalyticsRepository.instance,
+);
+
+final _rootNavigatorKey = GlobalKey<NavigatorState>();
+final _shellNavigatorKey = GlobalKey<NavigatorState>();
 // GoRouter configuration
 final _router = GoRouter(
   initialLocation: '/home',
+  navigatorKey: _rootNavigatorKey,
   routes: [
     ShellRoute(
+      observers: [shellObserver],
+      navigatorKey: _shellNavigatorKey,
       builder: (context, state, child) => MainPage(
         child,
       ),
@@ -98,10 +114,23 @@ final _router = GoRouter(
       },
     ),
   ],
+  observers: [
+    observer,
+  ],
 );
 
 void main() async {
   runZonedGuarded(() async {
+    WidgetsFlutterBinding.ensureInitialized();
+
+    if (Platform.isAndroid || Platform.isIOS) {
+      await AppMetrica.activate(
+        const AppMetricaConfig(
+          "176e8169-e16d-479a-b444-6ce88a727e32",
+        ),
+      );
+    }
+
     final dependencies = await initializeDependencies();
 
     runApp(
@@ -142,51 +171,6 @@ class _MyAppState extends State<MyApp> {
       child: MaterialApp.router(
         routerConfig: _router,
         debugShowCheckedModeBanner: false,
-        // home: FutureBuilder<String?>(
-        //   future: userFuture,
-        //   builder: (BuildContext context, AsyncSnapshot<String?> snapshot) {
-        //     if (snapshot.connectionState == ConnectionState.done) {
-        //       String? user = snapshot.data;
-        //       return Navigator(
-        //         initialRoute:
-        //             user == null ? LoginPage.routeName : MainPage.routeName,
-        //         onGenerateRoute: (RouteSettings settings) {
-        //           if (settings.name == MainPage.routeName) {
-        //             return MaterialPageRoute(
-        //                 builder: (context) => const MainPage());
-        //           } else if (settings.name == LoginPage.routeName) {
-        //             return MaterialPageRoute(
-        //                 builder: (context) => const LoginPage());
-        //           } else if (settings.name == RegisterPage.routeName) {
-        //             return MaterialPageRoute(
-        //                 builder: (context) => const RegisterPage());
-        //           } else if (settings.name == VideoPage.routeName) {
-        //             return MaterialPageRoute(
-        //               builder: (context) => VideoPage(
-        //                 video: settings.arguments as Video,
-        //               ),
-        //             );
-        //           } else if (settings.name == RoomPage.routeName) {
-        //             final data = settings.arguments as RoomPageInterface;
-        //             return MaterialPageRoute(
-        //                 builder: (context) =>
-        //                     RoomPage(roomId: data.roomId, video: data.video));
-        //           } else if (settings.name == JoinPage.routeName) {
-        //             return MaterialPageRoute(
-        //                 builder: (context) => const JoinPage());
-        //           }
-        //           return null;
-        //         },
-        //       );
-        //     } else {
-        //       return const Scaffold(
-        //         body: Center(
-        //           child: CircularProgressIndicator(),
-        //         ),
-        //       );
-        //     }
-        //   },
-        // ),
       ),
     );
   }

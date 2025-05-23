@@ -1,3 +1,5 @@
+import 'package:echo/analytics/analytics_repository.dart';
+import 'package:echo/common/app_button.dart';
 import 'package:echo/dependencies/dependencies.dart';
 import 'package:flutter/material.dart';
 import 'package:echo/style/style_library.dart';
@@ -67,6 +69,7 @@ class _ProfilePageState extends State<ProfilePage> {
                       padding: const EdgeInsets.all(5),
                     ),
                     onPressed: () {
+                      logButtonPress('logout_button');
                       Dependencies.of(context).authService.logout();
                       GoRouter.of(context).go('/login');
                     },

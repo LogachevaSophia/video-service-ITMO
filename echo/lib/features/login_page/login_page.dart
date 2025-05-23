@@ -1,3 +1,4 @@
+import 'package:echo/common/app_button.dart';
 import 'package:echo/dependencies/dependencies.dart';
 import 'package:echo/services/auth_state_manager.dart';
 import 'package:flutter/material.dart';
@@ -42,6 +43,7 @@ class _LoginPageState extends State<LoginPage> {
   }
 
   Future<void> login() async {
+    logButtonPress('login_button');
     final isValid = formKey.currentState!.validate();
     if (!isValid) return;
     AuthService authService = Dependencies.of(context).authService;

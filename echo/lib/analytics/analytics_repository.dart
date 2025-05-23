@@ -5,6 +5,7 @@ import 'package:echo/analytics/logging_repository.dart';
 abstract class IAnalyticsRepository {
   Future<void> logPageOpen(String pageName, Map<String, dynamic> parameters);
   Future<void> logPageClose(String pageName, Map<String, dynamic> parameters);
+  Future<void> logEvent(String eventName, Map<String, Object>? parameters);
 }
 
 class AnalyticsRepository implements IAnalyticsRepository {
@@ -56,5 +57,14 @@ class AnalyticsRepository implements IAnalyticsRepository {
         'parameters': parameters,
       },
     };
+  }
+
+  @override
+  Future<void> logEvent(
+      String eventName, Map<String, Object>? parameters) async {
+    return _loggingRepository.logEvent(
+      eventName,
+      parameters,
+    );
   }
 }

@@ -1,4 +1,5 @@
 import 'package:dio/dio.dart';
+import 'package:echo/common/app_button.dart';
 import 'package:echo/dependencies/dependencies.dart';
 import 'package:echo/features/home_page/video_tile.dart';
 import 'package:echo/models/state.dart';
@@ -130,7 +131,7 @@ class _HomePageState extends State<HomePage> {
                     },
                   ),
                 ),
-              ElevatedButton(
+              AppTextButton(
                 onPressed: () async {
                   final result = await FilePicker.platform.pickFiles(
                     type: FileType.video,
@@ -173,7 +174,8 @@ class _HomePageState extends State<HomePage> {
                     GoRouter.of(context).go(uri.toString());
                   }
                 },
-                child: const Text('Загрузить видео'),
+                text: 'Загрузить видео',
+                analyticsName: 'upload_video_button',
               ),
             ],
           ),

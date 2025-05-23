@@ -1,3 +1,4 @@
+import 'package:echo/common/app_button.dart';
 import 'package:echo/dependencies/dependencies.dart';
 import 'package:echo/features/home_page/fade_transition_widget.dart';
 import 'package:echo/models/video.dart';
@@ -122,6 +123,7 @@ class _VideoTileState extends State<VideoTile> {
                         // Action based on selected id
                         switch (id) {
                           case 1:
+                            logButtonPress('create_room_button');
                             final roomId = await createRoom();
                             if (roomId == '') {
                               SnackBarService.showSnackBar(
